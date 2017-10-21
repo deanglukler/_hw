@@ -4,7 +4,6 @@
 
 
 ## CLI
----
 
 ### login
 
@@ -143,7 +142,8 @@ heroku addons:create heroku-postgresql:hobby-dev
     "ejs": "2.5.6",
     "express": "4.15.2",
     "cool-ascii-faces": "1.3.4"
-}```
+}
+```
 
 //figure out the rest :)
 
