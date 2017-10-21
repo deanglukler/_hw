@@ -1,0 +1,208 @@
+Sublime Text
+------------
+------
+---
+-
+
+
+
+
+
+
+
+
+
+
+
+
+Open/Goto
+---------
+command + t  // go to file
+-
+command + ctrl+p  // go to project
+-
+command + r  // go to methods
+-
+command + shift+p  // command prompt
+-
+ctrl+g  // go to line
+-
+ctrl+`  // Python console
+
+
+
+
+
+-----------------------------------------------------------------
+
+
+
+
+Editing
+-------
+command + l  // select line (repeat select next lines)
+-
+command + ctrl + up/down //switches line of text up or down with line above or below
+-
+command + d  // select word (repeat select others occurrences in context for multiple editing)
+-
+ctrl + shift + m  // select content in brackets
+-
+command + shift + enter  // insert line before
+-
+command + enter  // enter line after
+-
+ctrl + shift + k  // delete line
+-
+command + k-k  // delete from cursor to end of line
+-
+command + k-backspace  // delete from cursor to start of line
+-
+command + shift + d  // duplicate line(s)
+-
+command + j  // join lines
+-
+command + /  // comment
+-
+command + alt + /  // Block comment
+-
+command + y  // redo or repeat
+-
+command + shift + z  // past and ident
+-
+ctrl + space  // autocomplete (repeat to select next suggestion)
+-
+ctrl + m  // jump to matching brackets
+-
+command + k-u  // upper case
+-
+command + k-l  // lower case
+-
+' with a selection  // surround selection with apostrophe
+" with a selection  // surround selection with quote
+[ with a selection  // surround with square brackets
+{ with a selection  // surround selection with curly brace
+( with a selection  // surround selection with brackets ctrl+shft+j  // prettyJson plugin
+
+
+
+
+-----------------------------------------------------------------
+
+
+
+XML/HTML
+--------
+command + shift + a  // select content into tag
+-
+command + alt + .  // close tag
+
+
+
+
+-----------------------------------------------------------------
+
+
+
+
+Find/Replace
+------------
+command + f  // find
+-
+command + alt + f  // replace
+-
+command + alt + g  // find next occurrence of current word
+-
+command + ctrl + g  // select all occurrences of current word for multiple editing
+-
+command + shift + f  // find in files
+
+
+
+-----------------------------------------------------------------
+
+
+
+
+
+
+sublime search shortcuts
+------------------------
+command + p // to find a file to open
+
+command + p > @ // to quickly find a function in any file
+
+command + p (filename) > @ // to search a specific function, selector etc
+//ex .class-name
+
+command + p (filename) > # // to search and jump to a specific result
+
+command + p (filename) > : line number // to jump to specific line of code
+
+
+command + shift + r // search entire project for a function
+
+
+
+
+
+
+
+
+
+-----------------------------------------------------------------
+
+
+
+
+
+
+
+
+Package Control
+---------------
+
+control + ` //to access console
+
+//the link to the package control installation folder code is here..
+https://packagecontrol.io/installation
+
+command + shift + p //to access the command pallette
+
+package control: install //will allow you to search packages available for install
+
+EditorConfig //as an example
+
+
+
+
+
+-----------------
+
+
+
+
+
+Packages
+--------
+sidebarenhancer // sublime sidebar
+
+sublimelinter //for linting
+//to toggle linting on and off > package control > toggle linter > jshint
+
+emmet //for faster html writing
+//emmet cheat sheet - https://docs.emmet.io/cheat-sheet/
+
+
+
+
+
+
+
+
+
+
+
+
+
+

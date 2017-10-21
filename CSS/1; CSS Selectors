@@ -1,0 +1,47 @@
+css selectors - https://www.w3schools.com/cssref/css_selectors.asp
+-------------
+
+
+
+
+
+div.class-name //Selects all divs that have class class-name
+
+div, p  //Selects all <div> elements and all <p> elements
+
+div p // selects all p elements within a div element
+
+div > p // selects all p elements where the parent is a div element
+
+div + p // selects all p elements that are placed directly after a div element
+
+----
+
+p:first-child // every <p> element that is the first child of its parent
+
+p:last-child
+
+p::first-letter // every first letter of every p element
+
+p::first-line // selects the first line of every p element
+
+p:first-of-type // selects every p elements which is the first within its parent
+
+p:last-of-type 
+
+//work around to select first div with .myclass1
+//(first div is red all following are yellow)
+.myclass1 { color: red; }
+.myclass1 ~ .myclass1 { color: yellow; }
+
+input:enabled // selects every enabled input element
+
+----
+
+a:link - a normal, unvisited link
+a:visited - a link the user has visited
+a:hover - a link when the user mouses over it
+a:active - a link the moment it is clicked
+
+
+

@@ -1,0 +1,379 @@
+Command Line (Terminal)
+-----------------------
+-----------
+
+
+A great read to get started - https://launchschool.com/books/command_line/read/introduction#briefoverview
+
+//show hidden files
+defaults write com.apple.finder AppleShowAllFiles YES
+
+
+
+
+Keyboard Shortcuts
+------------------
+
+command + K  //clears terminal
+
+control + D //logout of terminal applications
+
+control + C  //stop command
+
+ctrl + A  //beginning of command
+
+ctrl + E //End of command
+
+
+
+
+
+------------------------------------------------------------------------
+
+
+
+
+Commands
+--------
+
+cd  //Change directory.
+
+ls  //List files and directories in current directory.
+
+pwd //Display the path of the current directory.
+
+touch //Create a file.
+
+mkdir //Create a directory.
+
+rm  //Remove a file or directory. Warning: deleting a file or directory with this command is
+permanent!
+
+cp  //Copy a file or directory.
+
+mv  //Move or rename a file or directory.
+
+echo  //Print text to STDOUT.
+
+cat //Display contents of a file.
+
+more  //Display contents of a file, starting at the top and letting the user scroll down.
+
+less  //Display contents of a file in an even more interactive way.
+
+head  //Display the first part of a file.
+
+tail  //Display the last part of a file.
+
+man //Display documentation about a command.
+//q to quit man
+
+man ls //gives the manual on ls
+
+unzip // unzips a file
+
+history //shows all recent terminal commands
+
+grep
+
+ln // creates hard links, and when called with the command line parameter
+
+ln -s creates symbolic links
+
+sudo chown -v username file
+
+pbcopy // copy to clipboard
+ex// pwd pbcopy
+
+
+
+
+------------------------------------------------------------
+
+
+
+
+
+
+mv
+--
+mv * .. //moves everything (in current directory) up one directory
+
+mv partials/variables.scss . //moves variables.scss (which is inside partials folder) to current directory (which is the .)
+
+mv variable.js variables.js  //renames the file with an s on the end
+
+mv "8; WP" wordpress //moves 8; WP into wordpress directory with same name
+
+mv "8; WP" wordpress/new-name //moves 8; WP into wordpress directory with "new-name"
+
+
+
+cp
+--
+cp -a archive files
+cp -f force copy by removing the destination file if needed
+cp -i interactive - ask before overwrite
+cp -l link files instead of copy
+cp -L follow symbolic links
+cp -n no file overwrite
+cp -R recursive copy (including hidden files)
+cp -u update - copy when source is newer than dest
+cp -v verbose - print informative messages
+
+cp -r ~/folder1/. ~/new_folder1
+//copy all contents of ~/folder1 to ~/new_folder1
+//The -r makes it recursive meaning all subdirectories and folders are also copied
+
+
+
+
+rm
+--
+
+rm  //remove file
+
+rm -r //delete folders and all their children
+
+rm -rf //doesn't show warnings?
+
+rm *.jpg //delete all jpgscd ..
+
+rmdir  //remove empty directory
+
+
+
+
+ls
+--
+
+ls | grep .mp3 // lists all .mp3 files in
+
+ls -a //prints all files including dotfiles
+
+ls -d .* //only shows the dotfiles
+
+
+
+mkdir
+--
+
+mkdir NAME; cd $_
+or
+mkdir NAME && cd $_
+//creates new directory and enters
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------
+
+
+
+
+
+$_
+--
+//The $_ (dollar underscore) bash command variable contains the most recent parameter.
+//ex
+echo foo bar && echo $_ baz
+// outputs
+foo bar
+bar baz
+
+
+
+
+
+
+------------------------------------------------------------------------
+
+
+
+
+
+
+server ssh
+----------
+1 find server name by typing in your domain followed by /cpanel
+peteprogr.zone/cpanel > https://server121.web-hosting.com:2083/
+//so this server is @server121.web-hosting.com
+//and for namecheap it is necessary to use port 21098
+//ssh looks like this
+ssh mebsntcc@server121.web-hosting.com -p21098
+password: KXhgamjwRPD?g
+
+-
+
+key password: IPmBbWA%%_vZ
+
+Generating public/private rsa key pair.
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /home/mebsntcc/.ssh/id_rsa.
+Your public key has been saved in /home/mebsntcc/.ssh/id_rsa.pub.
+The key fingerprint is:
+b0:72:19:d1:2a:a2:43:d7:f1:44:60:e7:f9:f4:4b:11
+The key's randomart image is:
++--[ RSA 2048]----+
+|     o++   E     |
+|    ..ooo   .    |
+|    . *+ . .     |
+| ......*o . .    |
+|......+ S. o     |
+|o    o    . .    |
+| .         .     |
+|                 |
+|                 |
++-----------------+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------
+
+
+
+
+
+
+
+Vagrant (virtual machine)
+-------------------------
+
+
+vagrant up //starts virtual machine
+
+vagrant ssh //shells to virtual machine
+
+logout //same as control + D to logout
+
+vagrant halt //shuts off virtual machine
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------
+
+
+
+
+a couple network commands
+-------------------------
+
+ping google.com //check if a url is reachable
+
+traceroute google.com //list the dns lookup of a domain
+
+
+
+
+
+-------------------------------------------------------------------------
+
+
+
+
+
+cURL
+----
+manual - https://curl.haxx.se/docs/manpage.html
+
+-
+
+
+docs - https://gist.github.com/subfuzion/08c5d85437d5d4f00e58
+
+
+curl www.example.com
+-
+//see the content of a webpage
+
+
+curl http://www.centos.org > centos-org.html
+-
+//store the output in a file
+
+
+curl -i <URL>
+-
+//inspect the response headers
+
+curl -L http://www.google.com
+-
+follow redirection
+
+curl -Li <URL>
+-
+//inspect and .. i dunno
+
+curl -X POST ...
+-
+//send POST request
+
+curl -X POST -i localhost:8080/login -d "email=a@a.com" -d "password=asdf"
+-
+//The -d flag is used to send form data in the same way a browser would when submitting our login form
+
+curl -o mygettext.html http://www.gnu.org/software/gettext/manual/gettext.html
+-
+o (lowercase o) the result will be saved in the filename provided in the command line
+O (uppercase O) the filename in the URL will be taken and it will be used as the filename to store the result
+
+
+curl -O URL1 -O URL2
+-
+download multiple files
+
+
+curl ifconfig.me
+-
+//ifconfig.me is a website
+//this command will show your ip address
+
+curl -X POST -d 'text=...' -H "Content-Type: application/x-www-form-urlencoded" http://127.0.0.1:8080/tweets
+//use the curl command to make a POST request to the server
+
+
+
+
+
+
+
+-------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
