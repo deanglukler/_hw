@@ -4,9 +4,8 @@
 
 
 
-
-.from()
-
+###.from()
+```
 //The Array.from() method creates a new Array instance from an array-like or iterable object.
 
 //ex
@@ -19,4 +18,8 @@ Array.from('foo');
 
 //ex
 const baz = Array.from(foo, bar);
+
+
+
+```
 
