@@ -1,0 +1,738 @@
+ejs and express
+---------------
+-------
+--
+-
+
+
+
+//ex - basic build - https://scotch.io/tutorials/use-ejs-to-template-your-node-application
+
+
+
+express variables
+-----------------
+app.locals
+>
+res.locals
+>
+templateVars
+
+
+
+
+------------------------------------------------------------
+
+
+
+
+view engine
+---
+app.set('view engine', 'ejs');
+//set within the server file
+
+
+
+
+------------------------------------------------------------
+
+
+
+
+
+express routing
+---------------
+routing - http://expressjs.com/en/guide/routing.html
+
+
+
+Basic routing
+---
+app.METHOD(PATH, HANDLER)
+-
+//app is an instance of express.
+//METHOD is an HTTP request method, in lowercase.
+//PATH is a path on the server.
+//HANDLER is the function executed when the route is matched.
+
+-
+
+//Express supports the following routing methods that correspond to HTTP methods: get, post, put, head, delete, options, trace, copy, lock, mkcol, move, purge, unlock, report, mkactivity, checkout, merge, m-search, notify, subscribe, unsubscribe, patch and search
+
+-
+
+ALL
+---
+// This method is used for loading middleware functions at a path for all request methods.
+//In the following example, the handler will be executed for requests to “/secret” whether you are using GET, POST, PUT, DELETE, or any other HTTP request
+
+app.all('/secret', function (req, res, next) {
+  console.log('Accessing the secret section ...')
+  next() // pass control to the next handler
+})
+
+
+-
+
+
+GET
+---
+app.get("/", (req, res) => {
+  res.end("<html><body>Hello <b>World</b></body></html>\n");
+});
+
+
+//ex
+app.get("/urls/:id", (req, res) => {
+  let templateVars = { shortURL: req.params.id };
+  res.render("urls_show", templateVars);
+});
+
+
+-
+
+
+get json
+---
+app.get("/urls.json", (req, res) => {
+  res.json(urlDatabase);
+})
+
+
+-
+
+
+POST
+---
+app.post("/urls", (req, res) => {
+  console.log(req.body);  // debug statement to see POST parameters
+  res.send("Ok");         // Respond with 'Ok' (we will replace this)
+});
+
+
+
+
+---
+
+Route Parameters
+---
+//Route parameters are named URL segments that are used to capture the values specified at their position in the URL.
+//The captured values are populated in the req.params object, with the name of the route parameter specified in the path as their respective keys.
+
+//Since the hyphen (-) and the dot (.) are interpreted literally, they can be used along with route parameters for useful purposes
+
+//ex
+Route path: /users/:userId/books/:bookId
+Request URL: http://localhost:3000/users/34/books/8989
+req.params: { "userId": "34", "bookId": "8989" }
+
+//ex
+Route path: /flights/:from-:to
+Request URL: http://localhost:3000/flights/LAX-SFO
+req.params: { "from": "LAX", "to": "SFO" }
+
+//ex
+Route path: /plantae/:genus.:species
+Request URL: http://localhost:3000/plantae/Prunus.persica
+req.params: { "genus": "Prunus", "species": "persica" }
+
+-
+
+
+//To define routes with route parameters simply specify the route parameters in the path of the route as shown below...
+
+app.get('/users/:userId/books/:bookId', function (req, res) {
+  res.send(req.params)
+})
+
+
+
+-----
+
+
+Response Methods
+---
+
+res.download()  Prompt a file to be downloaded.
+res.end()       End the response process.
+res.json()      Send a JSON response.
+res.jsonp()     Send a JSON response with JSONP support.
+res.redirect()  Redirect a request.
+res.render()    Render a view template.
+res.send()      Send a response of various types.
+res.sendFile()  Send a file as an octet stream.
+res.sendStatus()  Set the response status code and send its string representation as the response body.
+
+
+Render
+---
+res.render()
+ejs.render(str, data, options);
+// => Rendered HTML string
+
+//ex
+app.get("/urls", (req, res) => {
+  let templateVars = { urls: urlDatabase };
+  res.render("urls_index", templateVars);  //<<<<<<<<<<<
+});
+
+
+
+
+
+
+---------------------------------------------------------------------
+
+
+
+
+express middleware
+------------------
+
+
+.static()
+---
+//To serve static files such as images, CSS files, and JavaScript files, use the express.static built-in middleware function in Express
+
+express.static(root, [options])
+
+//ex
+app.use(express.static('public'))
+
+//Now, you can load the files that are in the public directory
+
+http://localhost:3000/images/kitten.jpg
+http://localhost:3000/css/style.css
+http://localhost:3000/js/app.js
+http://localhost:3000/images/bg.png
+http://localhost:3000/hello.html
+
+
+
+
+
+
+---------------------------------------------------------------------
+
+
+
+
+Listen
+---
+.listen(PORT, fn())
+
+
+
+
+---------------------------------------------------------------------
+
+
+
+
+
+
+
+Example
+---
+
+// server.js
+// load the things we need
+var express = require('express');
+var app = express();
+
+// set the view engine to ejs
+app.set('view engine', 'ejs');
+
+// use res.render to load up an ejs view file
+
+// index page
+app.get('/', function(req, res) {
+    res.render('pages/index');
+});
+
+// about page
+app.get('/about', function(req, res) {
+    res.render('pages/about');
+});
+
+app.listen(8080);
+console.log('8080 is the magic port');
+
+
+------------------------------------------------------------------
+
+
+
+basic express server
+--------------------
+
+//ex
+const app = require('express')();
+var PORT = process.env.PORT || 8080;
+
+var urlDatabase = {
+  "b2xVn2": "http://www.lighthouselabs.ca",
+  "9sm5xK": "http://www.google.com"
+};
+
+app.get("/", (req, res) => {
+  res.end("Hello!");
+});
+
+app.get("/urls.json", (req, res) => {
+  res.json(urlDatabase);
+})
+
+app.get("/hello", (req, res) => {
+  res.end("<html><body>Hello <b>World</b></body></html>\n");
+});
+
+app.listen(PORT, () => {
+  console.log(`Example app listening on port ${PORT}!`);
+});
+
+
+
+
+
+
+
+------------------------------------------------------------------
+
+
+
+
+
+
+Cookies
+-------
+//remember the express midleware cookie-parser!!
+
+
+set cookie ( res.cookie(name, value[, ... ]) )
+---
+
+res.cookie(name, value [, options])
+
+//Sets cookie name to value. The value parameter may be a string or object converted to JSON.
+//The options parameter is an object that can have the following properties
+
+//ex
+res.cookie('name', 'tobi', { domain: '.example.com', path: '/admin', secure: true });
+res.cookie('rememberme', '1', { expires: new Date(Date.now() + 900000), httpOnly: true });
+
+
+-
+
+clear cookie (res.clearCookie(name) )
+---
+
+res.clearCookie(name [, options])
+
+
+//ex
+res.cookie('name', 'tobi', { path: '/admin' });
+res.clearCookie('name', { path: '/admin' });
+
+
+-
+
+
+Using Cookies (req.cookies)
+---
+//the request object has a cookies property
+
+//in server
+app.use( (req, res) => {
+  const { username } = req.cookies;
+  res.locals = username;
+})
+
+//in template
+//inside a template, res.locals.username ==> username
+<% if(!username) {%>
+ <form autocomplete="off" action="/login" method="POST">
+   <input type="text" name="username">
+   <input type="submit" name="submit">
+ </form>
+<%}%>
+
+
+
+
+
+
+
+------------------------------------------------------------------
+
+
+
+
+
+EJS syntax
+----------
+//In EJS, any JavaScript or non-HTML syntax you include in your templates is always surrounded by <% %> delimiters
+
+//You use <%- include( PARTIAL_FILE ) %> where the partial file is relative to the template you use it in
+
+//Note: The <%- %> tags allow us to output the unescaped content onto the page (notice the -).
+
+
+
+=
+
+tags
+---
+<% 'Scriptlet' tag, for control-flow, no output
+<%_ 'Whitespace Slurping' Scriptlet tag, strips all whitespace before it
+<%= Outputs the value into the template (escaped)
+<%- Outputs the unescaped value into the template
+<%# Comment tag, no execution, no output
+<%% Outputs a literal '<%'
+%%> Outputs a literal '%>'
+%> Plain ending tag
+-%> Trim-mode ('newline slurp') tag, trims following newline
+_%> 'Whitespace Slurping' ending tag, removes all whitespace after it
+
+
+
+
+
+
+------------------------------------------------------------------
+
+
+
+
+
+ex file structure
+-----------------
+//EJS automatically knows to look inside the views directory for template files, meaning you don't need to tell it where to find them.
+
+- views
+----- partials
+---------- footer.ejs
+---------- head.ejs
+---------- header.ejs
+----- pages
+---------- index.ejs
+---------- about.ejs
+- package.json
+- server.js
+
+
+
+
+
+
+
+------------------------------------------------------------------
+
+
+
+
+
+
+EJS Partials
+------------
+
+partial file
+---
+
+<!-- views/partials/head.ejs -->
+<meta charset="UTF-8">
+<title>Super Awesome</title>
+
+<!-- CSS (load bootstrap from a CDN) -->
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<style>
+    body    { padding-top:50px; }
+</style>
+
+
+-
+
+
+include
+---
+<% include ../partials/header %>
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------
+
+
+
+
+
+express midleware
+-----------------
+
+body-parser
+---
+//The body-parser library will allow us to access POST request parameters, such as req.body.longURL
+
+npm install body-parser
+
+//add the following to server app
+const bodyParser = require("body-parser");
+
+app.use(bodyParser.urlencoded({extended: true}));
+//urlencoded is the standard post submission query strings data
+//it is still submitted through the body
+
+//ex - access body parameters
+
+app.post("/register", (req, res) => {
+  const { email, password } = req.body;
+  console.log(email, password); //==========> the email and password set in form
+  res.redirect('register');
+});
+
+
+
+
+
+-
+
+
+cookie-parser
+---
+//serves as Express middleware that facilitates working with cookies.
+
+app.use(cookieParser())
+
+
+
+
+
+
+---------------------------------------------------------------------
+
+
+
+
+method-override
+---------------
+//middleware which can change the type of request
+
+//ex - change the POST request of a form to a delete request
+
+//html
+//use a query string with key _method to change desired request
+
+<form method="POST" action="/urls/<%= url %>?_method=delete">
+  <button name="delete-url" value="submit">Delete</button>
+</form>
+
+//server
+app.use(methodOverride('_method'))
+
+app.delete("/urls/:id", (req, res) => {
+  const id = req.params.id;
+  delete urlDatabase[id];
+  res.redirect("/urls");
+});
+
+
+
+
+---------------------------------------------------------------------
+
+
+
+
+
+An Example of a simple blog
+---------------------------
+
+
+
+
+ejs
+---
+//ex - define a template
+
+<!-- views/partials/footer.ejs -->
+<footer class="footer">
+    <p>&copy; 90210 Lawyer Stuff.</p>
+</footer>
+
+
+
+--------
+
+
+Inserting EJS template
+----
+
+
+//ex
+
+. . .
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="list-group">
+                  <!-- loop over blog posts and render them -->
+                  LIST_OF_POSTS
+                </div>
+            </div>
+        </div>
+        <%- include('partials/footer') %>
+    </div>
+</body>
+
+
+
+
+
+-------------------
+
+
+
+
+
+
+app.js
+------
+//ex from - https://coligo.io/templating-node-and-express-apps-with-ejs/
+//Rendering Views with Node, Express, and EJS
+
+-
+
+
+//ex
+/* app.js */
+
+// require and instantiate express
+const app = require('express')()
+
+
+// fake posts to simulate a database
+const posts = [
+  {
+    id: 1,
+    author: 'John',
+    title: 'Templating with EJS',
+    body: 'Blog post number 1'
+  },
+  {
+    id: 2,
+    author: 'Drake',
+    title: 'Express: Starting from the Bottom',
+    body: 'Blog post number 2'
+  }
+]
+
+
+// set the view engine to ejs
+app.set('view engine', 'ejs')
+
+// blog home page
+app.get('/', (req, res) => {
+  // render `home.ejs` with the list of posts
+  res.render('home', { posts: posts })
+})
+// we are excluding the views/ part of the path because
+// Express will default to looking in that folder
+// also exclude the .ejs extension
+
+
+// blog post
+app.get('/post/:id', (req, res) => {
+  // find the post in the `posts` array
+  const post = posts.filter((post) => {
+    return post.id == req.params.id
+  })[0]
+
+
+  // render the `post.ejs` template with the post content
+  res.render('post', {
+    author: post.author,
+    title: post.title,
+    body: post.body
+  })
+})
+
+app.listen(8080)
+
+console.log('listening on port 8080')
+
+
+
+------------
+
+//The posts array is used to mimic a database for our blog which we will query based on the post ID
+
+//We use app.set('view engine', 'ejs') to tell express to use EJS as our templating engine
+
+//Express will automatically look inside the views/ folder for template files
+
+//The res.render() method is used to render the view we pass it and send the HTML to the client
+
+
+
+
+-------------
+
+
+access variable and post as list
+--------------------------------
+
+<!-- views/home.ejs -->
+
+...
+
+<div class="list-group">
+  <!-- loop over blog posts and render them -->
+  <% posts.forEach((post) => { %>
+    <a href="/post/<%= post.id %>" class="list-group-item">
+      <h4 class="list-group-item-heading"><%= post.title %></h4>
+      <p class="list-group-item-text"><%= post.author %></p>
+    </a>
+  <% }) %>
+</div>
+
+...
+
+// The <%= %> is used to output the value of a JavaScript variable onto the page
+
+
+
+-------------
+
+
+
+<!-- views/post.ejs -->
+...
+
+<div>
+    <h2><%= title %></h2>
+    <p>by <a href="#"><%= author %></a></p>
+
+    <p><%= body %></p>
+    <hr>
+</div>
+
+...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
