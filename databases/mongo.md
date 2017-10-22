@@ -5,7 +5,9 @@ gist example - https://gist.github.com/lankypete/b6370a4b542b20db4b62113721cd767
 
 
 //A Document Database
+
 //Structure..
+
 Database > Collections > Documents
 
 
@@ -46,17 +48,17 @@ shell basic's - https://docs.mongodb.com/manual/mongo/
 ### Select database
 
 use DBName
-//will create that db once data is inserted, or switch to it
+- will create that db once data is inserted, or switch to it
 
 _
 
 db
-//To display the database you are using, type db:
+- To display the database you are using, type db:
 
 _
 
 show collections
-//might show collections i dunno?
+- might show collections i dunno?
 
 ---
 
