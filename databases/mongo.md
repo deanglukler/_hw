@@ -47,13 +47,19 @@ shell basic's - https://docs.mongodb.com/manual/mongo/
 
 ### Select database
 
-- use DBName //will create that db once data is inserted, or switch to it
+use DBName
+
+//will create that db once data is inserted, or switch to it
 
 
-- db //To display the database you are using, type db:
+db
+
+//To display the database you are using, type db:
 
 
-- show collections //might show collections i dunno?
+show collections
+
+//might show collections i dunno?
 
 ---
 
