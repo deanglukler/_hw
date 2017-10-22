@@ -1,8 +1,5 @@
 Mongo DB
---------
-----
--
-
+========
 
 gist example - https://gist.github.com/lankypete/b6370a4b542b20db4b62113721cd7670
 
@@ -17,7 +14,7 @@ Database > Collections > Documents
 -------------------------------------------------------------------
 
 
-##Shell
+## Shell
 
 shell quick docs - https://docs.mongodb.com/v3.0/reference/mongo-shell/#command-helpers
 shell docs - https://docs.mongodb.com/manual/reference/method/
@@ -51,12 +48,12 @@ shell basic's - https://docs.mongodb.com/manual/mongo/
 use DBName
 //will create that db once data is inserted, or switch to it
 
--
+_
 
 db
 //To display the database you are using, type db:
 
--
+_
 
 show collections
 //might show collections i dunno?
@@ -71,7 +68,7 @@ show collections
 //ex
 db.tweets.find().pretty()
 
--
+_
 
 db.myCollection.insertOne( { x: 1 } );
 //insert document {x: 1}
@@ -79,7 +76,7 @@ db.myCollection.insertOne( { x: 1 } );
 db.myCollection.find().pretty()
 //pretty prints entire collection
 
--
+_
 
 db.getCollection()
 //useful if shell doesn't accept name like 4-name (hyphens or spaces in name)
@@ -121,7 +118,7 @@ db.collection.updateMany(
 db.tweets.updateMany( {}, {$set: {"Likes": 0}} )
 ```
 
--
+_
 
 //ex
 ```javascript
@@ -164,8 +161,8 @@ db.collection.remove()
 
 
 
-mongo node.js
--------------
+node
+====
 
 //Install the MongoDB driver in your project:
 
@@ -173,8 +170,8 @@ npm install mongodb --save
 
 
 
-Connecting
----
+## Connecting
+
 //ex - a connection that doesn't do much
 
 "use strict";
@@ -244,7 +241,7 @@ MongoClient.connect(url, function(err, db) {
 
 });
 
--
+_
 
 ### search a database
 
@@ -264,7 +261,7 @@ db.collection("tweets").find({}, (err, result) => {
 });
 
 
--
+_
 
 
 ### looping results
@@ -290,7 +287,7 @@ db.collection("tweets").find({}, (err, results) => {
 });
 
 
--
+_
 
 
 ### Build an Array
@@ -368,7 +365,7 @@ MongoClient.connect(MONGODB_URI, (err, db) => {
 
 //NOTE
 //This callback is entirely pointless if you think about it:
-
+```javascript
 function getTweets(callback) {
   db.collection("tweets").find().toArray((err, tweets) => {
     if (err) {
@@ -377,15 +374,17 @@ function getTweets(callback) {
     callback(null, tweets);
   });
 }
+```
 
 //You could instead do this:
+```javascript
 
 function getTweets(callback) {
   db.collection("tweets").find().toArray(callback);
 }
 
 //...and it would behave exactly the same. It's included specifically to bring this point up. Though you might use the longer version if you wanted to include some extra logging, or if you could handle the error in a useful way.
-
+```
 
 
 
@@ -397,8 +396,8 @@ function getTweets(callback) {
 
 
 
-Write Methods
--------------
+## Write Methods
+
 
 .insertOne()
 
@@ -407,7 +406,7 @@ Write Methods
 //r stands for result within callback (Contains the result document from MongoDB)
 
 //ex
-
+```javascript
 . . .
 
   // Insert a single document
@@ -424,11 +423,12 @@ Write Methods
     });
   });
 });
+```
 
 
-OR WITH ES6
------
+// OR WITH ES6
 
+```javascript
 . . .
 
   // Insert a single document
@@ -444,6 +444,7 @@ OR WITH ES6
 }).catch(function(err) {
   console.log(err.stack);
 });
+```
 
 
 
