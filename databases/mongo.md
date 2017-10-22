@@ -52,11 +52,13 @@ shell basic's - https://docs.mongodb.com/manual/mongo/
 
 
 - db
-To display the database you are using, type db:
+
+//To display the database you are using, type db:
 
 
 - show collections
-might show collections i dunno?
+
+//might show collections i dunno?
 
 ---
 
