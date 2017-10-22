@@ -1,5 +1,4 @@
 # Heroku
----
 
 
 
@@ -8,9 +7,6 @@
 ### login
 
 heroku login
-Enter your Heroku credentials.
-Email: zeke@example.com
-Password:
 
 ---
 

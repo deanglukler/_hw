@@ -293,8 +293,18 @@ manual - https://curl.haxx.se/docs/manpage.html
 
 -
 
-
 docs - https://gist.github.com/subfuzion/08c5d85437d5d4f00e58
+
+flags
+---
+-X, --request <command>
+
+-i, --include
+
+-H, --header <header/@file>
+
+
+---
 
 
 curl www.example.com
@@ -305,7 +315,6 @@ curl www.example.com
 curl http://www.centos.org > centos-org.html
 -
 //store the output in a file
-
 
 curl -i <URL>
 -

@@ -256,6 +256,44 @@ $(".aQli").hover(function(){
 
 
 
+
+
+properties
+----------
+
+.prop()
+
+.prop( propertyName, value )
+
+.prop( properties )
+
+.prop( propertyName, function )
+
+//ex <input disabled>
+//To retrieve and change DOM properties such as the checked, selected, or disabled state of form elements, use the .prop() method
+
+//Examples include the value property of input elements, the disabled property of inputs and buttons, or the checked property of a checkbox.
+//The .prop() method should be used to set disabled and checked instead of the .attr() method.
+//The .val() method should be used for getting and setting value
+
+//ex
+
+$( "input" ).prop( "disabled", false );
+$( "input" ).prop( "checked", true );
+$( "input" ).val( "someValue" );
+
+//ex
+
+$("input").prop('disabled', true);
+$("input").prop('disabled', false);
+
+
+
+-------------------------------------------------------------
+
+
+
+
 attributes
 ----------
 
@@ -300,41 +338,6 @@ $('.div').on('click', function(){
 
 
 
-properties
-----------
-
-.prop()
-
-.prop( propertyName, value )
-
-.prop( properties )
-
-.prop( propertyName, function )
-
-//ex <input disabled>
-//To retrieve and change DOM properties such as the checked, selected, or disabled state of form elements, use the .prop() method
-
-//Examples include the value property of input elements, the disabled property of inputs and buttons, or the checked property of a checkbox.
-//The .prop() method should be used to set disabled and checked instead of the .attr() method.
-//The .val() method should be used for getting and setting value
-
-//ex
-
-$( "input" ).prop( "disabled", false );
-$( "input" ).prop( "checked", true );
-$( "input" ).val( "someValue" );
-
-//ex
-
-$("input").prop('disabled', true);
-$("input").prop('disabled', false);
-
-
-
--------------------------------------------------------------
-
-
-
 
 data attributes
 ---------------
@@ -342,6 +345,12 @@ data attributes
 
 .data()
 //.data(<name>, <value>)
+
+//The data- attributes are pulled in the first time the data property is accessed and then are no longer accessed or mutated
+//(all data values are then stored internally in jQuery)
+//this is barely related to the DOM, and you can't update DOM data attributes
+
+-
 
 //ex
 <li class='vacation onsale' data-price='300.00'>Hawai</li>
