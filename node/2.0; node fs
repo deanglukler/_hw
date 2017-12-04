@@ -23,12 +23,24 @@ fs.readFile("file.txt", "utf8", function(error, text) {
 ---
 //ex writeFile
 var fs = require("fs");
-fs.writeFile("graffiti.txt", "Node was here", function(err) {
+fs.writeFile("graffiti.txt", 'string file to write', function(err) {
   if (err)
     console.log("Failed to write file:", err);
   else
     console.log("File written.");
 });
+
+
+----------------------------------------------
+
+
+.mkdirSync()
+---
+//make a direcctory if it doesn't exist
+//ex
+if (!fs.existsSync(dir)){
+    fs.mkdirSync(dir);
+}
 
 
 ----------------------------------------------
@@ -96,16 +108,6 @@ console.log("Program Ended");
 
 
 ----------------------------------------------
-
-
-
-.mkdirSync()
----
-//make a direcctory if it doesn't exist
-//ex
-if (!fs.existsSync(dir)){
-    fs.mkdirSync(dir);
-}
 
 
 

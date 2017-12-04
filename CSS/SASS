@@ -28,23 +28,7 @@ http_path = "../"  or  http_path = "/"
 
 
 
-
-
-
-
 ------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -53,29 +37,13 @@ comments
 //Single Line
 /*
 Multi line
-*/ 
+*/
 /*! This is a loud comment which is guaranteed to show where you left it */
 
 
 
 
-
-
-
-
-
-
-
 ------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
 
 
 
@@ -100,9 +68,6 @@ styles.scss //main styles sheet (save it in the sass directory)
 
 
 
-
-
-
 ------------------------------------------------------------------------
 
 
@@ -113,12 +78,7 @@ styles.scss //main styles sheet (save it in the sass directory)
 
 
 
-
-
-
-
-
-partials folder 
+partials folder
 ---------------
 (partials folder inside the sass directory)
 
@@ -177,19 +137,7 @@ $almond: #EFDECD; //Defines a variable of that color
 
 
 
-
-
-
-
 ------------------------------------------------------------------------
-
-
-
-
-
-
-
-
 
 
 
@@ -208,20 +156,7 @@ width: 600px / 960px * 100%;
 
 
 
-
-
-
-
-
 ------------------------------------------------------------------------
-
-
-
-
-
-
-
-
 
 
 
@@ -254,16 +189,7 @@ article p a {
 
 
 
-
-
-
-
 ------------------------------------------------------------------------
-
-
-
-
-
 
 
 
@@ -296,14 +222,7 @@ Sass Extensions
 
 
 
-
 ------------------------------------------------------------------------
-
-
-
-
-
-
 
 
 
@@ -321,18 +240,15 @@ complement($colorToComplement);
 
 adjust-hue($color, 90dg); //inverts color
 
-desaturate($color, 80%); 
+desaturate($color, 80%);
 
-saturate($color, 80%); 
+saturate($color, 80%);
 
 fade-out($color, 50%); //opacity down 50%
 
-mix(); 
+mix();
 
 grayscale();
-
-
-
 
 
 
@@ -350,15 +266,27 @@ grayscale();
 
 
 
+SASS Mixins
+-----------
+
+// ex
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+
+.box { @include border-radius(10px); }
 
 
+-------------------
 
 
-Compass Mixins
---------------
 #styleme {
   @include border-radius(5px);
-  @include box-shadow("hrz offset" "ver offset" "blur" "spread" "color") 
+  @include box-shadow("hrz offset" "ver offset" "blur" "spread" "color")
   @include text-shadow(...)
 }
 
@@ -368,7 +296,7 @@ Compass Mixins
 
 #logo {
   @include scale(2,2);  //scales an image by 2
-  @include transform(translateX(700px) translateY(10px) scale(2,2) rotate(-45deg)); 
+  @include transform(translateX(700px) translateY(10px) scale(2,2) rotate(-45deg));
 }
 
 
@@ -379,16 +307,7 @@ Compass Mixins
 
 
 
-
-
-
-
 ------------------------------------------------------------------------
-
-
-
-
-
 
 
 
@@ -416,15 +335,7 @@ $riddle-color: gray;  //define variable only for this example
 
 
 
-
-
-
 ------------------------------------------------------------------------
-
-
-
-
-
 
 
 
@@ -436,12 +347,12 @@ $riddle-color: gray;  //define variable only for this example
 Compass Sass for loops
 ----------------------
 $prct-yellow: 5%;
- 
+
 @for $i from 1 through 14 {
   #vert-nav ul li:nth-child(#{$i}){
     background-color: mix($yellow, $white, $prct-yellow);
   }
-  $prct-yellow: $prct-yellow + 5% 
+  $prct-yellow: $prct-yellow + 5%
 }
 
 
@@ -450,7 +361,7 @@ Sass Image target
 img[alt="Programming Frameworks"] {
   content: image-url('featured-image.png');
   /*
-  width: image-width('../images/featured-image.png');  
+  width: image-width('../images/featured-image.png');
   //finds the width of that image and sets it as the width.. could maybe use different image width?
   height: image-height('../images/featured-image.png');
   */
@@ -459,19 +370,7 @@ img[alt="Programming Frameworks"] {
 
 
 
-
-
-
-
-
-
 ------------------------------------------------------------------------
-
-
-
-
-
-
 
 
 
@@ -494,115 +393,7 @@ sass media query
 
 
 
-
-
-
-
-
 ------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-sass _base.scss
----------------
-/* Global Defaults */
- html, body {
- margin: 0px;
- padding: 0px;
- border: 0px;
- }
- body {
-
- }
- 
- /* Headlines */
- h1, h2, h3, h4, h5, h6 {
- margin: 0;
- padding: 0;
- font-weight: normal;
- }
- 
- /* Text Styles */
- p, th, td, li, dd, dt, ul, ol, blockquote, q, acronym, abbr, a, input, select, textarea {
- margin: 0;
- padding: 0;
- }
- blockquote {
- margin: 1.25em;
- padding: 1.25em
- }
- q {
- font-style: italic;
- }
- acronym, abbr {
- cursor: help;
- border-bottom: 1px dashed;
- }
- small {
- font-size:.85em;
- }
- big {
- font-size:1.2em;
- }
- 
- /* Links and Images */
- a, a:link, a:visited, a:active, a:hover {
- text-decoration: underline;
- }
- img {
- border: none;
- }
- 
- /* Tables */
- table {
- margin: 0;
- padding: 0;
- border: none;
- }
- 
- /* Forms */
- form {
- margin: 0;
- padding: 0;
- display: inline;
- }
- label {
- cursor: pointer;
- }
- 
- /* Common Classes */
- .clear { clear: both; }
- .floatLeft { float: left; }
- .floatRight { float: right; }
- .textLeft { text-align: left; }
- .textRight { text-align: right; }
- .textCenter { text-align: center; }
- .textJustify { text-align: justify; }
- .blockCenter { display: block; margin-left: auto; margin-right: auto; } /* remember to set width */
- .bold { font-weight: bold; }
- .italic { font-style: italic; }
- .underline { text-decoration: underline; }
- .noindent { margin-left: 0; padding-left: 0; }
- .nomargin { margin: 0; }
- .nopadding { padding: 0; }
- .nobullet { list-style: none; list-style-image: none; }
-
-
-
-
-
 
 
 

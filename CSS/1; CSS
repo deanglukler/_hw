@@ -6,7 +6,32 @@ CSS
 "a font weight of 400 is considered normal"
 
 
+-----------
 
+
+
+// input bar example
+.chatbar-username {
+  text-align: center;
+  font-size: 1rem;
+  color: white;
+  caret-color: #aaa;
+  background: $footer-c;
+  -webkit-box-flex: 2;
+      -ms-flex: 2;
+          flex: 2;
+  &::-webkit-input-placeholder {
+    text-align: center;
+    color: white;
+  }
+  &:focus {
+    outline-color: #ccc;
+  }
+}
+
+
+
+--------------
 
 
 
@@ -650,6 +675,20 @@ flex wrap
 flex-wrap: nowrap | wrap | wrap-reverse;
 
 
+flex basis, flex grow
+---------------------
+// parent
+.item-grid {
+  display: flex;
+}
+
+// children
+.column {
+  background: #ddd;
+  flex-grow: 1;
+  flex-basis: 0;
+}
+
 
 
 
@@ -673,9 +712,29 @@ flex-wrap: nowrap | wrap | wrap-reverse;
 
 css custom fonts
 ----------------
-@font-face { font-family: Delicious; src: url('Delicious-Roman.otf'); }
-@font-face { font-family: Delicious; font-weight: bold; src: url('Delicious-Bold.otf');}
 
+// for all browser support..
+
+@font-face {
+  font-family: 'MyWebFont';
+  src: url('webfont.eot'); /* IE9 Compat Modes */
+  src: url('webfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('webfont.woff2') format('woff2'), /* Super Modern Browsers */
+       url('webfont.woff') format('woff'), /* Pretty Modern Browsers */
+       url('webfont.ttf')  format('truetype'), /* Safari, Android, iOS */
+       url('webfont.svg#svgFontName') format('svg'); /* Legacy iOS */
+}
+
+
+---
+
+
+// I don't think most browsers support otf but anywayyyy...
+
+@font-face {
+  font-family: 'Memphis-med';
+  src:  url('/fonts/Memphis-Medium.otf') format("opentype")
+}
 
 
 
@@ -731,6 +790,47 @@ h1   { font-size: 24px; font-size: 2.4rem; } /* =24px */
 
 
 -------------------------------------------------------------------------
+
+
+
+
+css outline
+-----------
+
+// doesn't respect border radius
+
+// always goes around all sides
+
+// it doesn't affect the box model and won't affect surrounding elements
+
+// syntax
+outline: [ <outline-width> || <outline-style> || <outline-color> ] | inherit
+
+// ex
+a:focus {
+  outline-width: 1px;
+  outline-style: dashed;
+  outline-color: red;
+}
+
+
+-------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

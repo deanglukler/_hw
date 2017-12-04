@@ -77,7 +77,14 @@ array.splice(index, howmany, item1, ....., itemX)
 
 .concat()
 newArray = oldArray.concat(otherArray);
+// The concat() method is used to merge two or more arrays.
+// This method does not change the existing arrays, but instead returns a new array
 
+// ex
+var arr1 = ['a', 'b', 'c'];
+var arr2 = ['d', 'e', 'f'];
+var arr3 = arr1.concat(arr2);
+// arr3 is a new array [ "a", "b", "c", "d", "e", "f" ]
 
 ---
 

@@ -37,6 +37,20 @@ console.log("coconuts".slice(4, 7));
 ---
 
 
+.startsWith()
+// The startsWith() method determines whether a string begins with the characters of a specified string, returning true or false as appropriate.
+
+// ex
+for (let key in obj) {
+  if (key.startsWith('date')) {
+    console.log(key, obj[key]);
+  }
+}
+
+
+---
+
+
 
 .substring() // returns a subset of a string between one index and another, or through the end of the string
 //Syntax

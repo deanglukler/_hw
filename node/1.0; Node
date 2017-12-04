@@ -18,6 +18,22 @@ console.dir(Object, { depth: null });
 
 
 
+------------------------------------------------------------
+
+
+
+
+__dirname vs ./
+---------------
+__dirname // is the directory the current script resides
+
+./ // is the directory from which you called the script
+
+// the exceptiong is when you use the require() function
+
+
+
+
 
 
 ------------------------------------------------------------

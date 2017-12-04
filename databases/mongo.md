@@ -211,14 +211,78 @@ MongoClient.connect(MONGODB_URI, (err, db) => {
 
 
 
-## CRUD Operations (node)
-
+CRUD Operations (node)
+----------------------
 
 docs - https://mongodb.github.io/node-mongodb-native/2.2/tutorials/crud/
 
 ---
 
-## read data
+read data
+---------
+
+### .find()
+
+// .find()
+
+// can be left empty to find all
+
+_
+
+//ex, Find all documents in the customers collection:
+```javascript
+db.collection("customers").find({}).toArray(function(err, result) {
+    if (err) throw err;
+    console.log(result);
+    db.close();
+  });```
+
+_
+
+// ex, Return the fields "name" and "address" of all documents in the customers collection:
+
+```javascript
+db.collection("customers").find({}, { _id: false, name: true, address: true }).toArray(function(err, result) {
+    if (err) throw err;
+    console.log(result);
+    db.close();
+  });```
+
+
+---
+
+
+// .findOne()
+
+```javascript
+db.collection("customers").findOne({}, function(err, result) {
+    if (err) throw err;
+    console.log(result.name);
+    db.close();
+  });```
+
+
+---
+
+NOTE: javascript ids are inserted as ObjectID, which requires the ObjectID constructor..
+
+
+```javascript
+var ObjectId = require('mongodb').ObjectID;
+
+var get_by_id = function(id, callback) {
+  console.log("find by: "+ id);
+  get_collection(function(collection) {
+    collection.findOne({"_id": new ObjectId(id)}, function(err, doc) {
+       callback(doc);
+    });
+  });
+}```
+
+
+---
+
+
 
 //The cursor returned by the find method has several methods that allow for chaining of options for a query
 
@@ -228,7 +292,7 @@ docs - https://mongodb.github.io/node-mongodb-native/2.2/tutorials/crud/
 
 
 //simply
-
+```javascript
 MongoClient.connect(url, function(err, db) {
   assert.equal(null, err);
   console.log("Connected correctly to server");
@@ -242,9 +306,9 @@ MongoClient.connect(url, function(err, db) {
         db.close();
       });
 
-});
+});```
 
-_
+---
 
 ### search a database
 
@@ -311,10 +375,169 @@ results.toArray((err, resultsArray) => {
 
 
 
+
+
+------------------------------------------------------------------
+
+
+
+
+Update Methods
+--------------
+
+.updateOne()
+
+.updateMany()
+
+//ex
+```javascript
+db.collection.updateOne(
+   <filter>, //{ "name" : "Central Perk Cafe" }
+   <update>, //{ $set: { "violations" : 3 } }
+   {
+     upsert: <boolean>,
+     writeConcern: <document>,
+     collation: <document>
+   }
+)
+```
+
+---
+
+### update operators
+
+(docs)[https://docs.mongodb.com/manual/reference/operator/update/]
+
+$currentDate  //Sets the value of a field to current date, either as a Date or a Timestamp.
+
+$inc  //Increments the value of the field by the specified amount.
+
+$min  //Only updates the field if the specified value is less than the existing field value.
+
+$max  //Only updates the field if the specified value is greater than the existing field value.
+
+$mul  //Multiplies the value of the field by the specified amount.
+
+$rename //Renames a field.
+
+$set  //Sets the value of a field in a document.
+
+$setOnInsert  //Sets the value of a field if an update results in an insert of a document. Has no effect on update operations that modify existing documents.
+
+$unset // Removes the specified field from a document.
+
+
+
+
+---
+
+### example
+
+```javascript
+. . .
+
+var col = db.collection('updates');
+// Insert a single document
+col.insertMany([{a:1}, {a:2}, {a:2}], function(err, r) {
+  assert.equal(null, err);
+  assert.equal(3, r.insertedCount);
+
+  // Update a single document
+  col.updateOne({a:1}, {$set: {b: 1}}, function(err, r) {
+    assert.equal(null, err);
+    assert.equal(1, r.matchedCount);
+    assert.equal(1, r.modifiedCount);
+
+    // Update multiple documents
+    col.updateMany({a:2}, {$set: {b: 1}}, function(err, r) {
+      assert.equal(null, err);
+      assert.equal(2, r.matchedCount);
+      assert.equal(2, r.modifiedCount);
+
+      // Upsert a single document
+      col.updateOne({a:3}, {$set: {b: 1}}, {
+        upsert: true
+      }, function(err, r) {
+        assert.equal(null, err);
+        assert.equal(0, r.matchedCount);
+        assert.equal(1, r.upsertedCount);
+        db.close();
+      });
+    });
+  });
+});
+```
+
+
+
+
+
+
+------------------------------------------------------------------
+
+
+
+
+Write Methods
+-------------
+
+
+.insertOne()
+
+.insertMany()
+
+//r stands for result within callback (Contains the result document from MongoDB)
+
+//ex
+```javascript
+. . .
+
+  // Insert a single document
+  db.collection('inserts').insertOne({a:1}, function(err, r) {
+    assert.equal(null, err);
+    assert.equal(1, r.insertedCount);
+
+    // Insert multiple documents
+    db.collection('inserts').insertMany([{a:2}, {a:3}], function(err, r) {
+      assert.equal(null, err);
+      assert.equal(2, r.insertedCount);
+
+      db.close();
+    });
+  });
+});
+```
+
+
+// OR WITH ES6
+
+```javascript
+. . .
+
+  // Insert a single document
+  var r = yield db.collection('inserts').insertOne({a:1});
+  assert.equal(1, r.insertedCount);
+
+  // Insert multiple documents
+  var r = yield db.collection('inserts').insertMany([{a:2}, {a:3}]);
+  assert.equal(2, r.insertedCount);
+
+  // Close connection
+  db.close();
+}).catch(function(err) {
+  console.log(err.stack);
+});
+```
+
+
+
+
 ----------------------------
 
 
 
+example
+-------
 
 //ex - get Tweets function wrapped making use of closure on the db
 ```javacript
@@ -388,69 +611,6 @@ function getTweets(callback) {
 
 //...and it would behave exactly the same. It's included specifically to bring this point up. Though you might use the longer version if you wanted to include some extra logging, or if you could handle the error in a useful way.
 ```
-
-
-
-
-
-
-------------------------------------------------------------------
-
-
-
-
-## Write Methods
-
-
-.insertOne()
-
-.insertMany()
-
-//r stands for result within callback (Contains the result document from MongoDB)
-
-//ex
-```javascript
-. . .
-
-  // Insert a single document
-  db.collection('inserts').insertOne({a:1}, function(err, r) {
-    assert.equal(null, err);
-    assert.equal(1, r.insertedCount);
-
-    // Insert multiple documents
-    db.collection('inserts').insertMany([{a:2}, {a:3}], function(err, r) {
-      assert.equal(null, err);
-      assert.equal(2, r.insertedCount);
-
-      db.close();
-    });
-  });
-});
-```
-
-
-// OR WITH ES6
-
-```javascript
-. . .
-
-  // Insert a single document
-  var r = yield db.collection('inserts').insertOne({a:1});
-  assert.equal(1, r.insertedCount);
-
-  // Insert multiple documents
-  var r = yield db.collection('inserts').insertMany([{a:2}, {a:3}]);
-  assert.equal(2, r.insertedCount);
-
-  // Close connection
-  db.close();
-}).catch(function(err) {
-  console.log(err.stack);
-});
-```
-
-
-
 
 
 

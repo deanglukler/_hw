@@ -29,6 +29,8 @@ https://www.debuggex.com/cheatsheet/regex/javascript
 /^/ Start of input
 /$/ End of input
 
+(https?:\/\/.*\.(?:png|jpg)) for images
+
 
 
 

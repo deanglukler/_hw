@@ -54,24 +54,6 @@ npm install del --save-dev
 
 npm install gulp-postcss --save-dev
 
-//to use with postcss..
-npm install autoprefixer --save-dev
-
-npm install postcss-simple-vars --save-dev
-
-npm install postcss-nested --save-dev
-
-npm install postcss-import --save-dev
-
-npm install postcss-mixins --save-dev
-
-npm install postcss-hexrgba --save-dev
-
-npm intall postcss-inherit --save-dev
-
-//browser sync
-npm install browser-sync --save-dev
-
 //sprite
 npm install gulp-svg-sprite@1.3.1 --save-dev //@1.3.1 means version 1.3.1
 
