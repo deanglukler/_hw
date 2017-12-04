@@ -151,6 +151,12 @@ $ brew services list
 $ brew services run|start|stop|restart --all
 ```
 
+### git rm cache
+
+```
+git rm -r --cached .
+```
+
 
 
 
