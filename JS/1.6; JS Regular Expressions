@@ -9,6 +9,10 @@ Cheat Sheet
 ---
 https://www.debuggex.com/cheatsheet/regex/javascript
 
+(https?:\/\/.*\.(?:png|jpg)) for images
+
+/\S+/g for every word
+
 
 /abc/ A sequence of characters
 /[abc]/ Any character from a set of characters
@@ -21,15 +25,18 @@ https://www.debuggex.com/cheatsheet/regex/javascript
 /x{2,4}/  Between two and four occurrences
 /(abc)/ A group
 /a|b|c/ Any one of several patterns
-/\d/  Any digit character
-/\w/  An alphanumeric character (“word character”)
-/\s/  Any whitespace character
 /./ Any character except newlines
-/\b/  A word boundary
 /^/ Start of input
 /$/ End of input
+/\b/  Word boundary. Match any character(s) at the beginning (\bxx) and/or end (xx\b) of a word, thus \bton\b will find ton but not tons, but \bton will find tons (the ton in tons).
+/\B/  Not word boundary. Match any character(s) NOT at the beginning(\Bxx) and/or end (xx\B) of a word, thus \Bton\B will find wantons but not tons, but ton\B will find both wantons and tons.
+/\d/  Any digit character
+/\D/  Match any character NOT in the range 0 - 9 (equivalent of POSIX [^[:digit:]])
+/\w/  An alphanumeric character (“word character”)
+/\W/  Match any character NOT the range 0 - 9, A - Z, a - z and punctuation (equivalent of POSIX [^[:graph:]])
+/\s/  Any whitespace character
+/\S/  Match any character NOT whitespace (space, tab). (equivalent of POSIX [^[:space:]]).
 
-(https?:\/\/.*\.(?:png|jpg)) for images
 
 
 
