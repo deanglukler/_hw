@@ -1,3 +1,9 @@
+### oe git optimal efficiency repo
+usernam
+dglueckler@optimalefficiency.net
+pass
+hqnotksdtljrfu4woev7u5ilk3aen6mbwexzzsnxwknhtihfkyfq
+
 ### html template
 ```html
 <!DOCTYPE html>

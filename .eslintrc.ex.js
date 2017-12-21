@@ -1,6 +1,5 @@
 /*
-npm i -D eslint eslint-config-standard eslint-plugin-node eslint-plugin-promise eslint-plugin-standard
-*/
+npm i -D eslint eslint-config-standard eslint-plugin-node eslint-plugin-promise eslint-plugin-standard eslint-config-airbnb eslint-config-prettier eslint-plugin-prettier eslint-plugin-react eslint-plugin-jsx-a11y eslint-plugin-jest prettier*/
 module.exports = {
   "extends": "standard",
   "rules": {
