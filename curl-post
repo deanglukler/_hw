@@ -1,0 +1,28 @@
+post
+----
+
+
+// send POST request
+```
+curl -X POST ...
+```
+
+---
+
+
+// The -d flag is used to send form data in the same way a browser would when submitting our login form
+```
+curl -X POST -i localhost:8080/login -d "email=a@a.com" -d "password=asdf"
+```
+
+---
+
+post to learncodeacademy (url-encoded default)
+
+curl -X POST -i http://rest.learncode.academy/api/glu/users -d "email=a@a.com" -d "password=asdf"
+
+---
+
+// post to sign into oe (JSON)
+
+curl -i -X POST http://localhost:3000/restapi/access/sign_in -H "Content-Type: application/json" -d '{"data":{"user_email":"support@oeteam.com","user_password":"1111"}}'

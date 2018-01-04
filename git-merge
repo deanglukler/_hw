@@ -1,0 +1,4 @@
+### merge without a commit
+
+git merge --no-ff --no-commit branchX
+### reset a branch to head

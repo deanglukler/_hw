@@ -1,0 +1,8 @@
+get
+---
+
+// see the content of a webpage
+```
+curl www.example.com
+```
+

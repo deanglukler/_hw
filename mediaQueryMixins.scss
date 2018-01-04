@@ -1,0 +1,23 @@
+$breakpoint-xs: 1px;
+$breakpoint-sm: 600px;
+$breakpoint-md: 960px;
+$breakpoint-lg: 1280px;
+$breakpoint-xl: 1920px;
+
+@mixin large {
+  @media (min-width: #{$breakpoint-lg}) {
+    @content;
+  }
+}
+
+@mixin medium {
+  @media (min-width: #{$breakpoint-md}) {
+    @content;
+  }
+}
+
+@mixin small {
+  @media (min-width: #{$breakpoint-sm}) {
+    @content;
+  }
+}
