@@ -1,0 +1,3 @@
+//will list the npm installed globally
+
+npm list -g --depth=0

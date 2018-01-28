@@ -1,0 +1,8 @@
+// reset one file
+
+git checkout HEAD -- my-file.txt
+
+// example
+
+git checkout HEAD~3 -- client/styles/components/common/datagrid/DataGridEntry.scss
+

@@ -1,0 +1,7 @@
+// rebase against own branch
+
+git rebase --interactive HEAD~7
+
+// rebase all the commits between another branch and the current branch state
+
+git rebase --interactive other_branch_name

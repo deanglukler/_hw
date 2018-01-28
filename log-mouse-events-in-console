@@ -1,0 +1,5 @@
+monitorEvents(document.body); // logs all events on the body
+
+monitorEvents(document.body, 'mouse'); // logs mouse events on the body
+
+monitorEvents(document.body.querySelectorAll('input')); // logs all events on inputs

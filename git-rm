@@ -1,1 +1,11 @@
-git rm --cached fileName
+// will not only remove the actual files from disk, but will also stage the removal of the files
+
+git rm
+
+// To stop tracking a file you need to remove it from the index. This can be achieved with this command.
+
+git rm -r --cached <file>
+
+// remove everything from being tracked
+
+git rm -r --cached .

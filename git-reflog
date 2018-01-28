@@ -1,0 +1,3 @@
+// useful to show the history of a certain branch and up until it was created
+
+git reflog show <branch>

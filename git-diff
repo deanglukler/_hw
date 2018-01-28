@@ -1,0 +1,33 @@
+// All the changes (staged or not staged) will be shown
+
+git diff HEAD file
+
+// or to see all differences
+
+git diff head~3 | code -
+
+// ---
+
+//If you want to see what you haven't git added yet:
+
+git diff myfile.txt
+
+//or if you want to see already-added changes
+
+git diff --cached myfile.txt
+
+// ---
+
+// diff between master and myfile.txt
+
+git diff master^^ myfile.txt
+
+// ---
+
+git diff branch_1..branch_2
+
+That will produce the diff between the tips of the two branches. If you'd prefer to find the diff from their common ancestor to test, you can use three dots instead of two:
+
+git diff branch_1...branch_2
+
+

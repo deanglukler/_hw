@@ -1,0 +1,21 @@
+git stash
+---------
+
+git stash list []
+
+git stash show []
+
+git stash drop [-q|--quiet] []
+
+git stash ( pop | apply ) [--index] [-q|--quiet] []
+
+git stash branch  []
+
+git stash [save [-p|--patch] [-k|--[no-]keep-index] [-q|--quiet]
+ [-u|--include-untracked] [-a|--all] []]
+
+git stash clear
+
+git stash create []
+
+git stash store [-m|--message ] [-q|--quiet]
