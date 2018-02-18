@@ -8,3 +8,13 @@ var sinceTime = date => moment.utc(date).from(moment())
 // out: "Monday, January 22nd 2018, 6:50:19 pm"
 
 var sinceTime = date => moment.utc(date).format("dddd, MMMM Do YYYY, h:mm:ss a")
+
+// ------
+// in: same
+// out: ... localized.. i dunno i'm busy..
+
+export const simpleDate = date =>
+  moment
+    .utc(date)
+    .local()
+    .format('dddd, MMMM Do');

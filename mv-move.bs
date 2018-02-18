@@ -1,25 +1,4 @@
-### chmod make file executable
-
-chmod +x [filename]
-
-### show hidden files
-
-```
-defaults write com.apple.finder AppleShowAllFiles YES
-```
-
-### print environment variables
-```
-printenv
-```
-
-### cp copy folder contents to new folder
-
-```
-cp -r ~/folder1/. ~/new_folder1
-```
-
-### mv
+# mv
 
 ```
 mv * .. //moves everything (in current directory) up one directory

@@ -1,0 +1,3 @@
+// mkdir and create all directories in between and then create new file there
+
+mkdir -p ./some/path/; mv yourfile.txt $_

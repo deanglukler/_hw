@@ -1,0 +1,13 @@
+nvm ls
+// list downloaded versions
+
+nvm current
+// show current version of node
+
+nvm install [-s] <version>
+// Download and install a <version>, [-s] from source. Uses .nvmrc if available
+// flags:
+--latest-npm // After installing, attempt to upgrade to the latest working npm on the given node versions
+
+nvm install-latest-npm
+// Attempt to upgrade to the latest working `npm` on the current node version

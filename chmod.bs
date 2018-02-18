@@ -1,0 +1,3 @@
+# chmod make file executable
+
+chmod +x [filename]

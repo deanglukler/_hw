@@ -1,0 +1,5 @@
+# cp copy folder contents to new folder
+
+```
+cp -r ~/folder1/. ~/new_folder1
+```

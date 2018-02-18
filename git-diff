@@ -8,7 +8,13 @@ git diff head~3 | code -
 
 // ---
 
-//If you want to see what you haven't git added yet:
+// just files names that have changes in them
+
+git diff --name-status master..branchName
+
+// --
+
+// If you want to see what you haven't git added yet:
 
 git diff myfile.txt
 

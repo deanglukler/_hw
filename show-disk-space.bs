@@ -1,0 +1,5 @@
+# show disk usage of all files
+du -sh *
+
+# include hidden files
+du -sh -- * .*

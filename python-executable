@@ -1,0 +1,7 @@
+// at top of file
+
+#!/usr/bin/env python
+
+// make it executable
+
+chmod +x myfile.py

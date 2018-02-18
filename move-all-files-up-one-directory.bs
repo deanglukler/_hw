@@ -1,0 +1,1 @@
+for dir in *; do mv ./"$dir"/* ./"$dir"/../; done

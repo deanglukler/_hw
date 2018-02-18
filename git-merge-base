@@ -1,0 +1,3 @@
+// get the commit id of the most recent base between to branches
+
+git merge-base feature master
