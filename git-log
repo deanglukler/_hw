@@ -4,6 +4,9 @@ git log origin/yourbranchname | head
 
 git log yourbranchname | head
 
+
+
+
 // ---
 
 // show commits from one point to another
@@ -13,3 +16,13 @@ git log origin/master..master
 // or, more generally:
 
 git log <since>..<until>
+
+
+
+
+
+// ---
+
+// log all commit pertaining to one file
+
+git log --follow --all <filepath>

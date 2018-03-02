@@ -1,0 +1,14 @@
+git branch --set-upstream-to <remote-branch>
+# example
+git branch --set-upstream-to origin feature-branch
+
+sets the default remote branch for the current local branch.
+
+Any future git pull command (with the current local branch checked-out), will attempt to bring in commits from the into the current local branch.
+
+One way to avoid having to explicitly do --set-upstream is to use the shorthand flag -u along-with the very first git push as follows
+
+git push -u origin local-branch
+
+# show up which remote branch a local branch is tracking
+git branch -vv

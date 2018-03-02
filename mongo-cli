@@ -1,0 +1,51 @@
+docs - https://docs.mongodb.com/v3.0/reference/mongo-shell/#command-helpers
+more methods and specific docs - https://docs.mongodb.com/manual/reference/method/
+
+
+CLI
+---
+
+show dbs
+
+use <db> // this will work for non existing dbs as well
+
+show collections
+
+
+db
+---
+
+db.createCollection('name'[, Options])
+
+
+
+collection
+---
+
+coll = db.<collection>
+
+find()
+coll.find( { name: "Joe" } );
+
+findOne()
+
+insert()
+
+update()
+
+save()
+
+remove()
+
+drop()
+
+createIndex()
+
+
+
+Admin
+---
+
+db.dropDatabase()
+
+

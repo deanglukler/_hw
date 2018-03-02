@@ -5,3 +5,10 @@ git merge --no-ff --no-commit branchX
 
 git merge --abort
 
+
+### merge with particular strategy
+
+git merge --strategy-option theirs
+
+git merge --strategy-option ours
+

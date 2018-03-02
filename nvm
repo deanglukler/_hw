@@ -11,3 +11,9 @@ nvm install [-s] <version>
 
 nvm install-latest-npm
 // Attempt to upgrade to the latest working `npm` on the current node version
+
+nvm alias default 8.1.0
+// Set default node version on a shell
+
+nvm alias default node
+// Always default to the latest available node version on a shell
