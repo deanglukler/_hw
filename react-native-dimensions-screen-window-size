@@ -1,0 +1,4 @@
+import { Dimensions } from 'react-native'
+
+// ex
+var {height, width} = Dimensions.get('window');

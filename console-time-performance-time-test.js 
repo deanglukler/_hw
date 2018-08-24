@@ -1,0 +1,29 @@
+const data = {
+  100: 'data',
+  200: 'data2',
+  300: 'data3',
+  400: 'data4',
+  500: 'data5',
+  600: 'data6'
+}
+
+var functionOne = function() {
+  return data[600]
+}
+
+var functionTwo = function() {
+  return data['600']
+}
+
+var iterations = 1000000;
+console.time('Function #1');
+for(var i = 0; i < iterations; i++ ){
+    functionOne();
+};
+console.timeEnd('Function #1')
+
+console.time('Function #2');
+for(var i = 0; i < iterations; i++ ){
+    functionTwo();
+};
+console.timeEnd('Function #2')

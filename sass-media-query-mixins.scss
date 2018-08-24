@@ -21,3 +21,12 @@ $breakpoint-xl: 1920px;
     @content;
   }
 }
+
+
+// using these mixins
+.menu-item {
+  @include small {
+    min-width: 209px;
+    font-size: 13px;
+  }
+}

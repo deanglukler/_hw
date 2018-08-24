@@ -1,0 +1,3 @@
+# get all project dependencies
+
+go get ./...

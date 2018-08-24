@@ -1,11 +1,25 @@
-// will not only remove the actual files from disk, but will also stage the removal of the files
+// if you want to remove the file only from the Git repository and not remove it from the filesystem
 
-git rm
+git rm --cached file1.txt
 
-// To stop tracking a file you need to remove it from the index. This can be achieved with this command.
+// or for a directory
 
-git rm -r --cached <file>
+git rm -r --cached .vscode
 
 // remove everything from being tracked
 
 git rm -r --cached .
+
+---
+
+// this will not only remove the actual files from disk, but will also stage the removal of the files
+
+git rm
+
+
+// remove untracked files from repo
+
+git clean -n
+
+
+

@@ -1,0 +1,10 @@
+// React Native CLI
+
+// Generate project
+react-native init <project dir name>
+
+// run project ios
+react-native run-ios
+
+// dev tools element inspector
+react-devtools

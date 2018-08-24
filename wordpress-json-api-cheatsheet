@@ -1,0 +1,50 @@
+wordpress json api
+
+Get posts from one category:
+
+http://www.mixmeals.com/wp-json/wp/v2/categories/1
+
+Get posts from one category by slug:
+
+http://www.mixmeals.com/wp-json/wp/v2/categories?slug=lunch
+
+Get posts from multiple categories by slug or id:
+
+http://www.mixmeals.com/wp-json/wp/v2/posts/?filter[category_name]=breakfast,foo
+
+http://www.mixmeals.com/wp-json/wp/v2/posts?categories=2,1
+
+Get page by slug:
+
+http://www.mixmeals.com/wp-json/wp/v2/pages?slug=about-me
+
+Get all posts up to a maximum:
+
+http://www.mixmeals.com/wp-json/wp/v2/posts/?&filter[posts_per_page]=111
+
+Get posts, and include all taxonomy terms and meta fields for that post with _embed:
+
+http://www.mixmeals.com/wp-json/wp/v2/posts/?filter[posts_per_page]=111&_embed
+
+Create a secured, and an unsecured endpoint:
+
+<?php
+add_action( 'rest_api_init', 'myhacks_init' );
+function myhacks_init() {
+  register_rest_route( 'myhacks', '/unsecured', array(
+    'methods' => 'GET',
+    'callback' => 'myhacks_response',
+  ) );
+  register_rest_route( 'myhacks', '/secured', array(
+    'methods' => 'GET',
+    'callback' => 'myhacks_response',
+    'permission_callback' => 'myhacks_permission_callback',
+  ) );
+}
+function myhacks_response() {
+  return array( 'doowop' => 'Data wants to be free, yo?' );
+}
+function myhacks_permission_callback() {
+  return current_user_can( 'manage_options' );
+}
+

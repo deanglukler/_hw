@@ -1,0 +1,22 @@
+# Routes vs Endpoints
+
+For example, with the URL http://example.com/wp-json/wp/v2/posts/123:
+
+    The “route” is wp/v2/posts/123 – The route doesn’t include wp-json because wp-json is the base path for the API itself.
+    This route has 3 endpoints:
+        GET triggers a get_item method, returning the post data to the client.
+        PUT triggers an update_item method, taking the data to update, and returning the updated post data.
+        DELETE triggers a delete_item method, returning the now-deleted post data to the client.
+
+
+On sites without pretty permalinks, the route is instead added to the URL as the rest_route parameter. For the above example, the full URL would then be http://example.com/?rest_route=/wp/v2/posts/123
+
+ex http://localhost:8000/?rest_route=/wp/v2/music
+
+
+# permalinks
+- https://codex.wordpress.org/Using_Permalinks
+
+# Choosing your permalink structure
+
+In the Settings → Permalinks screen, you can choose one of the more common permalink structures or enter your own in the "Custom structure" field using the structure tags.

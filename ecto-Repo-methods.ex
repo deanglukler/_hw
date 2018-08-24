@@ -1,0 +1,2 @@
+# fetch all
+Repo.all()

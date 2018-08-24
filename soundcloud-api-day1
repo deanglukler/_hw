@@ -1,0 +1,3 @@
+# oembed
+curl "https://soundcloud.com/oembed" -d 'format=json' -d 'url=https://soundcloud.com/1superglue/rel2018'
+

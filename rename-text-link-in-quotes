@@ -1,0 +1,7 @@
+/src="[^\"]*"/
+
+// with group
+src="([^\"]*)"
+
+// returns the url inside .. src="http://blah.co"
+iframe = /src="([^\"]*)"/.exec(iframe)[1]

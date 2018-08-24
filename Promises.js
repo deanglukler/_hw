@@ -113,6 +113,116 @@ passOrFail(false)
 
 
 
+// EXAMPLE num 9
+// if the input is falser the promise will reject
+var deansProm = (input) => {
+    return new Promise ((resolve, reject) => {
+        setTimeout(() => {
+            if (!input) {
+                reject('Your input was falsey giiirlll \n')
+            } else {
+                resolve('Your input was ' + input + '\n')
+            }
+        }, 500)
+    })
+}
+
+// testing ...
+
+deansProm()
+    .then((resolveValue) => { // doesn't run
+        console.log(resolveValue)
+    })
+    .then((thenInput) => { // doesn't run
+        console.log('will I see this?')
+    })
+    .catch((error) => {
+        console.log('No success', error)
+    })
+// No success Your input was falsey giiirlll
+
+
+deansProm()
+    .catch((error) => {
+        console.log('No success', error)
+        return error   // this will return a resolved promise
+    })
+    .then((resolveValue) => { // doesn't run
+        console.log(resolveValue)
+    })
+    .then((thenInput) => { // doesn't run
+        console.log('will I see this?')
+    })
+// No success Your input was falsey giiirlll
+// Your input was falsey giiirlll
+// will I see this?
+
+
+deansProm()
+    .catch((error) => {
+        console.log('No success', error)
+        return new Error('another new error')
+        // this DOES NOT return a rejected promise,
+        // it's still resolved
+    })
+    .catch((error) => { // this doesn't get run
+        console.log('No success again', error)
+        return error
+    })
+    .then((resolveValue) => { // doesn't run
+        console.log(resolveValue)
+    })
+    .then((thenInput) => { // doesn't run
+        console.log('will I see this?')
+    })
+//    No success Your input was falsey giiirlll
+
+//    Error: another new error
+//        at deansProm.catch (<anonymous>:4:16)
+//    will I see this?
+
+
+deansProm('something')
+    .then((resolveValue) => { // doesn't run
+        console.log(resolveValue)
+    })
+    .then((thenInput) => { // doesn't run
+        console.log('will I see this?')
+    })
+    .catch((error) => {
+        console.log('No success', error)
+    })
+// Your input was something
+// will I see this?
+
+
+
+deansProm('wubalubadubdub')
+    .then((resolveValue) => {
+        console.log('Success!! ', resolveValue)
+    })
+    .catch((error) => {
+        console.log('No success', error)
+    })
+// Success!!  Your input was wubalubadubdub
+
+
+
+// or with async await..
+async function deansAsync(input) {
+    let output
+    try {
+        output = 'cool yoy did is with async!! ' + await deansProm(input)
+    } catch(err) {
+        output = 'you got a problem ' + err
+    }
+    console.log(output)
+}
+//ex..
+deansAsync('please work')
+
+
+
 
 
 

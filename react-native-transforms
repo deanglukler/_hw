@@ -1,0 +1,2 @@
+// ex
+<ButtonText style={{transform: [{ rotateZ: '55deg' }, { translateX: 10}]}}>{props.sym}</ButtonText>

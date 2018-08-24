@@ -36,4 +36,3 @@ That will produce the diff between the tips of the two branches. If you'd prefer
 
 git diff branch_1...branch_2
 
-

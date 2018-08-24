@@ -1,0 +1,7 @@
+// fetch all remote repositories
+
+git fetch
+
+// then if there's a branch know as origin/test you can use it like so..
+
+git checkout test

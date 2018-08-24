@@ -1,0 +1,157 @@
+Resources
+---
+https://gobyexample.com/
+
+
+// golang.org
+// package docs
+https://golang.org/pkg/fmt/
+// package source
+https://golang.org/src/fmt/
+
+// godoc.org
+// package
+https://godoc.org/fmt
+
+
+
+
+
+
+
+
+see go terminal commands with 'go'
+---
+
+
+go run <main.go>
+// run script
+
+go build
+(inside package dir)
+// build and create exe if all goes well
+
+go clean
+// delete exe in directory
+
+go install
+// builds and places exe inside bin folder
+
+go fmt
+// format package sources
+go fmt ./...
+// format every package in current dir
+
+
+more..
+---
+
+Go is a tool for managing Go source code.
+
+Usage:
+
+  go command [arguments]
+
+The commands are:
+
+  build       compile packages and dependencies
+  clean       remove object files and cached files
+  doc         show documentation for package or symbol
+  env         print Go environment information
+  bug         start a bug report
+  fix         update packages to use new APIs
+  fmt         gofmt (reformat) package sources
+  generate    generate Go files by processing source
+  get         download and install packages and dependencies
+  install     compile and install packages and dependencies
+  list        list packages
+  run         compile and run Go program
+  test        test packages
+  tool        run specified go tool
+  version     print Go version
+  vet         report likely mistakes in packages
+
+Use "go help [command]" for more information about a command.
+
+Additional help topics:
+
+  c           calling between Go and C
+  buildmode   build modes
+  cache       build and test caching
+  filetype    file types
+  gopath      GOPATH environment variable
+  environment environment variables
+  importpath  import path syntax
+  packages    package lists
+  testflag    testing flags
+  testfunc    testing functions
+
+Use "go help [topic]" for more information about that topic.
+
+
+
+
+
+
+
+
+--------------------
+
+
+
+
+
+
+
+
+go environment vars
+
+*** must have set
+
+GOROOT (must be set to where go is installed, set automatically)
+
+GOPATH (must have path set to your workspace)
+
+
+
+
+
+
+
+
+
+----------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

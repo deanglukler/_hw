@@ -4,6 +4,14 @@ A mini e-commerce application built with Rails 4.2.
 
 ![Jungle Homepage](https://github.com/glueckler/rails-jungle/blob/master/jungle.png "Jungle Homepage")
 
+Inline-style:
+![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Hover over text")
+
+Reference-style:
+![alt text][logo]
+
+[logo]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 2"
+
 
 ## Setup
 

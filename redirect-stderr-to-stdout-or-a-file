@@ -1,0 +1,17 @@
+# redirect stdout to a file
+$ strace uptime > test.log
+# equals to
+$ strace uptime 1> test.log
+
+# redirect stderr to a file
+$ strace uptime 2> test.log
+
+# redirect stderr to stdout
+# if you write `strace uptime 2> 1`, it means that you redirect stderr to a file with the name 1
+$ strace uptime 2>&1
+
+# redirect stderr and stdout to a file
+$ strace uptime &> test.log
+
+# run a command in backgroud
+$ long-running-command &

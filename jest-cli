@@ -1,0 +1,14 @@
+jest --watch --coverage
+jest --coverage --watch -- <filename>
+// watch files and test with coverage
+
+
+jest -- <filename>
+// test a specific file
+
+
+jest --json --coverage > ~/Desktop/results.json
+// jest to json to file (with coverage)
+
+jest --silent
+// prevent messages

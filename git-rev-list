@@ -1,3 +1,4 @@
 // show how many commits have been made on each branch since
+// (shows if one branch is ahead)
 
 git rev-list --left-right --count develop...datagrid-results-and-placeholder

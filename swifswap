@@ -1,0 +1,15 @@
+# login..
+ssh root@swifswap.com
+su - cloudbean
+
+# or..
+ssh cloudbean@165.227.47.135
+
+
+# pm2
+
+pm2 list
+
+pm2 start swifswap/server/server.js
+
+

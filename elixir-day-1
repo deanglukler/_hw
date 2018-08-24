@@ -1,0 +1,1010 @@
+# generate a new project
+mix new <name>
+
+# shell commands
+iex   # interactive
+elixir
+elixirc
+
+# join strings
+"hello" <> "world"
+"helloworld"
+
+# basic types
+iex> 1          # integer
+iex> 0x1F       # integer
+iex> 1.0        # float
+iex> true       # boolean
+iex> :atom      # atom / symbol
+iex> "elixir"   # string
+iex> [1, 2, 3]  # list
+iex> {1, 2, 3}  # tuple
+
+# basic arithmatic
+iex> div(10, 2)
+5
+iex> div 10, 2 #noticee that we don't use brackets here
+5
+iex> rem 10, 3
+1
+
+iex> is_boolean(true)
+true
+iex> is_boolean(1)
+false
+
+# you can also use:
+is_integer/1
+is_float/1
+is_number/1
+
+# atoms
+iex> :hello
+:hello
+iex> :hello == :world
+false
+
+
+# strings (use double quotes!)
+# Single quotes are charlists, double quotes are strings.
+iex> "hellö"
+"hellö"
+
+# string interpolation
+iex> "hellö #{:world}"
+"hellö world"
+
+# string with line breaks
+iex> "hello
+...> world"
+"hello\nworld"
+iex> "hello\nworld"
+"hello\nworld"
+
+# bytes in a string
+iex> byte_size("hellö")
+6
+
+# length of string
+iex> String.length("hellö")
+5
+
+# upper casee
+iex> String.upcase("hellö")
+"HELLÖ"
+
+# functions
+iex> add = fn a, b -> a + b end
+#Function<12.71889879/2 in :erl_eval.expr/5>
+iex> add.(1, 2)
+3
+iex> is_function(add)
+true
+iex> is_function(add, 2) # check if add is a function that expects exactly 2 arguments
+true
+iex> is_function(add, 1) # check if add is a function that expects exactly 1 argument
+false
+
+iex(3)> subtract = fn a, b -> a - b end
+
+iex(4)> subtract 5, 2 // this will error
+** (CompileError) iex:4: undefined function subtract/2
+
+iex(4)> subtract.5, 6 // this will error
+** (SyntaxError) iex:4: syntax error before: "5"
+
+// basic funcction
+iex(4)> subtract.(5, 6)
+-1
+
+# lists
+iex> [1, 2, true, 3]
+[1, 2, true, 3]
+iex> length [1, 2, 3]
+3
+
+iex> [1, 2, 3] ++ [4, 5, 6]
+[1, 2, 3, 4, 5, 6]
+iex> [1, true, 2, false, 3, true] -- [true, false]
+[1, 2, 3, true]
+
+# list head (first element) and tail (remaining elements)
+iex> list = [1, 2, 3]
+iex> hd(list)
+1
+iex> tl(list)
+[2, 3]
+
+# using hd/1 or tl/1 on empty list return error
+iex> hd []
+** (ArgumentError) argument error
+
+# When Elixir sees a list of printable ASCII numbers, Elixir will print that as a charlist (literally a list of characters)
+iex> [11, 12, 13]
+'\v\f\r'
+iex> [104, 101, 108, 108, 111]
+'hello'
+
+# Tuples
+iex> {:ok, "hello"}
+{:ok, "hello"}
+iex> tuple_size {:ok, "hello"}
+2
+
+iex> tuple = {:ok, "hello"}
+{:ok, "hello"}
+iex> elem(tuple, 1)
+"hello"
+iex> tuple_size(tuple)
+2
+
+# put an element in a particular index in a tuple
+iex> tuple = {:ok, "hello"}
+{:ok, "hello"}
+iex> put_elem(tuple, 1, "world")
+{:ok, "world"}
+iex> tuple
+{:ok, "hello"}
+
+# || && and ! can be used without true and false
+# everything return true except false and nil
+# or
+iex> 1 || true
+1
+iex> false || 11
+11
+
+# and
+iex> nil && 13
+nil
+iex> true && 17
+17
+
+# !
+iex> !true
+false
+iex> !1
+false
+iex> !nil
+true
+
+#
+iex> 1 == 1.0
+true
+iex> 1 === 1.0
+false
+
+# comparing defferent data types
+iex> 1 < :atom
+true
+
+# The overall sorting order is defined below:
+number < atom < reference < function < port < pid < tuple < map < list < bitstring
+
+# the match operator ( = )
+iex> x = 1
+1
+iex> x
+1
+iex> 1 = x
+1
+iex> 2 = x
+# When the sides do not match, a MatchError is raised
+** (MatchError) no match of right hand side value: 1
+
+# pattern matching
+# The match operator is not only used to match against simple values, but it is also useful for destructuring more complex data types
+
+iex> {a, b, c} = {:hello, "world", 42}
+{:hello, "world", 42}
+iex> a
+:hello
+iex> b
+"world"
+
+# this will error if tuples have different lengths
+iex> {a, b, c} = {:hello, "world"}
+** (MatchError) no match of right hand side value: {:hello, "world"}
+
+# lists don't match with tuples
+iex> {a, b, c} = [:hello, "world", 42]
+** (MatchError) no match of right hand side value: [:hello, "world", 42]
+
+iex> {:ok, result} = {:ok, 13}
+{:ok, 13}
+iex> result
+13
+
+# More interestingly, we can match on specific values.
+# The example below asserts that the left side will only match the right side when the right side is a tuple that starts with the atom :ok
+iex> {:ok, result} = {:error, :oops}
+** (MatchError) no match of right hand side value: {:error, :oops}
+
+# matching lists
+iex> [a, b, c] = [1, 2, 3]
+[1, 2, 3]
+iex> a
+1
+
+# match lists on their head or tail
+iex> [head | tail] = [1, 2, 3]
+[1, 2, 3]
+iex> head
+1
+iex> tail
+[2, 3]
+
+iex> [h | t] = []
+** (MatchError) no match of right hand side value: []
+
+# prepend something to a list..
+iex> list = [1, 2, 3]
+[1, 2, 3]
+iex> [0 | list]
+[0, 1, 2, 3]
+
+# the pin operator
+# Use the pin operator ^ when you want to pattern match against an existing variable’s value rather than rebinding the variable
+iex> x = 1
+1
+iex> ^x = 2
+** (MatchError) no match of right hand side value: 2
+iex> {y, ^x} = {2, 1}
+{2, 1}
+iex> y
+2
+iex> {y, ^x} = {2, 2}
+** (MatchError) no match of right hand side value: {2, 2}
+
+# In some cases, you don’t care about a particular value in a pattern. It is a common practice to bind those values to the underscore, _.
+# For example, if only the head of the list matters to us, we can assign the tail to underscore:
+iex> [h | _] = [1, 2, 3]
+[1, 2, 3]
+iex> h
+1
+iex> _
+** (CompileError) iex:1: invalid use of _. "_" represents a value to be ignored in a pattern and cannot be used in expressions
+
+# case
+iex> case {1, 2, 3} do
+...>   {4, 5, 6} ->
+...>     "This clause won't match"
+...>   {1, x, 3} ->
+...>     "This clause will match and bind x to 2 in this clause"
+...>   _ ->
+...>     "This clause would match any value"
+...> end
+"This clause will match and bind x to 2 in this clause"
+
+# If you want to pattern match against an existing variable, you need to use the ^ operator:
+iex> x = 1
+1
+iex> case 10 do
+...>   ^x -> "Won't match"
+...>   _ -> "Will match"
+...> end
+"Will match"
+
+# Clauses also allow extra conditions to be specified via guards:
+iex> case {1, 2, 3} do
+...>   {1, x, 3} when x > 0 ->
+...>     "Will match"
+...>   _ ->
+...>     "Would match, if guard condition were not satisfied"
+...> end
+"Will match"
+
+# Keep in mind errors in guards do not leak but simply make the guard fail:
+iex> hd(1)
+** (ArgumentError) argument error
+iex> case 1 do
+...>   x when hd(x) -> "Won't match"
+...>   x -> "Got #{x}"
+...> end
+"Got 1"
+
+# if none of the clause match an error is raise
+iex> case :ok do
+...>   :error -> "Won't match"
+...> end
+** (CaseClauseError) no case clause matching: :ok
+
+
+# anon functions can also have multiple clauses and guards
+iex> f = fn
+...>   x, y when x > 0 -> x + y
+...>   x, y -> x * y
+...> end
+#Function<12.71889879/2 in :erl_eval.expr/5>
+iex> f.(1, 3)
+4
+iex> f.(-1, 3)
+-3
+
+# The number of arguments in each anonymous function clause needs to be the same, otherwise an error is raised
+iex> f2 = fn
+...>   x, y when x > 0 -> x + y
+...>   x, y, z -> x * y + z
+...> end
+** (CompileError) iex:1: cannot mix clauses with different arities in function definition
+
+# cond condition
+iex> cond do
+...>   2 + 2 == 5 ->
+...>     "This will not be true"
+...>   2 * 2 == 3 ->
+...>     "Nor this"
+...>   1 + 1 == 2 ->
+...>     "But this will"
+...> end
+"But this will"
+
+# If none of the conditions return true, an error (CondClauseError) is raised.
+# For this reason, it may be necessary to add a final condition, equal to true, which will always match:
+iex> cond do
+...>   2 + 2 == 5 ->
+...>     "This is never true"
+...>   2 * 2 == 3 ->
+...>     "Nor this"
+...>   true ->
+...>     "This is always true (equivalent to else)"
+...> end
+"This is always true (equivalent to else)"
+
+# Finally, note cond considers any value besides nil and false to be true:
+iex> cond do
+...>   hd([1, 2, 3]) ->
+...>     "1 is considered as true"
+...> end
+"1 is considered as true"
+
+# if and unless
+# useful for one condition
+iex> if true do
+...>   "This works!"
+...> end
+"This works!"
+iex> unless true do
+...>   "This will never be seen"
+...> end
+nil
+
+# also else is available
+iex> if nil do
+...>   "This won't be seen"
+...> else
+...>   "This will"
+...> end
+"This will"
+
+# without do/end blocks
+iex> if true, do: 1 + 2
+3
+
+# Notice how the example above has a comma between true and do:, that’s because it is using Elixir’s regular syntax where each argument is separated by a comma.
+# We say this syntax is using keyword lists. We can pass else using keywords too
+iex> if false, do: :this, else: :that
+:that
+
+# do/end blocks are a syntactic convenience built on top of the keywords one.
+# That’s why do/end blocks do not require a comma between the previous argument and the block.
+# They are useful exactly because they remove the verbosity when writing blocks of code. These are equivalent:
+iex> if true do
+...>   a = 1 + 2
+...>   a + 10
+...> end
+13
+iex> if true, do: (
+...>   a = 1 + 2
+...>   a + 10
+...> )
+13
+
+# One thing to keep in mind when using do/end blocks is they are always bound to the outermost function call.
+# For example, the following expression
+iex> is_number if true do
+...>  1 + 2
+...> end
+** (CompileError) undefined function: is_number/2
+
+# Would be parsed as:
+iex> is_number(if true) do
+...>  1 + 2
+...> end
+** (CompileError) undefined function: is_number/2
+
+# Adding explicit parentheses is enough to bind the block to if
+iex> is_number(if true do
+...>  1 + 2
+...> end)
+true
+
+# Binaries, strings, and charlists
+# There, byte_size/1 counts the underlying raw bytes, and String.length/1 counts characters.
+iex> string = "hełło"
+"hełło"
+iex> byte_size(string)
+7
+iex> String.length(string)
+5
+
+# In Elixir, you can get a character’s code point by using ?
+iex> ?a
+97
+iex> ?ł
+322
+
+# You can also use the functions in the String module to split a string in its individual characters, each one as a string of length 1
+iex> String.codepoints("hełło")
+["h", "e", "ł", "ł", "o"]
+
+# Binaries (and bitstrings)
+iex> <<0, 1, 2, 3>>
+<<0, 1, 2, 3>>
+iex> byte_size(<<0, 1, 2, 3>>)
+4
+
+# The string concatenation operation is actually a binary concatenation operator:
+iex> <<0, 1>> <> <<2, 3>>
+<<0, 1, 2, 3>>
+
+iex> "hełło" <> <<0>>
+<<104, 101, 197, 130, 197, 130, 111, 0>>
+
+iex> <<255>>
+<<255>>
+iex> <<256>> # truncated
+<<0>>
+iex> <<256 :: size(16)>> # use 16 bits (2 bytes) to store the number
+<<1, 0>>
+iex> <<256 :: utf8>> # the number is a code point
+"Ā"
+iex> <<256 :: utf8, 0>>
+<<196, 128, 0>>
+
+iex> <<1 :: size(1)>>
+<<1::size(1)>>
+iex> <<2 :: size(1)>> # truncated
+<<0::size(1)>>
+iex> is_binary(<<1 :: size(1)>>)
+false
+iex> is_bitstring(<<1 :: size(1)>>)
+true
+iex> bit_size(<< 1 :: size(1)>>)
+1
+
+iex>  is_binary(<<1 :: size(16)>>)
+true
+iex>  is_binary(<<1 :: size(15)>>)
+false
+
+iex> <<0, 1, x>> = <<0, 1, 2>>
+<<0, 1, 2>>
+iex> x
+2
+iex> <<0, 1, x>> = <<0, 1, 2, 3>>
+** (MatchError) no match of right hand side value: <<0, 1, 2, 3>>
+
+iex> <<0, 1, x :: binary>> = <<0, 1, 2, 3>>
+<<0, 1, 2, 3>>
+iex> x
+<<2, 3>>
+
+iex> "he" <> rest = "hello"
+"hello"
+iex> rest
+"llo"
+
+# Charlist
+# A charlist is nothing more than a list of code points. Char lists may be created with single-quoted literals
+iex> 'hełło'
+[104, 101, 322, 322, 111]
+iex> is_list 'hełło'
+true
+iex> 'hello'
+'hello'
+iex> List.first('hello')
+104
+
+iex> to_charlist "hełło"
+[104, 101, 322, 322, 111]
+iex> to_string 'hełło'
+"hełło"
+iex> to_string :hello
+"hello"
+iex> to_string 1
+"1"
+
+iex> 'this ' <> 'fails'
+** (CompileError) iex:2: invalid literal 'this ' in <<>>
+    (elixir) src/elixir_bitstring.erl:19: :elixir_bitstring.expand/6
+    (elixir) src/elixir_bitstring.erl:12: :elixir_bitstring.expand/4
+    (elixir) expanding macro: Kernel.<>/2
+    iex:2: (file)
+iex> 'this ' ++ 'works'
+'this works'
+iex> "he" ++ "llo"
+** (ArgumentError) argument error
+    :erlang.++("he", "llo")
+iex> "he" <> "llo"
+"hello"
+
+# Keyword lists and maps
+# Keyword lists
+# Remember, though, keyword lists are simply lists, and as such they provide the same linear performance characteristics as lists.
+# The longer the list, the longer it will take to find a key, to count the number of items, and so on.
+# For this reason, keyword lists are used in Elixir mainly for passing optional values.
+# If you need to store many items or guarantee one-key associates with at maximum one-value, you should use maps instead.
+
+
+# In Elixir, when we have a list of tuples and the first item of the tuple (i.e. the key) is an atom, we call it a keyword list:
+
+# Keys must be atoms.
+# Keys are ordered, as specified by the developer.
+# Keys can be given more than once.
+
+iex> list = [{:a, 1}, {:b, 2}]
+[a: 1, b: 2]
+iex> list == [a: 1, b: 2]
+true
+
+#  Elixir supports a special syntax for defining such lists: [key: value]
+# we can use ++ to add new values to a keyword list
+iex> list ++ [c: 3]
+[a: 1, b: 2, c: 3]
+iex> [a: 0] ++ list
+[a: 0, a: 1, b: 2]
+
+# Note that values added to the front are the ones fetched on lookup:
+iex> new_list = [a: 0] ++ list
+[a: 0, a: 1, b: 2]
+iex> new_list[:a]
+0
+
+
+###
+
+Keys must be atoms.
+Keys are ordered, as specified by the developer.
+Keys can be given more than once.
+
+# These characteristics are what prompted keyword lists to be the default mechanism for passing options to functions in Elixir. In chapter 5, when we discussed the if/2 macro, we mentioned the following syntax is supported:
+
+iex> if false, do: :this, else: :that
+:that
+
+# The do: and else: pairs are keyword lists! In fact, the call above is equivalent to:
+iex> if(false, [do: :this, else: :that])
+:that
+
+# Which, as we have seen above, is the same as:
+iex> if(false, [{:do, :this}, {:else, :that}])
+:that
+
+# In general, when the keyword list is the last argument of a function, the square brackets are optional.
+
+# pattern matching
+# Although we can pattern match on keyword lists, it is rarely done in practice since pattern matching on lists requires the number of items and their order to match:
+iex> [a: a] = [a: 1]
+[a: 1]
+iex> a
+1
+iex> [a: a] = [a: 1, b: 2]
+** (MatchError) no match of right hand side value: [a: 1, b: 2]
+iex> [b: b, a: a] = [a: 1, b: 2]
+** (MatchError) no match of right hand side value: [a: 1, b: 2]
+
+
+# maps
+
+# Whenever you need a key-value store, maps are the “go to” data structure in Elixir. A map is created using the %{} syntax
+
+iex> map = %{:a => 1, 2 => :b}
+%{2 => :b, :a => 1}
+iex> map[:a]
+1
+iex> map[2]
+:b
+iex> map[:c]
+nil
+
+# Compared to keyword lists, we can already see two differences:
+
+#    Maps allow any value as a key.
+#    Maps’ keys do not follow any ordering.
+
+
+# maps are very useful with pattern matching. When a map is used in a pattern, it will always match on a subset of the given value:
+iex> %{} = %{:a => 1, 2 => :b}
+%{2 => :b, :a => 1}
+iex> %{:a => a} = %{:a => 1, 2 => :b}
+%{2 => :b, :a => 1}
+iex> a
+1
+iex> %{:c => c} = %{:a => 1, 2 => :b}
+** (MatchError) no match of right hand side value: %{2 => :b, :a => 1}
+
+# The Map module provides a very similar API to the Keyword module with convenience functions to manipulate maps:
+
+iex> Map.get(%{:a => 1, 2 => :b}, :a)
+1
+iex> Map.put(%{:a => 1, 2 => :b}, :c, 3)
+%{2 => :b, :a => 1, :c => 3}
+iex> Map.to_list(%{:a => 1, 2 => :b})
+[{2, :b}, {:a, 1}]
+
+# update a key value of a map
+iex> map = %{:a => 1, 2 => :b}
+%{2 => :b, :a => 1}
+
+iex> %{map | 2 => "two"}
+%{2 => "two", :a => 1}
+iex> %{map | :c => 3}
+** (KeyError) key :c not found in: %{2 => :b, :a => 1}
+
+# When all the keys in a map are atoms, you can use the keyword syntax for convenience:
+iex> map = %{a: 1, b: 2}
+%{a: 1, b: 2}
+
+#Another interesting property of maps is that they provide their own syntax for accessing atom keys:
+iex> map = %{:a => 1, 2 => :b}
+%{2 => :b, :a => 1}
+
+iex> map.a
+1
+iex> map.c
+** (KeyError) key :c not found in: %{2 => :b, :a => 1}
+
+# ex..
+iex> users = [
+  john: %{name: "John", age: 27, languages: ["Erlang", "Ruby", "Elixir"]},
+  mary: %{name: "Mary", age: 29, languages: ["Elixir", "F#", "Clojure"]}
+]
+[john: %{age: 27, languages: ["Erlang", "Ruby", "Elixir"], name: "John"},
+ mary: %{age: 29, languages: ["Elixir", "F#", "Clojure"], name: "Mary"}]
+
+ # access
+ iex> users[:john].age
+ 27
+
+ # update
+ iex> users = put_in users[:john].age, 31
+ [john: %{age: 31, languages: ["Erlang", "Ruby", "Elixir"], name: "John"},
+  mary: %{age: 29, languages: ["Elixir", "F#", "Clojure"], name: "Mary"}]
+
+  # update_in
+  iex> users = update_in users[:mary].languages, fn languages -> List.delete(languages, "Clojure") end
+  [john: %{age: 31, languages: ["Erlang", "Ruby", "Elixir"], name: "John"},
+   mary: %{age: 29, languages: ["Elixir", "F#"], name: "Mary"}]
+
+
+# Modules and functions
+# In Elixir we group several functions into modules
+
+iex> defmodule Math do
+...>   def sum(a, b) do
+...>     a + b
+...>   end
+...> end
+
+iex> Math.sum(1, 2)
+3
+
+# Compilation
+
+# Let’s assume we have a file named math.ex with the following contents:
+defmodule Math do
+  def sum(a, b) do
+    a + b
+  end
+end
+
+# This file can be compiled using elixirc:
+
+$ elixirc math.ex
+
+# This will generate a file named Elixir.Math.beam containing the bytecode for the defined module.
+# If we start iex again, our module definition will be available (provided that iex is started in the same directory the bytecode file is in):
+
+iex> Math.sum(1, 2)
+3
+
+# Elixir projects are usually organized into three directories:
+
+    ebin - contains the compiled bytecode
+    lib - contains elixir code (usually .ex files)
+    test - contains tests (usually .exs files)
+
+# When working on actual projects, the build tool called mix will be responsible for compiling and setting up the proper paths for you.
+# For learning purposes, Elixir also supports a scripted mode which is more flexible and does not generate any compiled artifacts.
+
+# Scripted mode
+
+# both these file types are treated the same
+.ex - elixir file extension
+.exs - scripting files
+
+# .ex files are meant to be compiled while .exs files are used for scripting.
+
+# When executed, both extensions compile and load their modules into memory, although only .ex files write their bytecode to disk in the format of .beam files.
+
+# For instance, we can create a file called math.exs:
+
+defmodule Math do
+  def sum(a, b) do
+    a + b
+  end
+end
+
+IO.puts Math.sum(1, 2)
+
+And execute it as:
+
+$ elixir math.exs
+
+The file will be compiled in memory and executed, printing “3” as the result.
+
+# No bytecode file will be created. In the following examples, we recommend you write your code into script files and execute them as shown above.
+
+# Named functions
+
+# Inside a module, we can define functions with def/2 and private functions with defp/2.
+
+# A function defined with def/2 can be invoked from other modules
+
+defmodule Math do
+  def sum(a, b) do
+    do_sum(a, b)
+  end
+
+  defp do_sum(a, b) do
+    a + b
+  end
+end
+
+IO.puts Math.sum(1, 2)    #=> 3
+IO.puts Math.do_sum(1, 2) #=> ** (UndefinedFunctionError)
+
+# with clauses
+defmodule Math do
+  def zero?(0) do
+    true
+  end
+
+  def zero?(x) when is_integer(x) do
+    false
+  end
+end
+
+IO.puts Math.zero?(0)         #=> true
+IO.puts Math.zero?(1)         #=> false
+IO.puts Math.zero?([1, 2, 3]) #=> ** (FunctionClauseError)
+IO.puts Math.zero?(0.0)       #=> ** (FunctionClauseError)
+
+
+# The trailing question mark in zero? means that this function returns a boolean
+
+# Giving an argument that does not match any of the clauses raises an error.
+
+# functions support both do: and do/end block syntax
+defmodule Math do
+  def zero?(0), do: true
+  def zero?(x) when is_integer(x), do: false
+end
+
+# You may use do: for one-liners but always use do/end for functions spanning multiple lines.
+
+
+# Function capturing
+
+$ iex math.exs
+
+iex> Math.zero?(0)
+true
+iex> fun = &Math.zero?/1
+&Math.zero?/1
+iex> is_function(fun)
+true
+iex> fun.(0)
+true
+
+# Remember Elixir makes a distinction between anonymous functions and named functions, where the former must be invoked with a dot (.) between the variable name and parentheses.
+
+# The capture operator bridges this gap by allowing named functions to be assigned to variables and passed as arguments in the same way we assign, invoke and pass anonymous functions.
+
+# Local or imported functions, like is_function/1, can be captured without the module:
+
+iex> &is_function/1
+&:erlang.is_function/1
+iex> (&is_function/1).(fun)
+true
+
+# Note the capture syntax can also be used as a shortcut for creating functions:
+
+iex> fun = &(&1 + 1)
+#Function<6.71889879/1 in :erl_eval.expr/5>
+iex> fun.(1)
+2
+
+# The &1 represents the first argument passed into the function. &(&1+1) above is exactly the same as fn x -> x + 1 end.
+# The syntax above is useful for short function definitions.
+
+# If you want to capture a function from a module, you can do &Module.function():
+
+iex> fun = &List.flatten(&1, &2)
+&List.flatten/2
+iex> fun.([1, [[2], 3]], [4, 5])
+[1, 2, 3, 4, 5]
+
+# &List.flatten(&1, &2) is the same as writing fn(list, tail) -> List.flatten(list, tail) end which in this case is equivalent to &List.flatten/2.
+
+# Default arguments
+
+defmodule Concat do
+  def join(a, b, sep \\ " ") do
+    a <> sep <> b
+  end
+end
+
+IO.puts Concat.join("Hello", "world")      #=> Hello world
+IO.puts Concat.join("Hello", "world", "_") #=> Hello_world
+
+# Any expression is allowed to serve as a default value, but it won’t be evaluated during the function definition.
+# Every time the function is invoked and any of its default values have to be used, the expression for that default value will be evaluated:
+
+defmodule DefaultTest do
+  def dowork(x \\ "hello") do
+    x
+  end
+end
+
+iex> DefaultTest.dowork
+"hello"
+iex> DefaultTest.dowork 123
+123
+iex> DefaultTest.dowork
+"hello"
+
+# If a function with default values has multiple clauses, it is required to create a function head (without an actual body) for declaring defaults:
+
+defmodule Concat do
+  def join(a, b \\ nil, sep \\ " ")
+
+  # The leading underscore in _sep means that the variable will be ignored in this function; see Naming Conventions.
+  def join(a, b, _sep) when is_nil(b) do
+    a
+  end
+
+  def join(a, b, sep) do
+    a <> sep <> b
+  end
+end
+
+IO.puts Concat.join("Hello", "world")      #=> Hello world
+IO.puts Concat.join("Hello", "world", "_") #=> Hello_world
+IO.puts Concat.join("Hello")               #=> Hello
+
+
+# When using default values, one must be careful to avoid overlapping function definitions. Consider the following example:
+
+defmodule Concat do
+  def join(a, b) do
+    IO.puts "***First join"
+    a <> b
+  end
+
+  def join(a, b, sep \\ " ") do
+    IO.puts "***Second join"
+    a <> sep <> b
+  end
+end
+
+# If we save the code above in a file named “concat.ex” and compile it, Elixir will emit the following warning:
+
+warning: this clause cannot match because a previous clause at line 2 always matches
+
+# The compiler is telling us that invoking the join function with two arguments will always choose the first definition of join whereas the second one will only be invoked when three arguments are passed:
+
+$ iex concat.exs
+
+iex> Concat.join "Hello", "world"
+***First join
+"Helloworld"
+
+iex> Concat.join "Hello", "world", "_"
+***Second join
+"Hello_world"
+
+# recursion
+
+defmodule Recursion do
+  # here's a guard function that will be the last function called..
+  # known as base case..
+  def print_multiple_times(msg, n) when n <= 1 do
+    IO.puts msg
+  end
+
+  def print_multiple_times(msg, n) do
+    IO.puts msg
+    print_multiple_times(msg, n - 1)
+  end
+end
+
+Recursion.print_multiple_times("Hello!", 3)
+# Hello!
+# Hello!
+# Hello!
+
+# sum a list of numbers
+defmodule Math do
+  def sum_list([head | tail], accumulator) do
+    sum_list(tail, head + accumulator)
+  end
+
+  def sum_list([], accumulator) do
+    accumulator
+  end
+end
+
+IO.puts Math.sum_list([1, 2, 3], 0) #=> 6
+
+# double all elements of a list..
+defmodule Math do
+  def double_each([head | tail]) do
+    [head * 2 | double_each(tail)]
+  end
+
+  def double_each([]) do
+    []
+  end
+end
+
+# BUT waait elixir already has this shit built in..
+iex> Enum.reduce([1, 2, 3], 0, fn(x, acc) -> x + acc end)
+6
+iex> Enum.map([1, 2, 3], fn(x) -> x * 2 end)
+[2, 4, 6]
+
+# or using capture syntax
+iex> Enum.reduce([1, 2, 3], 0, &+/2)
+6
+iex> Enum.map([1, 2, 3], &(&1 * 2))
+[2, 4, 6]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

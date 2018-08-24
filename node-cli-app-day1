@@ -1,0 +1,71 @@
+1. npm init
+
+2. touch index.js
+
+module.exports = () => {
+  console.log('Welcome to the outside!')
+}
+
+3. touch ./bin/crates
+
+#!/usr/bin/env node
+require('../')()
+
+3.2 (inside package.json)
+"bin": {
+  "crates": "./bin/crates"
+},
+
+4. chmod +x bin/crates
+
+5. npm link
+
+// ------------------
+
+6. npm install --save minimist
+
+7. (inside index.js)...
+
+const minimist = require('minimist')
+
+module.exports = () => {
+  const args = minimist(process.argv.slice(2))
+  const cmd = args._[0]
+
+  switch (cmd) {
+    case 'today':
+      require('./cmds/today')(args)
+      break
+    default:
+      console.error(`"${cmd}" is not a valid command!`)
+      break
+  }
+}
+
+8. touch cmds/today.js
+
+module.exports = (args) => {
+  console.log('today is sunny')
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

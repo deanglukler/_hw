@@ -1,3 +1,9 @@
+### remove a file from staging
+
+git reset -- fileName
+
+--
+
 git reset --hard head
 
 ### --soft keeps all changes staged
@@ -7,10 +13,6 @@ git reset --soft head~
 ### --mixed keeps all changes but removes them from staging
 
 git reset --mixed head~
-
-### remove a file from staging
-
-git reset -- fileName
 
 // reset git to the original head commit
 

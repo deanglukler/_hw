@@ -1,0 +1,9 @@
+handleKeyDown(e) {
+  if (['Enter', 'Escape'].includes(e.key)) {
+    e.stopPropagation()
+  }
+
+  if (this.props.onKeyDown) {
+    this.props.onKeyDown(e)
+  }
+}

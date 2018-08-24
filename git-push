@@ -1,0 +1,6 @@
+
+git push --force origin feature-branch
+// forces push
+
+git push --force-with-lease
+// checks the remote branch for changes by other devs before force pushing

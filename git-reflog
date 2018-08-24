@@ -1,3 +1,13 @@
 // useful to show the history of a certain branch and up until it was created
 
 git reflog show <branch>
+
+// recover/undo git reset --hard head
+
+git reflog
+...
+809216b HEAD@{1}: reset: moving to 809216b2aa7db19813ab5cecee13176322151ed9 < this is where the reset was
+7fcc2fc HEAD@{2}: merge develop: Merge made by the 'recursive' strategy. < so reset to this commit
+042f433 HEAD@{3}: checkout: moving from develop to p3520
+
+git reset --hard 7fcc2fc
