@@ -1,0 +1,5 @@
+# before pasting (cancel indenting and junk)
+:set paste
+
+# after paste
+:set nopaste

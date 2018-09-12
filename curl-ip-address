@@ -3,3 +3,8 @@
 ```
 curl ifconfig.me
 ``
+
+// or
+// This will give you two or three lines back. They are all correct addresses,
+// but your computer may only be able to use one of them, so feel free to try each one
+ip addr show eth0 | grep inet | awk '{ print $2; }' | sed 's/\/.*$//'

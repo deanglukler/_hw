@@ -1,0 +1,40 @@
+Two ways to call a function in bash..
+
+function function_name {
+   command...
+}
+
+or
+
+function_name () {
+   command...
+}
+
+To call a function with arguments:
+
+function_name "$arg1" "$arg2"
+
+The function refers to passed arguments by their position (not by name), that is $1, $2, and so forth. $0 is the name of the script itself.
+
+Example:
+
+function_name () {
+   echo "Parameter #1 is $1"
+}
+
+Also, you need to call your function after it is declared.
+
+#!/usr/bin/env sh
+
+foo 1  # this will fail because foo has not been declared yet.
+
+foo() {
+    echo "Parameter #1 is $1"
+}
+
+foo 2 # this will work.
+
+Output:
+
+./myScript.sh: line 2: foo: command not found
+Parameter #1 is 2

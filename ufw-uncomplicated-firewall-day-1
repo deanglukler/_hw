@@ -1,0 +1,10 @@
+// list of apps with a firewall profile
+sudo ufw app list
+
+
+// info
+sudo ufw app info "Apache Full"
+
+
+// allow
+sudo ufw allow in "Apache Full"

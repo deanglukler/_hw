@@ -1,0 +1,15 @@
+# psql postrgres
+
+CREATE USER postgres;
+ALTER USER postgres PASSWORD 'postgres';
+ALTER USER postgres WITH SUPERUSER;
+
+
+
+
+# mySQL
+CREATE USER 'newuser'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON * . * TO 'newuser'@'localhost';
+
+# refresh priviledges
+FLUSH PRIVILEGES;

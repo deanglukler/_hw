@@ -1,0 +1,69 @@
+!! WARNING
+USE SFTP FOR SECURITY
+
+ftp isn't in mac shell for some reason, use cyberduck
+
+digital ocean tutorial
+https://www.digitalocean.com/community/tutorials/how-to-set-up-vsftpd-for-a-user-s-directory-on-ubuntu-16-04
+
+
+-- install
+// one of these two
+- VSFTPD
+- ProFTPD
+// and configure firewall (if applicable)
+// see the tutorial on that
+
+-- check firewall
+// if enabled you may need to set up some ports for ftp
+sudo ufw status
+
+
+
+
+-- setup ftp user account
+// info: ftp users should be restricted to one directory (for security)
+// this is done by VSFTP chroot jails
+// by default it is their home directory but could also be ex..
+/home/sammy/ftp
+
+// the user should not have write permission to this directory
+// change ownership
+sudo chown nobody:nogroup /home/sammy/ftp
+// change write permission of all users
+sudo chmod a-w /home/sammy/ftp
+// then add a folder to play inside when using ftp (with correct ownership)
+sudo mkdir /home/sammy/ftp/files
+sudo chown sammy:sammy /home/sammy/ftp/files
+
+// configure vsftp file.. /etc/vsftpd.conf
+// see tutorial for full config
+user_sub_token=$USER
+local_root=/home/$USER/ftp (leave blank to use default which is home directory)
+
+// this configuration is so that access is given to a
+// user only when they are explicitly added to a list rather than by default
+userlist_enable=YES
+userlist_file=/etc/vsftpd.userlist
+userlist_deny=NO
+
+// create (if not existant) and add our user to the file..
+echo "sammy" | sudo tee -a /etc/vsftpd.userlist
+
+// restart
+sudo systemctl restart vsftpd
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

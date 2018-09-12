@@ -1,0 +1,36 @@
+** "service" command is now a wrapper around systemd's systemctl
+
+
+-- List All Services
+// To get a List of All available services on your Ubuntu Operating System, Type:
+systemctl list-unit-files --type=service
+
+//To list all running and active services in Ubuntu, Type:
+systemctl list-units --type=service --state=active
+
+
+
+-- Start, Restart and stop systemd services
+systemctl [start|stop|restart] <service-name>
+
+// Example, Restart Apache Web Server on Ubuntu Linux.
+systemctl restart apache2.service
+
+// Example, Start Mysql server.
+systemctl start mysql.service
+
+
+
+
+
+
+// 3. View Status of a systemd service
+
+//To view the status of a Service, Type:
+
+systemctl status <service-name>
+
+// Example, View the status of the Apache Web Server.
+
+systemctl status apache2.service
+

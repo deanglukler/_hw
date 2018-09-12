@@ -1,14 +1,19 @@
-# generate a new project
-mix new <name>
+### shell commands
+# interactive elixir shell
+iex
+# automatically compile project and give access to modules
+iex -S mix
+# use recompile if you make changes
 
-# shell commands
-iex   # interactive
+# others
 elixir
 elixirc
+
 
 # join strings
 "hello" <> "world"
 "helloworld"
+
 
 # basic types
 iex> 1          # integer

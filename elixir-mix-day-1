@@ -1,0 +1,17 @@
+### generate new elixir project
+mix new <project>
+
+
+
+### get dependencies
+mix deps.get
+
+
+
+### create docs
+mix docs
+
+
+
+### run tests
+mix test

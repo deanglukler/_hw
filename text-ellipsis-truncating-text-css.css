@@ -1,0 +1,7 @@
+.truncate {
+  flex: 1 0 auto /* WARNING: this may not work because flex-shrink is set to 0 */
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

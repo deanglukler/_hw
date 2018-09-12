@@ -1,0 +1,220 @@
+-- decent tut
+https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-16-04
+
+
+-- install
+sudo apt-get update
+sudo apt-get install apache2
+
+
+-- restart, start, stop
+// restart apache2
+sudo systemctl restart apache2
+
+
+
+-- get status
+// must be run with sudo!! or it will seem as though files don't exist
+sudo apachectl -S
+
+
+
+--  modify the default virtual host, edit..
+/etc/apache2/sites-available/000-default.conf
+
+
+
+-- config new Virtual host
+// start with a copy of the default conf file
+sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/mynewsite.conf
+
+- ServerAdmin (server admin email)
+- Listen (specifies the port, and optionally the IP address)
+- ServerName (ServerName directive is optional and specifies what FQDN your site should answer to)
+- ServerAlias (ServerAlias *.ubunturocks.com responds to all ubunturocks.com subdomains)
+- DocumentRoot (DocumentRoot directive specifies where Apache2 should look for the files that make up the site)
+
+
+
+-- edit main config
+sudo vim /etc/apache2/apache2.conf
+
+
+
+-- Enable the new VirtualHost
+sudo a2ensite mynewsite
+sudo systemctl restart apache2.service
+
+
+
+-- Disable VirtualHost
+sudo a2dissite mynewsite
+sudo systemctl restart apache2.service
+
+
+
+-- test config files
+sudo apache2ctl configtest
+
+
+
+-- allow ufw firewall
+sudo ufw allow in "Apache Full"
+
+
+
+-- configure ssl
+// enable the mod_ssl module
+sudo a2enmod ssl
+
+// To configure Apache2 for HTTPS, enter the following:
+// which seems to be just ensiting a default-ssl.conf file
+sudo a2ensite default-ssl
+
+// /etc/ssl/certs and /etc/ssl/private are the default locations for certificate and key
+// If you install the certificate and key in another directory
+// make sure to change SSLCertificateFile and SSLCertificateKeyFile appropriately
+
+// restart server
+
+
+-- ssl virtual hosts
+ref: https://www.digitalocean.com/community/tutorials/how-to-create-an-ssl-certificate-on-apache-for-centos-7
+
+// i don't know if this is right but.. snippet..
+<VirtualHost *:443>
+    ServerName www.example.com
+    ServerAlias example.com
+    DocumentRoot /var/www/example.com/public_html
+    ErrorLog /var/www/example.com/error.log
+    CustomLog /var/www/example.com/requests.log combined
+    SSLEngine on
+    SSLCertificateFile /etc/apache2/ssl/example/apache.crt
+    SSLCertificateKeyFile /etc/apache2/ssl/example/apache.key
+</VirtualHost>
+
+<VirtualHost *:443>
+    ServerName www.example2.com
+    DocumentRoot /var/www/example2.com/public_html
+    ServerAlias example2.com
+    ErrorLog /var/www/example2.com/error.log
+    CustomLog /var/www/example2.com/requests.log combined
+    SSLEngine on
+    SSLCertificateFile /etc/apache2/ssl/example2/apache.crt
+    SSLCertificateKeyFile /etc/apache2/ssl/example2/apache.key
+</VirtualHost>
+
+
+
+
+-- set up multiple vitual hosts
+// create directories
+sudo mkdir -p /var/www/example.com/public_html
+sudo mkdir -p /var/www/test.com/public_html
+
+// change permission of /var/www
+sudo chmod -R 755 /var/www
+
+// add dummy html
+nano /var/www/example.com/public_html/index.html
+//
+<html>
+  <head>
+    <title>Welcome to Example.com!</title>
+  </head>
+  <body>
+    <h1>Success!  The example.com virtual host is working!</h1>
+  </body>
+</html>
+
+
+
+// set config files (ex.. /etc/apache2/sites-available/example.com.conf) to something like..
+<VirtualHost *:80>
+    ServerAdmin admin@test.com
+    ServerName test.com
+    ServerAlias www.test.com
+    DocumentRoot /var/www/test.com/public_html
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+<VirtualHost *:80>
+    ServerName www.example.com
+    ServerAlias example.com
+    DocumentRoot /var/www/example.com/public_html
+    ErrorLog /var/www/example.com/error.log
+    CustomLog /var/www/example.com/requests.log combined
+</VirtualHost>
+<VirtualHost *:80>
+    ServerName www.example2.com
+    DocumentRoot /var/www/example2.com/public_html
+    ServerAlias example2.com
+    ErrorLog /var/www/example2.com/error.log
+    CustomLog /var/www/example2.com/requests.log combined
+</VirtualHost>
+
+
+
+// enable virtual host files
+sudo a2ensite example.com.conf
+sudo a2ensite test.com.conf
+
+// disable the default site defined in 000-default.conf
+sudo a2dissite 000-default.conf
+
+// restart apache2
+sudo systemctl restart apache2
+
+
+
+
+
+
+
+
+-- htaccess
+// apache disables use of .htaccess initially
+// change AllowOverride from None to All (inside /etc/apache2/apache2.conf)
+<Directory /var/www/html/>
+    AllowOverride All
+</Directory>
+
+
+
+-- enable rewrite module (mod_rewrite)
+// allows wordpress permalink features
+sudo a2enmod rewrite
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,78 @@
+file permissions
+--
+
+-- change ownership of file
+// chown
+chown bob hello.txt
+
+// change ownership and group
+chown user:group report.txt
+
+// recursive
+chown -R bob:bob /home/Daniel
+
+
+
+-- modify user permissions chmod
+// flags:
+u = user who owns
+g = other users in the file's group
+o = other users not in the file's group
+a = all users
+
+'+' means add a right
+'-' means delete a right
+'=' means affect a right
+
+d = directory (if element is a directory)
+l = link (if element is a file link)
+r = read (read permissions)
+w = write (write permissions)
+x = eXecute (only useful for scripts and programs)
+
+ex --> chmod g+w someFile.txt
+
+
+-- setfacl - set file access control lists
+
+
+
+-- maintain group ownership
+-- setgid (allows for files created in a dir to retain their parents ownership, whoever writes it..)
+// set the setgid bit on every directory in dir..
+sudo find /var/www/html -type d -exec chmod g+s {} \;
+
+// i think this might do the same
+sudo chmod -R g+s cake
+
+
+
+
+-- find and change
+// Recursively change group permissions of the folders and sub-folders to enable write permissions:
+find . -type d -exec chmod -R 775 {} \;
+
+// Recursively change group permissions of the files and sub-files to enable write permissions:
+find . -type f -exec chmod -R 664 {} \;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

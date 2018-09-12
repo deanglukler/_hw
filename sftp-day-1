@@ -1,0 +1,37 @@
+great tutorial
+https://www.digitalocean.com/community/tutorials/how-to-use-sftp-to-securely-transfer-files-with-a-remote-server
+
+-- log in
+sftp sammy@your_server_ip_or_remote_hostname
+// with port
+sftp -oPort=custom_port sammy@your_server_ip_or_remote_hostname
+
+
+-- navigation commands
+// pwd
+lpwd
+
+// ls
+lls
+
+// cd
+lcd Desktop
+
+
+
+-- get commands
+// get file
+get remoteFile
+// get and rename
+get remoteFile localFile
+// get directory recursive -r
+get -r someDirectory
+
+
+
+-- put commands
+// file
+put localFile
+// dir
+put -r localDirectory
+

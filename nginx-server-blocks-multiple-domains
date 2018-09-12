@@ -1,0 +1,145 @@
+// How To Set Up Nginx Server Blocks (Virtual Hosts) on Ubuntu 16.04
+
+// example.com
+// text.com
+
+// create the www/ directories for each
+sudo mkdir -p /var/www/example.com/html
+sudo mkdir -p /var/www/test.com/html
+
+
+// assign ownership
+// use the $USER environmental variable to assign ownership to the account that we are
+// currently signed in on (make sure you're not logged in as root
+
+sudo chown -R $USER:$USER /var/www/example.com/html
+sudo chown -R $USER:$USER /var/www/test.com/html
+
+// The permissions of our web roots (may already be set)..
+sudo chmod -R 755 /var/www
+
+// create index.html for testing
+vim /var/www/example.com/html/index.html
+
+
+
+
+
+// Create Server Block Files
+//
+// copy the default file that exists
+sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/example.com
+
+// edit with sudo (cause it's read only by default)
+// sudo vim /etc/nginx/sites-available/example.com
+// search for nginx-default-server-block-config-info
+
+
+// set default server..
+listen 80 default_server;
+listen [::]:80 default_server;
+// (or remove completely, only one allowed..)
+listen 80;
+listen [::]:80;
+
+// see if there are more than one config with default server
+grep -R default_server /etc/nginx/sites-enabled/
+
+// adjust is the document root
+root /var/www/example.com/html;
+index index.html index.htm index.nginx-debian.html;
+
+
+// modify the server_name to match requests for our first domain
+// and add aliases if necesarry
+server_name example.com www.example.com;
+
+// i don't know what this is about
+location / {
+                try_files $uri $uri/ =404;
+        }
+
+
+
+
+// copy that file to other (and change the names inside the file)
+sudo cp /etc/nginx/sites-available/example.com /etc/nginx/sites-available/test.com
+
+
+
+
+
+
+// Enable your Server Blocks and Restart Nginx
+// We can do this by creating symbolic links from these files to the sites-enabled directory
+// which Nginx reads from during startup
+
+sudo ln -s /etc/nginx/sites-available/example.com /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/test.com /etc/nginx/sites-enabled/
+
+
+
+
+// avoid a possible hash bucket memory problem..
+// we will go ahead and adjust a single value within our /etc/nginx/nginx.conf file
+sudo nano /etc/nginx/nginx.conf
+
+http {
+    . . .
+
+    server_names_hash_bucket_size 64;
+
+    . . .
+}
+
+
+
+// Finally
+// make sure no mistakes in the nginx setting files
+sudo nginx -t
+
+// if no problems are found restart nginx
+sudo systemctl restart nginx
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

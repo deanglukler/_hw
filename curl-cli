@@ -21,6 +21,10 @@ get
 curl www.example.com
 ```
 
+download (-O or -o <filename>)
+---
+curl -LO https://raw.githubusercontent.com/glueckler/vim/master/.vimrc
+
 
 flags
 ---

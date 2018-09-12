@@ -3,3 +3,10 @@
 ```
 cp -r ~/folder1/. ~/new_folder1
 ```
+
+// the dot at the ends signals for everything to be copied including hidden files..
+sudo cp -a /tmp/wordpress/. /var/www/html
+
+flags:
+
+-a: maintain permissions

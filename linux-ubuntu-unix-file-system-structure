@@ -1,0 +1,19 @@
+// inside root
+// all dirs require root permission except home
+bin: binary files, programs for machine
+boot: files the kernel needs to boot, system folder
+cdrom: cds used to mount here, now legacy
+dev: devices, all devices connected
+etc: configuration files for system
+home: all user files
+lib and lib64: library files for programs to use
+media: usb drives will show up in media (shows up on desktop of ubuntu)
+opt: optional, where some programs are stored (like google chrome on ubuntu)
+tmp: temperary, where temp files live (usually cleared on startup)
+var: variable data, like logs and caches and backups etc
+sbin: more binaries usually used by the system
+root: root users home directory
+usr: universal system resources, like desktop pics, able to use by multiple users
+
+
+

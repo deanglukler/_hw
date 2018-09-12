@@ -1,0 +1,1 @@
+check = (input) => input != null

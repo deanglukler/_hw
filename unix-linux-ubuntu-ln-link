@@ -1,0 +1,26 @@
+
+-- Flags
+The options are as follows:
+
+ln -F
+If the target file already exists and is a directory, then remove it so that the link may occur.  The -F option should be used with either -f or -i options.
+If none is specified, -f is implied.  The -F option is a no-op unless -s option is specified.
+
+ln -h
+If the target_file or target_dir is a symbolic link, do not follow it.  This is most useful with the -f option, to replace a symlink which may point to a directory.
+
+ln -f
+If the target file already exists, then unlink it so that the link may occur.  (The -f option overrides any previous -i options.)
+
+ln -i
+Cause ln to write a prompt to standard error if the target file exists.  If the response from the standard input begins with the character `y' or `Y', then unlink the tar-get file so that the link may occur.
+Otherwise, do not attempt the link.  (The -i option overrides any previous -f options.)
+
+ln -n
+Same as -h, for compatibility with other ln implementations.
+
+ln -s
+Create a symbolic link.
+
+ln -v
+Cause ln to be verbose, showing files as they are processed.

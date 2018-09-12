@@ -1,0 +1,11 @@
+// to use a domain name on a droplet..
+// buy the domain name and adjust the nameservers for that domain
+// set them to something like this..
+ns1.digitalocean.com.
+ns2.digitalocean.com.
+ns3.digitalocean.com.
+
+// within digital ocean.. set a CNAME record to redirect www.example.com to example.com
+
+
+// that's it.. should work as long as the droplet is also set up..

@@ -1,0 +1,8 @@
+# find files, remember the quotes
+find -name “<fileName>”
+
+# Find all JPG files anywhere in your filesystem:
+find / -name "*jpg"
+
+# Find any pdf files, regardless of case, in either Documents or Downloads:
+find Documents/ Downloads/ -iname "*pdf"

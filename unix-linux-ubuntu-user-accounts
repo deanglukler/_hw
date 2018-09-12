@@ -1,0 +1,58 @@
+// add
+adduser <username>
+
+// set username
+usermod -g bob boby
+
+// set password
+passwd <username>
+
+// delete
+sudo deluser <AccountName>
+// maybe delete this too
+sudo rm -r /home/username
+
+// edit user details
+sudo chfn username
+
+
+
+-- groups
+// add group
+addgroup <friends>
+
+// delete group
+delgroup <friends>
+
+// set to a group?
+// (without loosing groups user is already in)
+usermod -aG sudo <username>
+// or default..
+usermod -g friends <username>
+
+// list groups of user
+groups yourUserName
+
+
+
+-- login and acounts
+// switch user (login)
+su - <username>
+
+// for root access
+sudo su -
+// or
+sudo -i
+
+// logout
+logout
+
+
+-- current user
+// display current user
+whoami
+
+// who is logged in and what are they doing
+w
+
+
