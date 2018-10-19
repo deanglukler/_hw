@@ -1,8 +1,0 @@
-# create database based on config/dev.exs
-mix ecto.create
-
-# generate a boilerplate migration file
-mix ecto.gen.migration blogs
-
-# execute migration
-mix ecto.migrate

@@ -1,6 +1,0 @@
-# new project
-mix phoenix.new <project name>
-
-# start  server
-mix phoenix.server
-

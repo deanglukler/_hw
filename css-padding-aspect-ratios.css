@@ -1,0 +1,58 @@
+/*
+  <div class="container">
+    <div class="text">Some text</div> <!-- If you want text inside the container -->
+  </div>
+  Add a percentage value for padding-top to maintain the aspect ratio of the DIV.
+  The following example will create an aspect ratio of 1:1 (the height and width is always equal): 
+*/
+
+.container {
+    background-color: red;
+    width: 100%;
+    padding-top: 100%; /* 1:1 Aspect Ratio */
+    position: relative; /* If you want text inside of it */
+}
+
+/* If you want text inside of the container */
+.text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+
+.container {
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+}
+
+.container {
+    padding-top: 75%; /* 4:3 Aspect Ratio */
+}
+
+.container {
+    padding-top: 66.66%; /* 3:2 Aspect Ratio */
+}
+
+.container {
+    padding-top: 62.5%; /* 8:5 Aspect Ratio */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

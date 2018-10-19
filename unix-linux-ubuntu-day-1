@@ -1,16 +1,21 @@
 # restart machine
 sudo reboot
 
+
 # view version of ubuntu you're running
 lsb_release -a
+
 
 # show ip address
 ip addr show eth0 | grep inet | awk '{ print $2; }' | sed 's/\/.*$//'
 
+
 # unzip gz files..
 gzip -d file.gz
 
+
 # If file extension is tar.gz, type the command:
 tar -zxvf file.tar.gz
+
 
 

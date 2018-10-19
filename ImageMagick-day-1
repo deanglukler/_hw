@@ -1,0 +1,31 @@
+### ImageMagick
+
+### verify install
+magick logo: logo.gif
+identify logo.gif
+display logo.gif
+
+
+### convert
+magick convert rose.jpg rose.png
+
+### resize
+magick convert rose.jpg -resize 50% rose.png
+
+
+
+### mogrify
+# like convert but replaces images
+magick mogrify -format jpg *.png
+
+# resize
+magick mogrify -resize 50% rose.jpg
+
+# You can resize all your JPEG images in a folder to a maximum dimension of 256x256 with this command:
+magick mogrify -resize 256x256 *.jpg
+
+# Finally, we convert all our PNG images in a folder to the JPEG format:
+magick mogrify -format jpg *.png
+
+
+

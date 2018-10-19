@@ -2,3 +2,28 @@
 https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-14-04
 
 
+
+
+-- login
+mysql -u root -p
+
+// to log into mysql in CLI // password is blank by default
+
+
+
+
+-- start stop restart..
+sudo /etc/init.d/mysql start
+sudo /etc/init.d/mysql restart
+
+// i think systemctl should work too
+systemctl mysql restart
+
+
+
+
+-- see error logs
+/var/log/mysql/error.log
+
+
+

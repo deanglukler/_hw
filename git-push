@@ -4,3 +4,10 @@ git push --force origin feature-branch
 
 git push --force-with-lease
 // checks the remote branch for changes by other devs before force pushing
+
+git push --all origin
+// pushes all branches and tags
+
+// And if you add -u once, e.g.
+git push --all origin -u
+//tracking is setup and after that you can simply use git push

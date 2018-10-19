@@ -1,0 +1,11 @@
+## @changeset is used to generate values, and must be passed in as a variable when the template is rendered
+## topic_path creates something that is called when the form gets submitted
+## @conn is always automatically passed in
+## error_tag will render the :title error off of the changeset
+<%= form_for @changeset, topic_path(@conn, :create), fn f -> %>
+  <div class="form-group">
+    <% text_input f, :title, :placeholer: "Title", class: "form-control" %>
+    <%= error_tag f, :title %>
+  </div>
+  <% submit "Save Topic", class: "btn btn-primary" %>
+<% end %>

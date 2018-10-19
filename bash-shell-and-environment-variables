@@ -1,0 +1,59 @@
+### environment variables vs shell
+tutorial:
+https://www.digitalocean.com/community/tutorials/how-to-read-and-set-environmental-and-shell-variables-on-a-linux-vps
+
+
+### set shell variables
+# If multiple values are passed
+KEY=value1:value2:...
+
+# If the value contains significant white-space, quotations are used:
+TEST_VAR="value with spaces"
+
+# ex
+samples=pwd
+
+
+### warning
+# this didn't work
+_hw=~/Google\ Drive/_hw
+# and this did..
+_hw=/Users/slimbean/Google\ Drive/_hw
+
+
+### create environment variables
+export TEST_VAR
+
+
+### Printing Environmental Variables
+env
+# or
+printenv
+# example
+env | grep search
+
+
+
+### Printing Shell Variables
+set
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

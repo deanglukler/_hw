@@ -11,6 +11,9 @@ MyComponent.propTypes = {
   optionalString: PropTypes.string,
   optionalSymbol: PropTypes.symbol,
 
+  // date
+  dateExample: PropTypes.instanceOf(Date),
+
   // Anything that can be rendered: numbers, strings, elements or an array
   // (or fragment) containing these types.
   optionalNode: PropTypes.node,

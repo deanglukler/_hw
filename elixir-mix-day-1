@@ -8,6 +8,12 @@ mix deps.get
 
 
 
+### uninstall
+mix archive.uninstall phx_new
+# or by simply deleting the file, which is usually in ~/.mix/archives/
+
+
+
 ### create docs
 mix docs
 

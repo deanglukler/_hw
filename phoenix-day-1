@@ -1,7 +1,40 @@
-# mix.exs
+### version
+mix phoenix.new --version
+mix phx.new --version
 
-# start server
+
+
+### using different versions
+# phoenix is just a project dependancy
+# if you specify "~> 1.1.0" in that project only >= 1.1.0 && < 1.2.0 will be used.
+# One thing to note is that when you “install” phoenix,
+# you only install the phx.new (or phoenix.new) task.
+# Everything else is packaged in the dependency you have in your project
+
+# uninstall an older version of phoenix
+mix archive.uninstall phoenix_new-1.2.5
+
+
+
+
+### new project
+mix phx.new <name>
+mix phoenix.new <project name>
+
+
+
+
+### start server
+mix phoenix.server
 mix phx.server
+
+
+
+
+### MVC function behavior
+https://www.udemy.com/the-complete-elixir-and-phoenix-bootcamp-and-tutorial/learn/v4/t/lecture/5941674?start=192
+
+
 
 
 

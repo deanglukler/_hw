@@ -1,0 +1,13 @@
+# monitor memory
+watch -n 5 free -m
+# add -h for human readable
+# free is for memory
+# watch -n 5 is every 5sec
+
+# You want to look at the free column of the -/+ buffers/cache: row. This shows how much memory is available to applications..
+             total       used       free     shared    buffers     cached
+Mem:          3699       2896        802          0        247       1120
+-/+ buffers/cache:       1528       2170
+Swap:         1905         62       1843
+
+# I know that I'm using 1528 MB and have 2170 MB free

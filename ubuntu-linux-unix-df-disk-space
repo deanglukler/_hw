@@ -1,0 +1,15 @@
+First of, df reports file system disk space usage. That is, it displays the total size, the used and available space for each of your mounted partitions.
+
+df
+// is the default behavior, without arguments.
+// Sizes are given in 1K-blocks (that is, 1024 bytes).
+// Local filesystems (i.e., on hard drives on the present machine)
+// as well as remote filesystems (e.g., mounted via NFS on a network) are listed.
+
+
+df -h
+// tells df to display sizes in Gigabyte, Megabyte, or Kilobyte as appropriate, akin to the way a human would describe sizes. Actually, the h stands for "human-readable".
+
+
+df -l
+// tells df to display only local filesystems, but no remote ones.

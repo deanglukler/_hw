@@ -1,0 +1,3416 @@
+### download shopify theme kit: https://shopify.github.io/themekit/
+
+### Shopify Theme Kit
+# list theme ids within a store
+theme get --list -p=e70d025b2b6bd56e15b4713bce384ca1 -s=msg-plus-test.myshopify.com
+
+# download theme by id
+theme get -p=e70d025b2b6bd56e15b4713bce384ca1 -s=msg-plus-test.myshopify.com -t=40328265839
+
+
+
+### theme commands ( https://shopify.github.io/themekit/commands/ )
+# watch
+ex
+theme watch --notify=/tmp/theme.update
+Optional Flags
+-a  --allenvs Will run this command for each environment in your config file.
+-n  --notify  File path to a file that you want updated on idle.
+
+
+
+
+
+### search clump
+
+Objects
+
+
+address
+all_country_option_tags
+article
+block
+blog
+cart
+checkout
+collection
+comment
+country_option_tags
+current_page
+current_tags
+customer
+customer_address
+discount
+discount_allocation
+discount_application
+font
+forloop
+form
+fulfillment
+gift_card
+handle
+image
+line_item
+link
+linklist
+metafield
+order
+page
+page_description
+page_title
+paginate
+part
+product
+product_option
+request
+script
+search
+section
+shipping_method
+shop
+tablerow
+tax_line
+template
+theme
+transaction
+variant
+Deprecated object properties
+
+
+Theme templates
+
+Shopify themes are made up of Liquid template files, each serving their own unique purpose. For example, collection.liquid is used to display multiple products, and product.liquid is used to show the details of a single product. Shopify themes also include a settings_schema.json file, which is a form that makes it easy for the user to customize the look-and-feel of the theme.
+On this page
+
+    Theme structure
+    Alternate templates
+
+Theme structure
+
+A Shopify theme includes the following directories:
+
+    assets
+    config
+    layout
+    locales
+    sections
+    snippets
+    templates
+
+Assets
+
+The assets directory is rendered as the Assets folder in the theme editor. It contains all the assets used in the theme, including images, stylesheets, and javascript files.
+
+Use the asset_url filter to reference a theme asset in your templates.
+Configs
+
+The config directory is rendered as the Configs folder in the theme editor. It includes a settings_schema.json file and a settings_data.json file.
+Layouts
+
+The layout directory is rendered as the Layouts folder in the theme editor. It contains theme layout templates, which by default is the theme.liquid file. All Liquid templates inside the templates folder are rendered inside the theme.liquid file.
+
+In addition to the theme.liquid, stores on Shopify Plus also have a checkout.liquid layout file.
+Locales
+
+The locales directory is rendered as the Locales folder in the theme editor. It contains the theme's locale files, which are used to provide translated content for the theme.
+
+Among other files, this folder contains the default English locale file, en.default.json.
+Sections
+
+The sections directory is rendered as the Sections folder in the theme editor. It contains a theme's sections, which are reusable modules of content that can be customized and re-ordered by users of the theme.
+Snippets
+
+The snippets directory is rendered as the Snippets folder in the theme editor. It contains all the theme's Liquid snippet files, which are bits of code that can be referenced in other templates of a theme.
+
+Use the Liquid include tag to load a snippet into your theme.
+Templates
+
+The templates directory is rendered as the Templates folder in the theme editor. It contains all other Liquid templates, including those for customer accounts:
+
+    CSS in checkout.liquid
+
+    product.liquid
+
+    search.liquid
+
+    list-collections.liquid
+
+    blog.liquid
+
+    customers/login.liquid
+
+    cart.liquid
+
+    article.liquid
+
+    customers/account.liquid
+
+    index.liquid
+
+    customers/activate_account.liquid
+
+    customers/order.liquid
+
+    page.liquid
+
+    customers/register.liquid
+
+    customers/addresses.liquid
+
+    collection.liquid
+
+    404.liquid
+
+    customers/reset_password.liquid
+
+    password.liquid
+
+    gift_card.liquid
+
+Alternate templates
+
+There might be cases where you need a different markup for the same template. For example, you might want a sidebar on one product page but not in another. The workaround for this is to create alternate templates.
+
+To create an alternate template:
+
+    Inside the Edit HTML/CSS, click Add a new template.
+
+    In the modal that appears, select the type of template that you want to create and enter a name.
+
+    Navigate to the admin page for the content that you want to apply the alternate template to, and look for the drop-down under the Template heading.
+
+    Select the template that you want to apply, and hit Save.
+
+Alternate templates inside if statements
+
+There might be cases where you have several versions of a template and want to write an if statement that applies to all of them. For example, you might have multiple alternate product templates and need to output a message for all product templates. The template object has several convenient attributes to help with this.
+
+{% if template.name == 'product' %}
+We are on a product page!
+{% endif %}
+
+{% if template.suffix != blank %}
+We are on an alternate template!
+{% endif %}
+
+
+Theme tags
+
+Theme tags have many functions, including:
+
+    Outputting template-specific HTML markup
+    Telling the theme which layout and snippets to use
+    Splitting a returned array into multiple pages.
+
+On this page
+
+    comment
+    include
+    form
+    layout
+    paginate
+    raw
+    section
+    style
+
+comment
+
+Allows you to leave un-rendered code inside a Liquid template. Any text within the opening and closing comment blocks will not be output, and any Liquid code within will not be executed.
+
+Input
+
+My name is Wilson Abercrombie{% comment %}, esquire{% endcomment %}.
+
+Output
+
+My name is Wilson Abercrombie.
+
+include
+
+Inserts a snippet from the snippets folder of a theme.
+
+{% include 'my-snippet-file' %}
+
+Note that you don't need to write the file's .liquid extension.
+
+When you include a snippet, the code inside it will have access to the variables within its parent template.
+Including multiple variables in a snippet
+
+There are two ways to include multiple variables in a snippet. You can assign and include them on different lines, which creates them in the parent template:
+
+{% assign my_variable = 'apples' %}
+{% assign my_second_variable = 'oranges' %}
+{% include 'snippet' %}
+
+Or you can create variables on the same line where you include the snippet:
+
+{% include 'snippet', my_variable: 'apples', my_other_variable: 'oranges' %}
+
+include tag parameters
+with
+
+The with parameter assigns a value to a variable inside a snippet that shares the same name as the snippet.
+
+For example, if you have a snippet named color.liquid which contains the following:
+
+color.liquid
+
+color: '{{ color }}'
+shape: '{{ shape }}'
+
+Within theme.liquid, you can include the color.liquid snippet as follows:
+
+Input
+
+{% assign shape = 'circle' %}
+{% include 'color' %}
+{% include 'color' with 'red' %}
+{% include 'color' with 'blue' %}
+{% assign shape = 'square' %}
+{% include 'color' with 'red' %}
+
+Which will produce:
+
+Output
+
+color: '' shape: 'circle'
+color: 'red' shape: 'circle'
+color: 'blue' shape: 'circle'
+color: 'red' shape: 'square'
+
+form
+
+Creates an HTML <form> element along with the required <input> elements to submit the form to a particular endpoint.
+form types and tag parameters
+
+There are many types of forms that can be created and submitted in Shopify themes. Adding a product to the cart, creating a customer account, and commenting on a blog article all require <form> elements with different attributes and <input> elements.
+
+To create different forms, the {% form %} tag requires a type and might require additional parameters. For example, the form used to submit a comment on a blog article requires the type of new_comment and needs an article object as a parameter.
+
+{% form 'new_comment', article %}
+...
+{% endform %}
+
+The different form types and their required parameters are listed below.
+activate_customer_password
+
+Generates a form for activating a customer account on the activate_account.liquid template.
+
+Input
+
+{% form 'activate_customer_password' %}
+...
+{% endform %}
+
+Output
+
+<form accept-charset="UTF-8" action="https://my-shop.myshopify.com/account/activate" method="post">
+  <input name="form_type" type="hidden" value="activate_customer_password" />
+  <input name="utf8" type="hidden" value="✓" />
+  ...
+</form>
+
+contact
+
+Generates a form for submitting an email through the Liquid contact form.
+
+Input
+
+{% form 'contact' %}
+...
+{% endform %}
+
+Output
+
+<form accept-charset="UTF-8" action="/contact" class="contact-form" method="post">
+  <input name="form_type" type="hidden" value="contact" />
+  <input name="utf8" type="hidden" value="✓" />
+  ...
+</form>
+
+customer
+
+Generates a form for creating a new customer without registering a new account. This form is useful for collecting customer information when you don't want customers to log in to your store, such as building a list of emails from a newsletter signup.
+
+To generate a form that registers a customer account, use the create_customer form.
+
+Input
+
+{% form 'customer' %}
+...
+{% endform %}
+
+Output
+
+<form method="post" action="/contact#contact_form" id="contact_form" class="contact-form" accept-charset="UTF-8">
+  <input type="hidden" value="customer" name="form_type">
+  <input type="hidden" name="utf8" value="✓">
+  ...
+</form>
+
+create_customer
+
+Generates a form for creating a new customer account on the register.liquid template.
+
+Input
+
+{% form 'create_customer' %}
+...
+{% endform %}
+
+Output
+
+<form accept-charset="UTF-8" action="https://my-shop.myshopify.com/account" id="create_customer" method="post">
+  <input name="form_type" type="hidden" value="create_customer" />
+  <input name="utf8" type="hidden" value="✓" />
+  ...
+</form>
+
+customer_address
+
+Generates a form for creating or editing customer account addresses on the addresses.liquid template. When creating a new address, include the parameter customer.new_address. When editing an existing address, include the parameter address.
+
+Input
+
+{% form 'customer_address', customer.new_address %}
+...
+{% endform %}
+
+Output
+
+<form accept-charset="UTF-8" action="/account/addresses/70359392" id="address_form_70359392" method="post">
+  <input name="form_type" type="hidden" value="customer_address" />
+  <input name="utf8" type="hidden" value="✓" />
+  ...
+</form>
+
+customer_login
+
+Generates a form for logging into Customer Accounts on the login.liquid template.
+
+Input
+
+{% form 'customer_login' %}
+...
+{% endform %}
+
+Output
+
+<form accept-charset="UTF-8" action="https://my-shop.myshopify.com/account/login" id="customer_login" method="post">
+  <input name="form_type" type="hidden" value="customer_login" />
+  <input name="utf8" type="hidden" value="✓" />
+  ...
+</form>
+
+guest_login
+
+Generates a form on the login.liquid template that directs customers back to their checkout session as a guest instead of logging in to an account.
+
+Input
+
+{% form 'guest_login' %}
+...
+{% endform %}
+
+Output
+
+<form method="post" action="https://my-shop.myshopify.com/account/login" id="customer_login_guest" accept-charset="UTF-8">
+  <input type="hidden" value="guest_login" name="form_type">
+  <input type="hidden" name="utf8" value="✓">
+  ...
+  <input type="hidden" name="guest" value="true">
+  <input type="hidden" name="checkout_url" value="https://checkout.shopify.com/store-id/checkouts/session-id?step=contact_information">
+</form>
+
+new_comment
+
+Generates a form for creating a new comment in the article.liquid template. Requires the article object as a parameter.
+
+Input
+
+{% form 'new_comment', article %}
+...
+{% endform %}
+
+Output
+
+<form accept-charset="UTF-8" action="/blogs/news/10582441-my-article/comments" class="comment-form" id="article-10582441-comment-form" method="post">
+  <input name="form_type" type="hidden" value="new_comment" />
+  <input name="utf8" type="hidden" value="✓" />
+  ...
+</form>
+
+product
+
+Generates a form for adding a product variant to the cart. Requires a product object as a parameter.
+
+Input
+
+{% form "product", product %}
+  ...
+{% endform %}
+
+Output
+
+<form method="post" action="/cart/add" enctype="multipart/form-data">
+  <input type="hidden" name="form_type" value="product">
+  <input type="hidden" name="utf8" value="✓">
+  ...
+</form>
+
+Note
+
+Read about building product templates for an example of using the product form type.
+recover_customer_password
+
+Generates a form for recovering a lost password on the login.liquid template.
+
+Input
+
+{% form 'recover_customer_password' %}
+...
+{% endform %}
+
+Output
+
+<form accept-charset="UTF-8" action="/account/recover" method="post">
+  <input name="form_type" type="hidden" value="recover_customer_password" />
+  <input name="utf8" type="hidden" value="✓" />
+  ...
+</form>
+
+reset_customer_password
+
+Generates a form on the customers/reset_password.liquid template for a customer to reset their password.
+
+Input
+
+{% form 'reset_customer_password' %}
+...
+{% endform %}
+
+Output
+
+<form method="post" action="https://my-shop.myshopify.com/account/account/reset" accept-charset="UTF-8">
+  <input type="hidden" value="reset_customer_password" name="form_type" />
+  <input name="utf8" type="hidden" value="✓" />
+  ...
+  <input type="hidden" name="token" value="408b680ac218a77d0802457f054260b7-1452875227">
+  <input type="hidden" name="id" value="1080844568">
+</form>
+
+storefront_password
+
+Generates a form on the password.liquid template for entering a password-protected storefront.
+
+Input
+
+{% form 'storefront_password' %}
+...
+{% endform %}
+
+Output
+
+<form method="post" action="/password" id="login_form" class="storefront-password-form" accept-charset="UTF-8">
+  <input type="hidden" value="storefront_password" name="form_type">
+  <input type="hidden" name="utf8" value="✓">
+  ...
+</form>
+
+Modifying form attributes
+
+When you create a <form> element, you can modify its default attributes, or add new attributes. You can do this by including the attribute that you want to add or modify to the form tag as a named parameter, and assigning a value.
+
+Input
+
+{% form "product", product, id: "newID", class: "custom-class", data-example: "100" %}
+  ...
+{% endform %}
+
+Output
+
+<form method="post" action="/cart/add" id="newID" class="custom-class" data-example="100" enctype="multipart/form-data">
+  <input type="hidden" name="form_type" value="product">
+  <input type="hidden" name="utf8" value="✓">
+    ...
+</form>
+
+You can also use Liquid variables as parameters:
+
+Input
+
+{% capture 'form_id' %}addToCartForm-{{ section.id }}{% endcapture %}
+
+{% form 'product', product, id:form_id %}
+...
+{% endform %}
+
+Output
+
+<form action="/cart/add" method="post" enctype="multipart/form-data" id="addToCartForm-36197306239">
+  <input type="hidden" name="form_type" value="product">
+  <input type="hidden" name="utf8" value="✓">
+    ...
+</form>
+
+layout
+
+Include {% layout 'alternate' %} at the beginning of a template file to use an alternate layout file from the Layout folder of your theme. If you don't define an alternate layout, the theme.liquid template file is used by default:
+
+Load the layout/full-width.liquid template
+
+{% layout 'full-width' %}
+
+If you want a template to use no layout file, you can specify none as the layout:
+
+Render the template file without using a layout
+
+{% layout none %}
+
+paginate
+
+Splitting products, blog articles, and search results across multiple pages is a necessary part of theme design as you are limited to 50 results per page in any for loop.
+
+The paginate tag works with thefor tag to split content into many pages. It must wrap a for tag block that loops through an array, as shown in the example below:
+
+{% paginate collection.products by 5 %}
+  {% for product in collection.products %}
+    <!--show product details here -->
+  {% endfor %}
+{% endpaginate %}
+
+The by parameter is followed by an integer between 1 and 50 that tells the paginate tag how many results it should output per page.
+
+Within paginate tags, you can access attributes of the paginate object. This includes the attributes to output the links required to navigate within the generated pages.
+raw
+
+Allows output of Liquid code on a page without being parsed.
+
+Input
+
+{% raw %}{{ 5 | plus: 6 }}{% endraw %} equals 11.
+
+Output
+
+{{ 5 | plus: 6 }} equals 11.
+
+section
+
+Inserts a section from the sections folder of a theme.
+
+Input
+
+{% section 'header' %}
+
+Output
+
+<div id="shopify-section-header" class="shopify-section">
+  <!-- content of sections/header.liquid -->
+</div>
+
+Including section files with the {% section %} tag will render a "static" section. To learn more about sections and how to include them in your theme, check out the documentation on theme sections.
+
+Each section supports section-specific tags for defining settings, styles, and scripts that are unique to a section file.
+style
+
+The Liquid {% style %} tag renders an HTML <style> tag with a Shopify data attribute. Placing color settings within a {% style %} tag allows you to make live color updates from the theme editor without a full page refresh.
+
+Example
+
+{% style %}
+  .hero__background-color-container {
+    background-color: {{ section.settings.background_color }}
+  }
+{% endstyle %}
+
+
+Variable tags
+
+You can use variable tags to create new Liquid variables.
+
+On this page
+
+    assign
+    capture
+    increment
+    decrement
+
+assign
+
+Creates a new named variable.
+
+Input
+
+{% assign favorite_food = 'apples' %}
+
+My favorite food is {{ favorite_food }}.
+
+Output
+
+My favorite food is apples.
+
+assigned variables can be strings or booleans (true or false). Remember not to use quotation marks around the value if it is true or false:
+
+Input
+
+{% assign first_time_visitor = true %}
+{% if first_time_visitor == true %}
+  Welcome to the site!
+{% endif %}
+
+Output
+
+  Welcome to the site!
+
+capture
+
+Captures the string inside of the opening and closing tags and assigns it to a variable. Variables that you create using capture are stored as strings.
+
+Using capture, you can create complex strings using other variables created with assign.
+
+Input
+
+{% assign favorite_food = 'pizza' %}
+{% assign age = 35 %}
+
+{% capture about_me %}
+I am {{ age }} and my favorite food is {{ favorite_food }}.
+{% endcapture %}
+
+{{ about_me }}
+
+Output
+
+I am 35 and my favorite food is pizza.
+
+increment
+
+Creates a new number variable, and increases its value by 1 every time increment is called on the variable. The counter's initial value is 0.
+
+Here, an increment counter is used to create a unique numbered class for each list item:
+
+Input
+
+<ul>
+  <li class="item-{% increment counter %}">apples</li>
+  <li class="item-{% increment counter %}">oranges</li>
+  <li class="item-{% increment counter %}">peaches</li>
+  <li class="item-{% increment counter %}">plums</li>
+</ul>
+
+Output
+
+<ul>
+  <li class="item-0">apples</li>
+  <li class="item-1">oranges</li>
+  <li class="item-2">peaches</li>
+  <li class="item-3">plums</li>
+</ul>
+
+Variables created using increment are separate from variables created using assign or capture.
+
+In the example below, a variable named my_number is created using assign. The increment tag is then used several times on a variable with the same name. Note that the increment tag does not affect the value of my_number that was created through assign.
+
+Input
+
+{% assign my_number = 10 %}
+
+{% increment my_number %}
+{% increment my_number %}
+{% increment my_number %}
+
+{{ my_number }}
+
+Output
+
+0
+1
+2
+
+10
+
+decrement
+
+Creates a new number variable, and decreases its value by 1 every time decrement is called on the variable. The counter's initial value is -1.
+
+Input
+
+{% decrement variable %}
+{% decrement variable %}
+{% decrement variable %}
+
+Output
+
+-1
+-2
+-3
+
+Like increment, variables declared using decrement are independent from variables created using assign or capture.
+
+
+
+Iteration tags
+
+Iteration tags repeatedly run blocks of code.
+
+On this page
+
+    for
+    cycle
+    tablerow
+
+for
+
+Repeatedly executes a block of code. For a full list of attributes available within a for loop, see forloop (object).
+
+for loops can output a maximum of 50 results per page. In cases where there are more than 50 results, use the paginate tag to split them across multiple pages.
+
+Input
+
+{% for product in collection.products %}
+  {{ product.title }}
+{% endfor %}
+
+Output
+
+Fancy hat Snazzy shirt Dapper pants
+
+else
+
+Specifies a fallback case for a for loop which will run if the loop has zero length (for example, you loop over a collection that has no products):
+
+Input
+
+{% for product in collection.products %}
+  {{ product.title }}
+{% else %}
+  The collection is empty.
+{% endfor %}
+
+Output
+
+The collection is empty.
+
+break
+
+Causes the loop to stop iterating when it encounters the break tag.
+
+Input
+
+{% for i in (1..5) %}
+  {% if i == 4 %}
+    {% break %}
+  {% else %}
+    {{ i }}
+  {% endif %}
+{% endfor %}
+
+Output
+
+1 2 3
+
+continue
+
+Causes the loop to skip the current iteration when it encounters the continue tag.
+
+Input
+
+{% for i in (1..5) %}
+  {% if i == 4 %}
+    {% continue %}
+  {% else %}
+    {{ i }}
+  {% endif %}
+{% endfor %}
+
+Output
+
+1 2 3   5
+
+for tag parameters
+limit
+
+Exits the for loop at a specific index.
+
+Input
+
+  <!-- numbers = [1,2,3,4,5] -->
+
+  {% for item in numbers limit:2 %}
+    {{ item }}
+  {% endfor %}
+
+Output
+
+1 2
+
+offset
+
+Starts the for loop at a specific index.
+
+Input
+
+  <!-- numbers = [1,2,3,4,5] -->
+  {% for item in numbers offset:2 %}
+    {{ item }}
+  {% endfor %}
+
+Output
+
+3 4 5 6
+
+range
+
+Defines a range of numbers to loop through. You can define the range using both literal and variable values.
+
+Input
+
+{% for i in (3..5) %}
+  {{ i }}
+{% endfor %}
+
+{% assign my_limit = 4 %}
+{% for i in (1..my_limit) %}
+{{ i }}
+{% endfor %}
+
+Output
+
+3 4 5
+
+1 2 3 4
+
+reversed
+
+Reverses the order of the loop.
+
+Input
+
+<!-- if array = [1,2,3,4,5,6] -->
+{% for item in array reversed %}
+  {{ item }}
+{% endfor %}
+
+Output
+
+6 5 4 3 2 1
+
+cycle
+
+Loops through a group of strings and outputs them in the order that they were passed as parameters. Each time cycle is called, the next string that was passed as a parameter is output.
+
+cycle must be used within a for loop block.
+
+Input
+
+{% cycle 'one', 'two', 'three' %}
+{% cycle 'one', 'two', 'three' %}
+{% cycle 'one', 'two', 'three' %}
+{% cycle 'one', 'two', 'three' %}
+
+Output
+
+one
+two
+three
+one
+
+Uses for cycle include:
+
+    applying odd/even classes to rows in a table
+    applying a unique class to the last product thumbnail in a row
+
+cycle tag parameters
+
+cycle accepts a parameter called cycle group in cases where you need multiple cycle blocks in one template. If no name is supplied for the cycle group, then it is assumed that multiple calls with the same parameters are one group.
+
+The example below shows why cycle groups are necessary when there are multiple instances of the cycle block.
+
+<ul>
+  {% for product in collections.collection-1.products %}
+    <li{% cycle ' style="clear:both;"', '', '', ' class="last"' %}>
+      <a href="{{ product.url | within: collection }}">
+        <img src="{{ product.featured_image.src | img_url: '240x' }}" alt="{{ product.featured_image.alt }}" />
+      </a>
+    </li>
+  {% endfor %}
+</ul>
+
+<ul>
+  {% for product in collections.collection-2.products %}
+    <li{% cycle ' style="clear:both;"', '', '', ' class="last"' %}>
+      <a href="{{ product.url | within: collection }}">
+        <img src="{{ product.featured_image.src | img_url: '240x' }}" alt="{{ product.featured_image.alt }}" />
+      </a>
+    </li>
+  {% endfor %}
+</ul>
+
+In the example above, if the first collection only has two products, the second collection loop will continue the cycle where the first one left off. This will result in this undesired output:
+
+<ul>
+  <li style="clear:both"></li>
+</ul>
+
+<ul>
+  <li></li>
+  <li class="last"></li>
+  <li style="clear:both"></li>
+  <li></li>
+</ul>
+
+To avoid this, you can use a cycle group for each cycle block, as shown below:
+
+<ul>
+{% for product in collections.collection-1.products %}
+  <li{% cycle 'group1': ' style="clear:both;"', '', '', ' class="last"' %}>
+    <a href="{{ product.url | within: collection }}">
+      <img src="{{ product.featured_image.src | img_url: '240x' }}" alt="{{ product.featured_image.alt }}" />
+    </a>
+  </li>
+{% endfor %}
+</ul>
+
+<ul>
+{% for product in collections.collection-2.products %}
+  <li{% cycle 'group2': ' style="clear:both;"', '', '', ' class="last"' %}>
+    <a href="{{ product.url | within: collection }}">
+      <img src="{{ product.featured_image.src | img_url: '240x' }}" alt="{{ product.featured_image.alt }}" />
+    </a>
+  </li>
+{% endfor %}
+</ul>
+
+With the code above, the two cycle blocks are independent of each other. The result is shown below:
+
+<ul>
+  <li style="clear:both"></li>
+  <li></li>
+</ul>
+<!-- new cycle group starts! -->
+<ul>
+  <li style="clear:both"></li>
+  <li></li>
+  <li></li>
+  <li class="last"></li>
+</ul>
+
+tablerow
+
+Generates rows for an HTML table. Must be wrapped in an opening <table> and closing </table> HTML tags. For a full list of attributes available within a tablerow loop, see tablerow (object).
+
+Input
+
+<table>
+  {% tablerow product in collection.products %}
+    {{ product.title }}
+  {% endtablerow %}
+</table>
+
+Output
+
+<table>
+  <tr class="row1">
+    <td class="col1">
+      Cool Shirt
+    </td>
+    <td class="col2">
+      Alien Poster
+    </td>
+    <td class="col3">
+      Batman Poster
+    </td>
+    <td class="col4">
+      Bullseye Shirt
+    </td>
+    <td class="col5">
+      Another Classic Vinyl
+    </td>
+    <td class="col6">
+      Awesome Jeans
+    </td>
+  </tr>
+</table>
+
+tablerow tag parameters
+cols
+
+Defines how many columns the tables should have.
+
+Input
+
+<table>
+  {% tablerow product in collection.products cols:2 %}
+    {{ product.title }}
+  {% endtablerow %}
+</table>
+
+Output
+
+<table>
+  <tr class="row1">
+    <td class="col1">
+      Cool Shirt
+    </td>
+    <td class="col2">
+      Alien Poster
+    </td>
+  </tr>
+  <tr class="row2">
+    <td class="col1">
+      Batman Poster
+    </td>
+    <td class="col2">
+      Bullseye Shirt
+    </td>
+  </tr>
+  <tr class="row3">
+    <td class="col1">
+      Another Classic Vinyl
+    </td>
+    <td class="col2">
+      Awesome Jeans
+    </td>
+  </tr>
+</table>
+
+limit
+
+Exits the tablerow loop after a specific index.
+
+{% tablerow product in collection.products cols:2 limit:3 %}
+  {{ product.title }}
+{% endtablerow %}
+
+offset
+
+Starts the tablerow loop at a specific index.
+
+{% tablerow product in collection.products cols:2 offset:3 %}
+  {{ product.title }}
+{% endtablerow %}
+
+range
+
+Defines a range of numbers to loop through. The range can be defined by both literal and variable numbers.
+
+<table>
+  {% tablerow i in (3..5) %}
+    {{ i }}
+  {% endtablerow %}
+</table>
+
+{% assign num = 4 %}
+<table>
+  {% tablerow i in (1..num) %}
+    {{ i }}
+  {% endtablerow %}
+</table>
+
+
+Control flow tags
+
+Control flow tags create conditions that decide whether blocks of Liquid code get executed.
+
+On this page
+
+    if
+    unless
+    else / elsif
+    case / when
+    Multiple conditions (and / or)
+
+if
+
+Executes a block of code only if a certain condition is met (that is, if the result is true).
+
+Input
+
+{% if product.title == 'Awesome Shoes' %}
+  You are buying some awesome shoes!
+{% endif %}
+
+Output
+
+You are buying some awesome shoes!
+
+unless
+
+Like if, but executes a block of code only if a certain condition is not met (that is, if the result is false).
+
+Input
+
+{% unless product.title == 'Awesome Shoes' %}
+  You are not buying awesome shoes.
+{% endunless %}
+
+Output
+
+You are not buying awesome shoes.
+
+The above example is the same as:
+
+{% if product.title != 'Awesome Shoes' %}
+  You are not buying awesome shoes.
+{% endif %}
+
+else / elsif
+
+Adds more conditions to an if or unless block.
+
+Input
+
+{% if shipping_method.title == 'International Shipping' %}
+  You're shipping internationally. Your order should arrive in 2–3 weeks.
+{% elsif shipping_method.title == 'Domestic Shipping' %}
+  Your order should arrive in 3–4 days.
+{% else %}
+  Thank you for your order!
+{% endif %}
+
+Output
+
+Your order should arrive in 3–4 days.
+
+case / when
+
+Creates a switch statement to execute a particular block of code when a variable has a specified value. case initializes the switch statement, and when statements define the various conditions.
+
+You can optionally add an else statement at the end of the case to provide code to execute if none of the conditions are met.
+
+Input
+
+{% case shipping_method.title %}
+  {% when 'International Shipping' %}
+     You're shipping internationally. Your order should arrive in 2–3 weeks.
+  {% when 'Domestic Shipping' %}
+    Your order should arrive in 3–4 days.
+  {% when 'Local Pick-Up' %}
+    Your order will be ready for pick-up tomorrow.
+  {% else %}
+     Thank you for your order!
+{% endcase %}
+
+Output
+
+Your order should arrive in 3–4 days.
+
+Multiple conditions (and / or)
+
+You can use the and and or operators to include more than one condition in a control flow tag. and and or can be chained together to create complex conditionals.
+
+If you use multiple and or or operators, note that and operators will be evaluated first, then or operators. You cannot use parentheses to simulate an order of operations and control the order of operator evaluation. Parentheses are invalid characters within Liquid tags and prevent your tags from working.
+and
+
+The and operator lets you add additional conditions to a tag. A condition with an and will only be true if both the left and the right side of the condition are true.
+
+Input
+
+{% if line_item.grams > 20000 and customer_address.city == 'Ottawa' %}
+  You're buying a heavy item, and live in the same city as our store. Choose local pick-up as a shipping option to avoid paying high shipping costs.
+{% endif %}
+
+Output
+
+You're buying a heavy item, and live in the same city as our store. Choose local pick-up as a shipping option to avoid paying high shipping costs.
+
+or
+
+The or operator lets you add additional conditions to a tag. A condition with an or will be true if either the left or the right side of the condition is true.
+
+Input
+
+{% if customer.tags contains 'VIP' or customer.email contains 'mycompany.com' %}
+  Welcome! We're pleased to offer you a special discount of 15% on all products.
+{% else %}
+  Welcome to our store!
+{% endif %}
+
+Output
+
+Welcome! We're pleased to offer you a special discount of 15% on all products.
+
+
+
+Array filters
+
+Array filters change the output of arrays.
+
+On this page
+
+    join
+    first
+    last
+    concat
+    index
+    map
+    reverse
+    size
+    sort
+    uniq
+
+join
+
+Joins the elements of an array with the character passed as the parameter. The result is a single string.
+
+Input
+
+{{ product.tags | join: ', ' }}
+
+Output
+
+tag1, tag2, tag3
+
+first
+
+Returns the first element of an array.
+
+Input
+
+<!-- product.tags = "sale", "mens", "womens", "awesome" -->
+{{ product.tags | first }}
+
+Output
+
+sale
+
+You can use first with dot notation when you need to use the filter inside a tag.
+
+{% if product.tags.first == "sale" %}
+  This product is on sale!
+{% endif %}
+
+last
+
+Returns the last element of an array.
+
+Input
+
+<!-- product.tags = "sale", "mens", "womens", "awesome" -->
+{{ product.tags | last }}
+
+Output
+
+awesome
+
+You can use last with dot notation when you need to use the filter inside a tag.
+
+{% if product.tags.last == "sale"%}
+  This product is on sale!
+{% endif %}
+
+Using last on a string returns the last character in the string.
+
+Input
+
+<!-- product.title = "Awesome Shoes" -->
+{{ product.title | last }}
+
+Output
+
+s
+
+concat
+
+Concatenates (combines) an array with another array. The resulting array contains all the elements of the original arrays. concat will not remove duplicate entries from the concatenated array unless you also use the uniq filter.
+
+Input
+
+{% assign fruits = "apples, oranges, peaches, tomatoes" | split: ", " %}
+{% assign vegetables = "broccoli, carrots, lettuce, tomatoes" | split: ", " %}
+
+{% assign plants = fruits | concat: vegetables %}
+
+{{ plants | join: ", " }}
+
+Output
+
+apples, oranges, peaches, tomatoes, broccoli, carrots, lettuce, tomatoes
+
+You can string together multiple concat filters to combine more than two arrays:
+
+Input
+
+{% assign fruits = "apples, oranges, peaches" | split: ", " %}
+{% assign vegetables = "broccoli, carrots, lettuce" | split: ", " %}
+{% assign animals = "dogs, cats, birds" | split: ", " %}
+
+{% assign things = fruits | concat: vegetables | concat: animals %}
+
+{{ things | join: ", " }}
+
+Output
+
+apples, oranges, peaches, broccoli, carrots, lettuce, dogs, cats, birds
+
+index
+
+Returns the item at the specified index location in an array. Note that array numbering starts from zero, so the first item in an array is referenced with [0].
+
+Input
+
+<!-- product.tags = "sale", "mens", "womens", "awesome" -->
+{{ product.tags[2] }}
+
+Output
+
+womens
+
+map
+
+Accepts an array element's attribute as a parameter and creates an array out of each array element's value.
+
+Input
+
+<!-- collection.title = "Spring", "Summer", "Fall", "Winter" -->
+{% assign collection_titles = collections | map: 'title' %}
+{{ collection_titles }}
+
+Output
+
+SpringSummerFallWinter
+
+reverse
+
+Reverses the order of the items in an array.
+
+Input
+
+{% assign my_array = "apples, oranges, peaches, plums" | split: ", " %}
+
+{{ my_array | reverse | join: ", " }}
+
+Output
+
+plums, peaches, oranges, apples
+
+size
+
+Returns the size of a string (the number of characters) or an array (the number of elements).
+
+Input
+
+{{ 'The quick brown fox jumps over a lazy dog.' | size }}
+
+Output
+
+42
+
+You can use size with dot notation when you need to use the filter inside a tag.
+
+{% if collections.frontpage.products.size > 10 %}
+  There are more than 10 products in this collection!
+{% endif %}
+
+sort
+
+Sorts the elements of an array by a given attribute of an element in the array.
+
+{% assign products = collection.products | sort: 'price' %}
+{% for product in products %}
+  <h4>{{ product.title }}</h4>
+{% endfor %}
+
+The order of the sorted array is case-sensitive.
+
+Input
+
+<!-- products = "a", "b", "A", "B" -->
+{% assign products = collection.products | sort: 'title' %}
+{% for product in products %}
+   {{ product.title }}
+{% endfor %}
+
+Output
+
+A B a b
+
+uniq
+
+Removes any duplicate instances of elements in an array.
+
+Input
+
+{% assign fruits = "orange apple banana apple orange" %}
+{{ fruits | split: ' ' | uniq | join: ' ' }}
+
+Output
+
+orange apple banana
+
+
+
+Color filters
+
+Color filters change or extract properties from CSS color strings. These filters are commonly used with color theme settings.
+
+On this page
+
+    color_to_rgb
+    color_to_hsl
+    color_to_hex
+    color_extract
+    color_brightness
+    color_modify
+    color_lighten
+    color_darken
+    color_saturate
+    color_desaturate
+    color_mix
+    color_contrast
+    color_difference
+    brightness_difference
+
+color_to_rgb
+
+Converts a CSS color string to CSS rgb() format.
+
+Input
+
+{{ '#7ab55c' | color_to_rgb }}
+
+Output
+
+rgb(122, 181, 92)
+
+If the input color has an alpha component, then the output will be in CSS rgba() format.
+
+{{ 'hsla(100, 38%, 54%, 0.5)' | color_to_rgb }}
+
+Output
+
+rgba(122, 181, 92, 0.5)
+
+color_to_hsl
+
+Converts a CSS color string to CSS hsl() format.
+
+Input
+
+{{ '#7ab55c' | color_to_hsl }}
+
+Output
+
+hsl(100, 38%, 54%)
+
+If the input color has an alpha component, then the output will be in CSS rgba() format.
+
+{{ 'rgba(122, 181, 92, 0.5)' | color_to_hsl }}
+
+Output
+
+hsla(100, 38%, 54%, 0.5)
+
+color_to_hex
+
+Converts a CSS color string to hex6 format.
+
+Input
+
+{{ 'rgb(122, 181, 92)' | color_to_hex }}
+
+Output
+
+#7ab55c
+
+Hex output is always in hex6 format. If there is an alpha channel in the input color, it will not appear in the output.
+
+{{ 'rgba(122, 181, 92, 0.5)' | color_to_hex }}
+
+Output
+
+#7ab55c
+
+color_extract
+
+Extracts a component from the color. Valid components are alpha, red, green, blue, hue, saturation and lightness.
+
+Input
+
+{{ '#7ab55c' | color_extract: 'red' }}
+
+Output
+
+122
+
+color_brightness
+
+Calculates the perceived brightness of the given color. Uses W3C recommendations for calculating perceived brightness, for the purpose of ensuring adequate contrast.
+
+Input
+
+{{ '#7ab55c' | color_brightness }}
+
+Output
+
+153.21
+
+color_modify
+
+Modifies the given component of a color.
+
+    Red, green and blue values should be a number between 0 and 255
+    Alpha should be a decimal number between 0 and 1
+    Hue should be between 0 and 360 degrees
+    Saturation and lightness should be a value between 0 and 100 percent.
+
+Input
+
+{{ '#7ab55c' | color_modify: 'red', 255 }}
+
+Output
+
+#ffb55c
+
+The filter will return a color type that includes the modified format — for example, if you modify the alpha channel, the filter will return the color in rgba() format, even if your input color was in hex format.
+
+Input
+
+{{ '#7ab55c' | color_modify: 'alpha', 0.85 }}
+
+Output
+
+rgba(122, 181, 92, 0.85)
+
+color_lighten
+
+Lightens the input color. Takes a value between 0 and 100 percent.
+
+Input
+
+{{ '#7ab55c' | color_lighten: 30 }}
+
+Output
+
+#d0e5c5
+
+color_darken
+
+Darkens the input color. Takes a value between 0 and 100 percent.
+
+Input
+
+{{ '#7ab55c' | color_darken: 30 }}
+
+Output
+
+#355325
+
+color_saturate
+
+Saturates the input color. Takes a value between 0 and 100 percent.
+
+Input
+
+{{ '#7ab55c' | color_saturate: 30 }}
+
+Output
+
+#6ed938
+
+color_desaturate
+
+Desaturates the input color. Takes a value between 0 and 100 percent.
+
+Input
+
+{{ '#7ab55c' | color_desaturate: 30 }}
+
+Output
+
+#869180
+
+color_mix
+
+Blends together two colors. Blend factor should be a value value between 0 and 100 percent.
+
+Input
+
+{{ '#7ab55c' | color_mix: '#ffc0cb', 50 }}
+
+Output
+
+#bdbb94
+
+If one input has an alpha component, but the other does not, an alpha component of 1 will be assumed for the input without an alpha component.
+
+Input
+
+{{ 'rgba(122, 181, 92, 0.75)' | color_mix: '#ffc0cb', 50 }}
+
+Output
+
+rgba(189, 187, 148, 0.875)
+
+color_contrast
+
+Calculates the contrast ratio between two colors. Returns the numerator part of the ratio, which has a denominator of 1. For example, for a contrast ratio of 3.5:1, the filter returns 3.5.
+
+With regards to accessibility, WCAG 2.0 level AA requires a contrast ratio of at least 4.5:1 for normal text and 3:1 for large text. Level AAA requires a contrast ratio of at least 7:1 for normal text and 4.5:1 for large text.
+
+The order in which you specify the colors does not matter. The filter will automatically detect the lighter and darker colors.
+
+Input
+
+{{ '#495859' | color_contrast: '#fffffb' }}
+
+Output
+
+7.4
+
+color_difference
+
+Calculates the color difference or distance between two colors. With regards to accessibility, the W3C suggests that the color difference should be greater than 500.
+
+Input
+
+{{ '#ff0000' | color_difference: '#abcdef' }}
+
+Output
+
+528
+
+brightness_difference
+
+Calculates the perceived brightness difference between two colors. With regards to accessibility, the W3C suggests that the brightness difference should be greater than 125.
+
+Input
+
+{{ '#fff00f' | brightness_difference: '#0b72ab' }}
+
+Output
+
+129
+
+
+Font filters
+
+Font filters are called on font objects. You can use font filters to load fonts or to obtain font variants.
+
+See Shopify's font library for a list of all fonts and their variants.
+On this page
+
+    font_modify
+    font_face
+    font_url
+
+font_modify
+
+font_modify takes two arguments. The first indicates which property should be modified and the second is the modification to be made.
+
+While you can access every variant of the chosen font's family by using font.variants, you can more easily access specific styles and weights by using the font_modify filter.
+
+Example
+
+{% assign bold_italic = settings.body_font | font_modify: 'weight', 'bold' | font_modify: 'style', 'italic' %}
+
+The following properties and modifications can be used:
+Property  Modification  Behavior
+style   normal  Returns the normal variant of the same weight (if it exists).
+italic  Returns the italic variant of the same weight (if it exists).
+oblique   Has the same behavior as italic. None of the font families provided by Shopify have both italic and oblique styles.
+weight  100 → 900   Returns a variant of the same style with the given weight (if it exists).
+normal  Has the same behavior as 400.
+bold  Has the same behavior as 700.
++100 → +900   Returns an incrementally bolder font of the same style (if it exists). For example, if font has a weight of 400, then font | font_modify "weight", "+100" returns the variant with a weight of 500 for the same style.
+-100 → -900   Returns an incrementally lighter font of the same style (if it exists). For example, if font has a weight of 400, then font | font_modify "weight", "-100" returns the variant with a weight of 300 for the same style.
+lighter   Returns a lighter variant of the same style by applying the rules used by the CSS font-weight property and browser fallback weights (if it exists).
+bolder  Returns a bolder variant of the same style by applying the rules used by the CSS font-weight property and browser fallback weights (if it exists).
+Handling font variants
+
+If the font_modify filter tries to create a font variant that doesn't exist, then it returns nil. The following example shows the output when no bolder variant of settings.body_font exists:
+
+Input
+
+{% assign bolder_font = settings.body_font | font_modify: 'weight', 'bolder' %}
+h2 {
+  font-weight: {{ bolder_font.weight }};
+}
+
+Output
+
+h2 {
+  font-weight: ;
+}
+
+To prevent this from happening, you can either check the value of bolder_font with a control flow tag, or assign a fallback value with the default filter:
+
+Example
+
+{% assign bolder_font = settings.body_font | font_modify: 'weight', 'bolder' %}
+{% if bolder_font %}
+h2 {
+  font-weight: {{ bolder_font.weight }};
+}
+{% endif %}
+
+font_face
+
+Returns a CSS @font-face declaration to load the chosen font.
+
+Input
+
+<style>
+  {{ settings.heading_font | font_face }}
+</style>
+
+Output
+
+<style>
+  @font-face {
+    font-family: "Neue Haas Unica";
+    font-weight: 400;
+    font-style: normal;
+    src: url("https://fonts.shopifycdn.com/neue_haas_unica/neuehaasunica_n4.8a2375506d3dfc7b1867f78ca489e62638136be6.woff2?hmac=d5feff0f2e6b37fedb3ec099688181827df4a97f98d2336515503215e8d1ff55&host=c2hvcDEubXlzaG9waWZ5Lmlv") format("woff2"),
+         url("https://fonts.shopifycdn.com/neue_haas_unica/neuehaasunica_n4.06cdfe33b4db0659278e9b5837a3e8bc0a9d4025.woff?hmac=d5feff0f2e6b37fedb3ec099688181827df4a97f98d2336515503215e8d1ff55&host=c2hvcDEubXlzaG9waWZ5Lmlv") format("woff");
+  }
+</style>
+
+Additional properties
+
+The font_face filter takes an optional font_display argument to customize the font-display property of the @font-face declaration.
+
+Input
+
+<style>
+  {{ settings.heading_font | font_face: font_display: 'swap' }}
+</style>
+
+Output
+
+<style>
+  @font-face {
+    font-family: "Neue Haas Unica";
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url("https://fonts.shopifycdn.com/neue_haas_unica/neuehaasunica_n4.8a2375506d3dfc7b1867f78ca489e62638136be6.woff2?hmac=d5feff0f2e6b37fedb3ec099688181827df4a97f98d2336515503215e8d1ff55&host=c2hvcDEubXlzaG9waWZ5Lmlv") format("woff2"),
+         url("https://fonts.shopifycdn.com/neue_haas_unica/neuehaasunica_n4.06cdfe33b4db0659278e9b5837a3e8bc0a9d4025.woff?hmac=d5feff0f2e6b37fedb3ec099688181827df4a97f98d2336515503215e8d1ff55&host=c2hvcDEubXlzaG9waWZ5Lmlv") format("woff");
+  }
+</style>
+
+font_url
+
+Returns a CDN URL for the chosen font.
+
+Input
+
+{{ settings.heading_font | font_url }}
+
+Output
+
+https://fonts.shopifycdn.com/neue_haas_unica/neuehaasunica_n4.8a2375506d3dfc7b1867f78ca489e62638136be6.woff2?hmac=d5feff0f2e6b37fedb3ec099688181827df4a97f98d2336515503215e8d1ff55&host=c2hvcDEubXlzaG9waWZ5Lmlv
+
+By default, font_url returns the woff2 version, but it can also be called with an additional parameter to specify the format. Both woff and woff2 are supported.
+
+{{ settings.heading_font | font_url: 'woff' }}
+
+
+HTML filters
+
+HTML filters wrap assets in HTML tags.
+On this page
+
+    img_tag
+    script_tag
+    stylesheet_tag
+    payment_type_svg_tag
+
+img_tag
+
+Generates an image tag.
+
+Input
+
+{{ 'smirking_gnome.gif' | asset_url | img_tag }}
+
+Output
+
+<img src="//cdn.shopify.com/s/files/1/0147/8382/t/15/assets/smirking_gnome.gif?v=1384022871" alt="" />
+
+The img_tag filter accepts parameters to output an alt tag, class names, and a size parameter:
+
+    The first parameter is output as the alt text.
+    The second parameter is the css class, or classes to be applied to the tag.
+    The last parameter is the image size parameter.
+
+Note
+
+The image size parameter is the same one used in the img_url filter, which is a URL Filter. This cannot be used in conjunction with the img_url filter. If both filters are used, the img_url filter will override the size parameter of the img_tag filter.
+
+Input
+
+{{ 'smirking_gnome.gif' | asset_url | img_tag: 'Smirking Gnome', 'cssclass1 cssclass2' }}
+
+Output
+
+<img src="//cdn.shopify.com/s/files/1/0147/8382/t/15/assets/smirking_gnome.gif?v=1384022871" alt="Smirking Gnome" class="cssclass1 cssclass2" />
+
+The img_tag filter can also be used on the following objects:
+
+    product
+    variant
+    line item
+    collection
+    image
+
+Input
+
+{{ product | img_tag }}
+{{ variant | img_tag: 'alternate text' }}
+{{ line_item | img_tag: 'alternate text', 'css-class' }}
+{{ image | img_tag: 'alternate text', 'css-class', 'small' }}
+{{ collection | img_tag: 'alternate text', 'css-class', 'large' }}
+
+Output
+
+<img src="//cdn.shopify.com/s/files/1/0159/3350/products/red_shirt_small.jpg?v=1398706734" alt="Red Shirt Small" />
+<img src="//cdn.shopify.com/s/files/1/0159/3350/products/red_shirt_small.jpg?v=1398706734" alt="alternate text" />
+<img src="//cdn.shopify.com/s/files/1/0159/3350/products/red_shirt_small.jpg?v=1398706734" alt="alternate text" class="css-class" />
+<img src="//cdn.shopify.com/s/files/1/0159/3350/products/red_shirt_small.jpg?v=1398706734" alt="alternate text" class="css-class" />
+<img src="//cdn.shopify.com/s/files/1/0159/3350/products/shirts_collection_large.jpg?v=1338563745" alt="alternate text" class="css-class" />
+
+script_tag
+
+Generates a script tag.
+
+Input
+
+{{ 'shop.js' | asset_url | script_tag }}
+
+Output
+
+<script src="//cdn.shopify.com/s/files/1/0087/0462/t/394/assets/shop.js?28178" type="text/javascript"></script>
+
+stylesheet_tag
+
+Generates a stylesheet tag.
+
+Input
+
+{{ 'shop.css' | asset_url | stylesheet_tag }}
+
+Output
+
+<link href="//cdn.shopify.com/s/files/1/0087/0462/t/394/assets/shop.css?28178" rel="stylesheet" type="text/css" media="all" />
+
+payment_type_svg_tag
+
+Returns the <svg> tag of the requested payment type image for inlining purposes. Used in conjunction with the shop.enabled_payment_types variable. Accepts an optional class attribute which is applied on the <svg> tag to control the styling of the icon.
+
+Input
+
+{% for type in shop.enabled_payment_types %}
+  {{ type | payment_type_svg_tag, class: 'custom-class' }}
+{% endfor %}
+
+Output
+
+<!-- If the shop accepts Mastercard and Discover -->
+<svg class="custom-class" xmlns="http://www.w3.org/2000/svg">
+  <circle fill="#EB001B" cx="15" cy="12" r="7"></circle>
+  <circle fill="#F79E1B" cx="23" cy="12" r="7"></circle>
+  ...
+</svg>
+
+<svg class="custom-class" xmlns="http://www.w3.org/2000/svg">
+  <path fill="#494949" d="M9 11h20v2H9z"></path>
+  ...
+</svg>
+
+
+Math filters
+
+Math filters allow you to apply mathematical tasks.
+
+Math filters can be linked and, as with any other filters, are applied in order of left to right. In the example below, minus is applied first, then times, and finally divided_by.
+
+You save {{ product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price }}%
+
+On this page
+
+    abs
+    at_most
+    at_least
+    ceil
+    divided_by
+    floor
+    minus
+    plus
+    round
+    times
+    modulo
+
+abs
+
+Returns the absolute value of a number.
+
+Input
+
+{{ -17 | abs }}
+
+Output
+
+17
+
+abs will also work on a string if the string only contains a number.
+
+Input
+
+{{ "-19.86" | abs }}
+
+Output
+
+19.86
+
+at_most
+
+Limits a number to a maximum value.
+
+Input
+
+{{ 4 | at_most: 5 }}
+{{ 4 | at_most: 3 }}
+
+Output
+
+4
+3
+
+at_least
+
+Limits a number to a minimum value.
+
+Input
+
+{{ 4 | at_least: 5 }}
+{{ 4 | at_least: 3 }}
+
+Output
+
+5
+4
+
+ceil
+
+Rounds an output up to the nearest integer.
+
+Input
+
+{{ 4.6 | ceil }}
+{{ 4.3 | ceil }}
+
+Output
+
+5
+5
+
+divided_by
+
+Divides an output by a number. The output is rounded down to the nearest integer.
+
+Input
+
+<!-- product.price = 200 -->
+{{ product.price | divided_by: 10 }}
+
+Output
+
+20
+
+floor
+
+Rounds an output down to the nearest integer.
+
+Input
+
+{{ 4.6 | floor }}
+{{ 4.3 | floor }}
+
+Output
+
+4
+4
+
+minus
+
+Subtracts a number from an output.
+
+Input
+
+<!-- product.price = 200 -->
+{{ product.price | minus: 15 }}
+
+Output
+
+185
+
+plus
+
+Adds a number to an output.
+
+Input
+
+<!-- product.price = 200 -->
+{{ product.price | plus: 15 }}
+
+Output
+
+215
+
+round
+
+Rounds the output to the nearest integer or specified number of decimals.
+
+Input
+
+{{ 4.6 | round }}
+{{ 4.3 | round }}
+{{ 4.5612 | round: 2 }}
+
+Output
+
+5
+4
+4.56
+
+times
+
+Multiplies an output by a number.
+
+Input
+
+<!-- product.price = 200 -->
+{{ product.price | times: 1.15 }}
+
+Output
+
+230
+
+modulo
+
+Divides an output by a number and returns the remainder.
+
+Input
+
+{{ 12 | modulo:5 }}
+
+Output
+
+2
+
+
+Money filters
+
+Money filters format prices based on the Currency Formatting found in General settings.
+On this page
+
+    money
+    money_with_currency
+    money_without_trailing_zeros
+    money_without_currency
+
+money
+
+Formats the price based on the shop's HTML without currency setting.
+
+Input
+
+{{ 145 | money }}
+
+Output
+
+<!-- if "HTML without currency" is ${{ amount }} -->
+$1.45
+<!-- if "HTML without currency" is €{{ amount_no_decimals }} -->
+€1
+
+money_with_currency
+
+Formats the price based on the shop's HTML with currency setting.
+
+Input
+
+{{ 145 | money_with_currency }}
+
+Output
+
+<!-- if "HTML with currency" is ${{ amount }} CAD -->
+$1.45 CAD
+
+money_without_trailing_zeros
+
+Formats the price based on the shop's HTML with currency setting and excludes the decimal point and trailing zeros.
+
+Input
+
+<!-- if "HTML with currency" is ${{ amount }} CAD -->
+{{ 2000 | money_without_trailing_zeros }}
+
+Output
+
+$20
+
+Only trailing zeros are removed, not other digits:
+
+Input
+
+<!-- if "HTML with currency" is ${{ amount }} CAD -->
+{{ 145 | money_without_trailing_zeros }}
+
+Output
+
+$1.45
+
+money_without_currency
+
+Formats the price using a decimal.
+
+Input
+
+{{ 145 | money_without_currency }}
+
+Output
+
+1.45
+
+
+String filters
+
+String filters are used to manipulate outputs and variables of the string type.
+On this page
+
+    append
+    camelcase
+    capitalize
+    downcase
+    escape
+    handle/handleize
+    md5
+    sha1
+    sha256
+    hmac_sha1
+    hmac_sha256
+    newline_to_br
+    pluralize
+    prepend
+    remove
+    remove_first
+    replace
+    replace_first
+    slice
+    split
+    strip
+    lstrip
+    rstrip
+    strip_html
+    strip_newlines
+    truncate
+    truncatewords
+    upcase
+    url_encode
+    url_escape
+    url_param_escape
+    Reversing strings
+
+append
+
+Appends characters to a string.
+
+Input
+
+{{ 'sales' | append: '.jpg' }}
+
+Output
+
+sales.jpg
+
+camelcase
+
+Converts a string into CamelCase.
+
+Input
+
+{{ 'coming-soon' | camelcase }}
+
+Output
+
+ComingSoon
+
+capitalize
+
+Capitalizes the first word in a string
+
+Input
+
+{{ 'capitalize me' | capitalize }}
+
+Output
+
+Capitalize me
+
+downcase
+
+Converts a string into lowercase.
+
+Input
+
+{{ 'UPPERCASE' | downcase }}
+
+Output
+
+uppercase
+
+escape
+
+Escapes a string.
+
+Input
+
+{{ "<p>test</p>" | escape }}
+
+Output
+
+&lt;p&gt;test&lt;/p&gt;
+ <!-- Note: a browser will visually display this as <p>test</p> -->
+
+handle/handleize
+
+Formats a string into a handle.
+
+Input
+
+{{ '100% M & Ms!!!' | handleize }}
+
+Output
+
+100-m-ms
+
+md5
+
+Converts a string into an MD5 hash.
+
+An example use case for this filter is showing the Gravatar image associated with the poster of a blog comment:
+
+Input
+
+<img src="https://www.gravatar.com/avatar/{{ comment.email | remove: ' ' | strip_newlines | downcase | md5 }}" />
+
+Output
+
+<img src="https://www.gravatar.com/avatar/2a95ab7c950db9693c2ceb767784c201" />
+
+sha1
+
+Converts a string into a SHA-1 hash.
+
+Input
+
+{% assign my_secret_string = "ShopifyIsAwesome!" | sha1 %}
+My encoded string is: {{ my_secret_string }}
+
+Output
+
+My encoded string is: c7322e3812d3da7bc621300ca1797517c34f63b6
+
+sha256
+
+Converts a string into a SHA-256 hash.
+
+Input
+
+{% assign my_secret_string = "ShopifyIsAwesome!" | sha256 %}
+My encoded string is: {{ my_secret_string }}
+
+Output
+
+My encoded string is: c29cce758876791f34b8a1543f0ec3f8e886b5271004d473cfe75ac3148463cb
+
+hmac_sha1
+
+Converts a string into a SHA-1 hash using a hash message authentication code (HMAC). Pass the secret key for the message as a parameter to the filter.
+
+Input
+
+{% assign my_secret_string = "ShopifyIsAwesome!" | hmac_sha1: "secret_key" %}
+My encoded string is: {{ my_secret_string }}
+
+Output
+
+My encoded string is: 30ab3459e46e7b209b45dba8378fcbba67297304
+
+hmac_sha256
+
+Converts a string into a SHA-256 hash using a hash message authentication code (HMAC). Pass the secret key for the message as a parameter to the filter.
+
+Input
+
+{% assign my_secret_string = "ShopifyIsAwesome!" | hmac_sha256: "secret_key" %}
+My encoded string is: {{ my_secret_string }}
+
+Output
+
+My encoded string is: 30ab3459e46e7b209b45dba8378fcbba67297304
+
+newline_to_br
+
+Inserts a <br > linebreak HTML tag in front of each line break in a string.
+
+Input
+
+{% capture var %}
+One
+Two
+Three
+{% endcapture %}
+{{ var | newline_to_br }}
+
+Output
+
+One <br>
+Two<br>
+Three<br>
+
+pluralize
+
+Outputs the singular or plural version of a string based on the value of a number. The first parameter is the singular string and the second parameter is the plural string.
+
+Input
+
+{{ cart.item_count }}
+{{ cart.item_count | pluralize: 'item', 'items' }}
+
+Output
+
+3 items
+
+prepend
+
+Prepends characters to a string.
+
+Input
+
+{{ 'sale' | prepend: 'Made a great ' }}
+
+Output
+
+Made a great sale
+
+remove
+
+Removes all occurrences of a substring from a string.
+
+Input
+
+{{ "Hello, world. Goodbye, world." | remove: "world" }}
+
+Output
+
+Hello, . Goodbye, .
+
+remove_first
+
+Removes only the first occurrence of a substring from a string.
+
+Input
+
+{{ "Hello, world. Goodbye, world." | remove_first: "world" }}
+
+Output
+
+Hello, . Goodbye, world.
+
+replace
+
+Replaces all occurrences of a string with a substring.
+
+Input
+
+<!-- product.title = "Awesome Shoes" -->
+{{ product.title | replace: 'Awesome', 'Mega' }}
+
+Output
+
+Mega Shoes
+
+replace_first
+
+Replaces the first occurrence of a string with a substring.
+
+Input
+
+<!-- product.title = "Awesome Awesome Shoes" -->
+{{ product.title | replace_first: 'Awesome', 'Mega' }}
+
+Output
+
+Mega Awesome Shoes
+
+slice
+
+The slice filter returns a substring, starting at the specified index. An optional second parameter can be passed to specify the length of the substring. If no second parameter is given, a substring of one character will be returned.
+
+Input
+
+{{ "hello" | slice: 0 }}
+{{ "hello" | slice: 1 }}
+{{ "hello" | slice: 1, 3 }}
+
+Output
+
+h
+e
+ell
+
+If the passed index is negative, it is counted from the end of the string.
+
+Input
+
+{{ "hello" | slice: -3, 2  }}
+
+Output
+
+ll
+
+split
+
+The split filter takes on a substring as a parameter. The substring is used as a delimiter to divide a string into an array. You can output different parts of an array using array filters.
+
+Input
+
+{% assign words = "Hi, how are you today?" | split: ' ' %}
+
+{% for word in words %}
+{{ word }}
+{% endfor %}
+
+Output
+
+Hi,
+how
+are
+you
+today?
+
+strip
+
+Strips tabs, spaces, and newlines (all whitespace) from the left and right side of a string.
+
+Input
+
+{{ '   too many spaces      ' | strip }}
+
+Output
+
+too many spaces
+
+lstrip
+
+Strips tabs, spaces, and newlines (all whitespace) from the left side of a string.
+
+Input
+
+{{ '   too many spaces           ' | lstrip }}
+
+Output
+
+<!-- Highlight to see the empty spaces to the right of the string -->
+too many spaces
+
+rstrip
+
+Strips tabs, spaces, and newlines (all whitespace) from the right side of a string.
+
+Input
+
+{{ '              too many spaces      ' | rstrip }}
+
+Output
+
+<!-- Notice the empty spaces to the left of the string -->
+              too many spaces
+
+strip_html
+
+Strips all HTML tags from a string.
+
+Input
+
+{{ "<h1>Hello</h1> World" | strip_html }}
+
+Output
+
+Hello World
+
+strip_newlines
+
+Removes any line breaks/newlines from a string.
+
+{{ product.description | strip_newlines }}
+
+truncate
+
+Truncates a string down to the number of characters passed as the first parameter. An ellipsis (...) is appended to the truncated string and is included in the character count.
+
+Input
+
+{{ "The cat came back the very next day" | truncate: 13 }}
+
+Output
+
+The cat ca...
+
+Custom ellipsis
+
+truncate takes an optional second parameter that specifies the sequence of characters to be appended to the truncated string. By default this is an ellipsis (...), but you can specify a different sequence.
+
+The length of the second parameter counts against the number of characters specified by the first parameter. For example, if you want to truncate a string to exactly 10 characters, and use a 3-character ellipsis, use 13 for the first parameter of truncate, since the ellipsis counts as 3 characters.
+
+Input
+
+{{ "ABCDEFGHIJKLMNOPQRSTUVWXYZ" | truncate: 18, ", and so on" }}
+
+Output
+
+ABCDEFG, and so on
+
+No ellipsis
+
+You can truncate to the exact number of characters specified by the first parameter and show no trailing characters by passing a blank string as the second parameter:
+
+Input
+
+{{ "I'm a little teapot, short and stout." | truncate: 15, "" }}
+
+Output
+
+I'm a little te
+
+truncatewords
+
+Truncates a string down to the number of words passed as the first parameter. An ellipsis (...) is appended to the truncated string.
+
+Input
+
+{{ "The cat came back the very next day" | truncatewords: 4 }}
+
+Output
+
+The cat came back...
+
+Custom ellipsis
+
+truncatewords takes an optional second parameter that specifies the sequence of characters to be appended to the truncated string. By default this is an ellipsis (...), but you can specify a different sequence.
+
+Input
+
+{{ "The cat came back the very next day" | truncatewords: 4, "--" }}
+
+Output
+
+The cat came back--
+
+No ellipsis
+
+You can avoid showing trailing characters by passing a blank string as the second parameter:
+
+Input
+
+{{ "The cat came back the very next day" | truncatewords: 4, "" }}
+
+Output
+
+The cat came back
+
+upcase
+
+Converts a string into uppercase.
+
+Input
+
+{{ 'i want this to be uppercase' | upcase }}
+
+Output
+
+I WANT THIS TO BE UPPERCASE
+
+url_encode
+
+Converts any URL-unsafe characters in a string into percent-encoded characters.
+
+Input
+
+{{ "john@liquid.com" | url_encode }}
+
+Output
+
+john%40liquid.com
+
+Note that url_encode will turn a space into a + sign instead of a percent-encoded character.
+
+Input
+
+{{ "Tetsuro Takara" | url_encode }}
+
+Output
+
+Tetsuro+Takara
+
+url_escape
+
+Identifies all characters in a string that are not allowed in URLS, and replaces the characters with their escaped variants.
+
+Input
+
+{{ "<hello> & <shopify>" | url_escape }}
+
+Output
+
+%3Chello%3E%20&%20%3Cshopify%3E
+
+url_param_escape
+
+Replaces all characters in a string that are not allowed in URLs with their escaped variants, including the ampersand (&).
+
+Input
+
+{{ "<hello> & <shopify>" | url_param_escape }}
+
+Output
+
+%3Chello%3E%20%26%20%3Cshopify%3E
+
+Reversing strings
+
+reverse cannot be used directly on a string, but you can split a string into an array, reverse the array, and rejoin it by chaining together other filters:
+
+Input
+
+{{ "Ground control to Major Tom." | split: "" | reverse | join: "" }}
+
+Output
+
+.moT rojaM ot lortnoc dnuorG
+
+URL filters
+
+URL filters output links to assets on Shopify's Content Delivery Network (CDN). They are also used to create links for filtering collections and blogs.
+
+In many URL filter outputs, you will see a question mark (?) with a number appended to the asset's file path. This is the file's version number. For example, the version number in this URL is 28253:
+
+//cdn.shopify.com/s/files/1/0087/0462/t/394/assets/shop.css?28253
+
+URL filters will always load the latest version of an asset.
+On this page
+
+    asset_url
+    asset_img_url
+    file_url
+    file_img_url
+    customer_login_link
+    global_asset_url
+    img_url
+    link_to
+    link_to_vendor
+    link_to_type
+    link_to_tag
+    link_to_add_tag
+    link_to_remove_tag
+    payment_type_img_url
+    shopify_asset_url
+    url_for_type
+    url_for_vendor
+    within
+
+asset_url
+
+Returns the URL of a file in the "assets" folder of a theme.
+
+Input
+
+{{ 'shop.css' | asset_url }}
+
+Output
+
+//cdn.shopify.com/s/files/1/0087/0462/t/394/assets/shop.css?28253
+
+asset_img_url
+
+Returns the asset URL of an image in the "assets" folder of a theme. asset_img_url accepts an image size parameter.
+
+Input
+
+{{ 'logo.png' | asset_img_url: '300x' }}
+
+Output
+
+//cdn.shopify.com/s/files/1/0000/0001/t/1/assets/logo_300x.png?42
+
+file_url
+
+Returns the URL of a file in the Files page of the admin.
+
+Input
+
+{{ 'size-chart.pdf' | file_url }}
+
+Output
+
+//cdn.shopify.com/s/files/1/0087/0462/files/size-chart.pdf?28261
+
+file_img_url
+
+Returns the asset URL of an image in the Files page of the admin. file_img_url accepts an image size parameter.
+
+Input
+
+{{ 'logo.png' | file_img_url: '1024x768' }}
+
+Output
+
+//cdn.shopify.com/s/files/1/0246/0527/files/logo_1024x768.png?42
+
+customer_login_link
+
+Generates a link to the customer login page.
+
+Input
+
+{{ 'Log in' | customer_login_link }}
+
+Output
+
+<a href="/account/login" id="customer_login_link">Log in</a>
+
+global_asset_url
+
+Returns the URL of a global asset. Global assets are kept in a directory on Shopify's servers. Using global assets can improve the load times of your pages.
+
+Input
+
+{{ 'prototype.js' | global_asset_url | script_tag }}
+
+Output
+
+<script src="//cdn.shopify.com/s/global/prototype.js?1" type="text/javascript"></script>
+
+The following global assets are available:
+
+{{ 'prototype.js' | global_asset_url | script_tag }}
+{{ 'controls.js' | global_asset_url | script_tag }}
+{{ 'dragdrop.js' | global_asset_url | script_tag }}
+{{ 'effects.js' | global_asset_url | script_tag }}
+
+{{ 'prototype/1.5/prototype.js' | global_asset_url | script_tag }}
+{{ 'prototype/1.6/prototype.js' | global_asset_url | script_tag }}
+
+{{ 'scriptaculous/1.8.2/scriptaculous.js' | global_asset_url | script_tag }}
+{{ 'scriptaculous/1.8.2/builder.js' | global_asset_url | script_tag }}
+{{ 'scriptaculous/1.8.2/controls.js' | global_asset_url | script_tag }}
+{{ 'scriptaculous/1.8.2/dragdrop.js' | global_asset_url | script_tag }}
+{{ 'scriptaculous/1.8.2/effects.js' | global_asset_url | script_tag }}
+{{ 'scriptaculous/1.8.2/slider.js' | global_asset_url | script_tag }}
+{{ 'scriptaculous/1.8.2/sound.js' | global_asset_url | script_tag }}
+{{ 'scriptaculous/1.8.2/unittest.js' | global_asset_url | script_tag }}
+
+{{ 'ga.js' | global_asset_url | script_tag }}
+
+{{ 'mootools.js' | global_asset_url | script_tag }}
+
+{{ 'lightbox.css' | global_asset_url | stylesheet_tag }}
+{{ 'lightbox.js' | global_asset_url | script_tag }}
+
+{{ 'lightbox/v1/lightbox.css' | global_asset_url | stylesheet_tag }}
+{{ 'lightbox/v1/lightbox.js' | global_asset_url | script_tag }}
+
+{{ 'lightbox/v2/lightbox.css' | global_asset_url | stylesheet_tag }}
+{{ 'lightbox/v2/lightbox.js' | global_asset_url | script_tag }}
+{{ 'lightbox/v2/loading.gif' | global_asset_url }}
+{{ 'lightbox/v2/close.gif' | global_asset_url }}
+{{ 'lightbox/v2/overlay.png' | global_asset_url }}
+{{ 'lightbox/v2/zoom-lg.gif' | global_asset_url }}
+
+{{ 'lightbox/v204/lightbox.css' | global_asset_url | stylesheet_tag }}
+{{ 'lightbox/v204/lightbox.js' | global_asset_url | script_tag }}
+{{ 'lightbox/v204/bullet.gif' | global_asset_url }}
+{{ 'lightbox/v204/close.gif' | global_asset_url }}
+{{ 'lightbox/v204/closelabel.gif' | global_asset_url }}
+{{ 'lightbox/v204/donatebutton.gif' | global_asset_url }}
+{{ 'lightbox/v204/downloadicon.gif' | global_asset_url }}
+{{ 'lightbox/v204/loading.gif' | global_asset_url }}
+{{ 'lightbox/v204/nextlabel.gif' | global_asset_url }}
+{{ 'lightbox/v204/prevlabel.gif' | global_asset_url }}
+
+{{ 'list_collection.css' | global_asset_url | stylesheet_tag }}
+{{ 'search.css' | global_asset_url | stylesheet_tag }}
+{{ 'textile.css' | global_asset_url | stylesheet_tag }}
+
+{{ 'firebug/firebug.css' | global_asset_url | stylesheet_tag }}
+{{ 'firebug/firebug.js' | global_asset_url | script_tag }}
+{{ 'firebug/firebugx.js' | global_asset_url | script_tag }}
+{{ 'firebug/firebug.html' | global_asset_url }}
+{{ 'firebug/errorIcon.png' | global_asset_url }}
+{{ 'firebug/infoIcon.png' | global_asset_url }}
+{{ 'firebug/warningIcon.png' | global_asset_url }}
+
+img_url
+
+Returns the URL of an image. Accepts image size parameters. You can use img_url on the following objects:
+
+    product
+    variant
+    line item
+    collection
+    article
+    image
+
+The img_url filter should be followed by the image size that you want to use. If you request a size smaller than your original image's dimensions, Shopify will scale the image for you.
+
+If you don't include an image size, the filter returns a small (100x100) image.
+
+Input
+
+{{ product | img_url: '100x100' }}
+{{ variant | img_url: '720x720' }}
+{{ line_item | img_url: '1024x' }}
+{{ product | img_url }}
+
+Output
+
+https://cdn.shopify.com/s/files/1/1183/1048/products/boat-shoes_100x100.jpeg?v=1459175177
+https://cdn.shopify.com/s/files/1/1183/1048/products/boat-shoes_720x720.jpeg?v=1459175177
+https://cdn.shopify.com/s/files/1/1183/1048/products/boat-shoes_1024x.jpeg?v=1459175177
+https://cdn.shopify.com/s/files/1/1183/1048/products/boat-shoes_small.jpeg?v=1459175177
+
+Tip
+
+For line items, img_url returns the URL of the line item's variant image. If the variant does not have an assigned image, img_url returns the URL of the product's featured image.
+
+You can also use img_url on the image or src attributes of an object.
+
+Input
+
+{{ variant.image | img_url: '300x300' }}
+{{ variant.image.src | img_url: '240x' }}
+
+Output
+
+https://cdn.shopify.com/s/files/1/0159/3350/products/red_shirt_100x100.jpg?v=1398706734
+https://cdn.shopify.com/s/files/1/0159/3350/products/red_shirt_240x.jpg?v=1398706734
+
+img_url can't transform icon files (.ico). If you specify a size or format for an icon file, img_url will return the original file.
+
+Input
+
+{{ settings.favicon | img_url: '300x300' }}
+{{ settings.favicon | img_url: '240x', scale: 2, format: 'pjpg' }}
+
+Output
+
+https://cdn.shopify.com/s/files/1/0159/3350/files/icon.ico?v=1398706734
+https://cdn.shopify.com/s/files/1/0159/3350/files/icon.ico?v=1398706734
+
+Size parameters
+
+You can specify exact dimensions in pixels for an image's width and height, up to a maximum of 5760 x 5760 px. The image's original aspect ratio will be preserved unless you crop the image.
+
+No matter what size you specify, an image can never be resized to be larger than its original dimensions.
+
+For example:
+
+{{ product | img_url: '450x450' }}
+
+You can specify only a width or only a height and Shopify will calculate the other dimension based on the original image size, keeping the original image's aspect ratio:
+
+Width only
+
+{{ product | img_url: '125x' }}
+
+Height only
+
+{{ product | img_url: 'x500' }}
+
+Other image URL parameters
+crop
+
+You can specify a crop parameter to make sure that the resulting image's dimensions match the requested dimensions. If the entire image won't fit in your requested dimensions, the crop parameter specifies what part of the image to show. Valid options are:
+
+    top
+    center
+    bottom
+    left
+    right
+
+{{ product | img_url: '400x400', crop: 'bottom' }}
+
+If you don't use crop, Shopify will use the largest image that fits in your specified dimensions, which might not take up the whole space.
+scale
+
+The scale parameter lets you specify the pixel density of the image. Valid options are:
+
+    2
+    3
+
+{{ product | img_url: '400x400', scale: 2 }}
+
+format
+
+The format parameter lets you specify what file format to use for the displayed image. Valid options are:
+
+    jpg
+    pjpg
+
+{{ product | img_url: '400x400', format: 'pjpg' }}
+
+pjpg is progressive JPEG. A browser loads a full-sized progressive JPEG with gradually increasing quality, instead of loading the full-quality image from top to bottom like a traditional JPEG.
+Tip
+
+Shopify can do the following format conversions for you:
+
+    PNG to JPG
+    PNG to PJPG
+    JPG to PJPG
+
+It's not practical to convert a lossy image format like JPG to a lossless one like PNG, so those conversions are not possible.
+link_to
+
+Generates an HTML link. The first parameter is the URL of the link, and the optional second parameter is the title of the link.
+
+Input
+
+{{ 'Shopify' | link_to: 'https://www.shopify.com','A link to Shopify' }}
+
+Output
+
+<a href="https://www.shopify.com" title="A link to Shopify">Shopify</a>
+
+link_to_vendor
+
+Creates an HTML link to a collection page that lists all products belonging to a vendor.
+
+Input
+
+{{ "Shopify" | link_to_vendor }}
+
+Output
+
+<a href="/collections/vendors?q=Shopify" title="Shopify">Shopify</a>
+
+link_to_type
+
+Creates an HTML link to a collection page that lists all products belonging to a product type.
+
+Input
+
+{{ "jeans" | link_to_type }}
+
+Output
+
+<a href="/collections/types?q=jeans" title="jeans">jeans</a>
+
+link_to_tag
+
+Creates a link to all products in a collection that have a given tag.
+
+Input
+
+<!-- collection.tags = ["Mens", "Womens", "Sale"] -->
+{% for tag in collection.tags %}
+  {{ tag | link_to_tag: tag }}
+{% endfor %}
+
+Output
+
+<a title="Show products matching tag Mens" href="/collections/frontpage/mens">Mens</a>
+<a title="Show products matching tag Womens" href="/collections/frontpage/womens">Womens</a>
+<a title="Show products matching tag Sale" href="/collections/frontpage/sale">Sale</a>
+
+link_to_add_tag
+
+Creates a link to all products in a collection that have a given tag as well as any tags that have been already selected.
+
+Input
+
+<!-- collection.tags = ["Mens", "Womens", "Sale"] -->
+{% for tag in collection.tags %}
+  {{ tag | link_to_add_tag: tag }}
+{% endfor %}
+
+Output
+
+<!-- If you're on "/collections/frontpage/mens": -->
+<a title="Show products matching tag Mens" href="/collections/frontpage/mens">Mens</a>
+<a title="Show products matching tag Womens" href="/collections/frontpage/womens+mens">Womens</a>
+<a title="Show products matching tag Sale" href="/collections/frontpage/sale+mens">Sale</a>
+
+link_to_remove_tag
+
+Generates a link to all products in a collection that have the given tag and all the previous tags that might have been added already.
+
+Input
+
+<!-- collection.tags = ["Mens", "Womens", "Sale"] -->
+{% for tag in collection.tags %}
+  {{ tag | link_to_remove_tag: tag }}
+{% endfor %}
+
+Output
+
+<!-- If you're on "/collections/frontpage/mens": -->
+<a title="Remove tag Mens" href="/collections/frontpage">Mens</a>
+
+payment_type_img_url
+
+Returns the URL of the payment type's SVG image. Used in conjunction with the shop.enabled_payment_types variable.
+
+Input
+
+{% for type in shop.enabled_payment_types %}
+  <img src="{{ type | payment_type_img_url }}" />
+{% endfor %}
+
+Output
+
+<!-- If shop accepts American Express, Mastercard and Visa -->
+<img src="//cdn.shopify.com/s/global/payment_types/creditcards_american_express.svg?3cdcd185ab8e442b12edc11c2cd13655f56b0bb1">
+<img src="//cdn.shopify.com/s/global/payment_types/creditcards_master.svg?3cdcd185ab8e442b12edc11c2cd13655f56b0bb1">
+<img src="//cdn.shopify.com/s/global/payment_types/creditcards_visa.svg?3cdcd185ab8e442b12edc11c2cd13655f56b0bb1">
+
+shopify_asset_url
+
+Returns the URL of a global assets that are found on Shopify's servers. Globally-hosted assets include:
+
+    option_selection.js
+    api.jquery.js
+    shopify_common.js,
+    customer_area.js
+    currencies.js
+    customer.css
+
+Input
+
+{{ 'option_selection.js' | shopify_asset_url | script_tag }}
+
+Output
+
+<script src="//cdn.shopify.com/s/shopify/option_selection.js?20cf2ffc74856c1f49a46f6e0abc4acf6ae5bb34" type="text/javascript"></script>
+
+url_for_type
+
+Creates a URL that links to a collection page containing products with a specific product type.
+
+Input
+
+{{ "T-shirt" | url_for_type }}
+
+Output
+
+/collections/types?q=T-shirt
+
+url_for_vendor
+
+Creates a URL that links to a collection page containing products with a specific product vendor.
+
+Input
+
+{{ "Shopify" | url_for_vendor }}
+
+Output
+
+/collections/vendors?q=Shopify
+
+within
+
+Creates a collection-aware product URL by prepending /collections/collection-handle to a product URL, where collection-handle is the handle of the collection that is currently being viewed.
+
+Input
+
+<a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+
+Output
+
+<a href="/collections/frontpage/products/alien-poster">Alien Poster</a>
+
+Additional filters
+
+General filters serve many different purposes including formatting, converting, and applying CSS classes.
+On this page
+
+    date
+    time_tag
+    default
+    default_errors
+    default_pagination
+    format_address
+    highlight
+    highlight_active_tag
+    json
+    weight_with_unit
+    placeholder_svg_tag
+
+date
+
+Converts a timestamp into another date format.
+
+Input
+
+{{ article.published_at | date: "%a, %b %d, %y" }}
+
+Output
+
+Tue, Apr 22, 14
+
+date accepts the same parameters as Ruby's strftime method. You can find a list of the shorthand formats in Ruby's documentation or use a site like strfti.me.
+time_tag
+
+The time_tag filter converts a timestamp into an HTML <time> tag:
+
+Input
+
+{{ article.published_at | time_tag }}
+
+Output
+
+<time datetime="2016-02-24T14:47:51Z">Wed, 24 Feb 2016 09:47:51 -0500</time>
+
+To customize the time output, you can pass date parameters to the time_tag filter. This doesn't affect the value of the datetime attribute set in the <time> tag:
+
+Input
+
+{{ article.published_at | time_tag: '%b %d, %Y' }}
+
+Output
+
+<time datetime="2016-02-24T14:47:51Z">Feb 24, 2016</time>
+
+Custom datetime
+
+You can pass a datetime parameter with date parameters to use a custom format for the datetime attribute of the output time tag:
+
+Input
+
+{{ article.published_at | time_tag: datetime: '%b %d, %Y' }}
+
+Output
+
+<time datetime="Feb 24, 2016">Wed, 24 Feb 2016 09:47:51 -0500</time>
+
+Localized date format
+
+You can pass a format parameter to the filter to use a date format defined in your theme's locale settings:
+
+In theme / locales / en.json
+
+"date_formats": {
+  "month_day_year": "%B %d, %Y"
+}
+
+Input
+
+{{ article.published_at | time_tag: format: 'month_day_year' }}
+
+Output
+
+<time datetime="2016-02-24T14:47:51Z">February 24, 2016</time>
+
+default
+
+Sets a default value for any variable with no assigned value. Can be used with strings, arrays, and hashes.
+
+The default value is returned if the variable resolves to nil or an empty string "". A string containing whitespace characters will not resolve to the default value.
+
+Input
+
+Dear {{ customer.name | default: "customer" }}
+
+Output
+
+<!-- If customer.name is nil -->
+Dear customer
+
+<!-- If customer.name is "" -->
+Dear customer
+
+<!-- If customer.name is "   " -->
+Dear
+
+default_errors
+
+Outputs default error messages for the form.errors variable. The messages returned are dependent on the strings returned by form.errors.
+
+Input
+
+{% if form.errors %}
+      {{ form.errors | default_errors }}
+{% endif %}
+
+Output
+
+<!-- if form.errors returned "email" -->
+Please enter a valid email address.
+
+default_pagination
+
+Creates a set of links for paginated results. Used in conjunction with the paginate variable.
+
+Input
+
+{{ paginate | default_pagination }}
+
+Output
+
+<span class="page current">1</span>
+<span class="page"><a href="/collections/all?page=2" title="">2</a></span>
+<span class="page"><a href="/collections/all?page=3" title="">3</a></span>
+<span class="deco">…</span>
+<span class="page"><a href="/collections/all?page=17" title="">10</a></span>
+<span class="next"><a href="/collections/all?page=2" title="">Next »</a></span>
+
+Default pagination uses the labels Next » and « Previous for links to the next and previous pages. You can override these labels by passing new words to the default_pagination filter:
+
+Input
+
+{{ paginate | default_pagination: next: 'Older', previous: 'Newer' }}
+
+Output
+
+<span class="page current">1</span>
+<span class="page"><a href="/collections/all?page=2" title="">2</a></span>
+<span class="page"><a href="/collections/all?page=3" title="">3</a></span>
+<span class="next"><a href="/collections/all?page=2" title="">Older</a></span>
+
+format_address
+
+Use the format_address filter on an address to print the elements of the address in order according to their locale. The filter will only print the parts of the address that have been provided. This filter works on the addresses page for customers who have accounts in your store, or on your store's address:
+
+Input
+
+{{ address | format_address }}
+
+Output
+
+<p>
+  Elizabeth Gonzalez<br>
+  1507 Wayside Lane<br>
+  San Francisco<br>
+  CA<br>
+  94103<br>
+  United States
+</p>
+
+Input
+
+{{ address | format_address }}
+
+Output
+
+<p>
+  Feng Sun<br>
+  No. 2094, 1006, Hui Dong Xin Cun<br>
+  Nanhui District<br>
+  201300, Shanghai<br>
+  China
+</p>
+
+highlight
+
+Wraps words inside search results with an HTML <strong> tag with the class highlight if it matches the submitted search.terms.
+
+Input
+
+{{ item.content | highlight: search.terms }}
+
+Output
+
+<!-- If the search term was "Yellow" -->
+<strong class="highlight">Yellow</strong> shirts are the best!
+
+highlight_active_tag
+
+Wraps a tag link in a <span> with the class active if that tag is being used to filter a collection.
+
+Input
+
+
+{% for tag in collection.tags %}
+    {{ tag | highlight_active | link_to_tag: tag }}
+{% endfor %}
+
+Output
+
+<a title="Show products matching tag Cotton" href="/collections/all/cotton"><span class="active">Cotton</span></a>
+<a title="Show products matching tag Crew Neck" href="/collections/all/crew-neck">Crew Neck</a>
+<a title="Show products matching tag Jersey" href="/collections/all/jersey">Jersey</a>
+
+json
+
+Converts a string into JSON format.
+
+Input
+
+var content = {{ pages.page-handle.content | json }};
+
+Output
+
+var content = "\u003Cp\u003E\u003Cstrong\u003EYou made it! Congratulations on starting your own e-commerce store!\u003C/strong\u003E\u003C/p\u003E\n\u003Cp\u003EThis is your shop\u0026#8217;s \u003Cstrong\u003Efrontpage\u003C/strong\u003E, and it\u0026#8217;s the first thing your customers will see when they arrive. You\u0026#8217;ll be able to organize and style this page however you like.\u003C/p\u003E\n\u003Cp\u003E\u003Cstrong\u003ETo get started adding products to your shop, head over to the \u003Ca href=\"/admin\"\u003EAdmin Area\u003C/a\u003E.\u003C/strong\u003E\u003C/p\u003E\n\u003Cp\u003EEnjoy the software,  \u003Cbr /\u003E\nYour Shopify Team.\u003C/p\u003E";
+
+Tip
+
+You do not have to wrap the Liquid output in quotations - the json filter will add them in. The json filter will also escape quotes as needed inside the output.
+
+The json filter can also used to make Liquid objects readable by JavaScript:
+
+var json_product = {{ collections.featured.products.first | json }};
+var json_cart = {{ cart | json }};
+
+Product inventory and the JSON filter
+
+The JSON filter doesn't output values for the inventory_quantity and inventory_policy fields for any Shopify stores created after December 5, 2017. These fields are deprecated to help eliminate bots and crawlers from retrieving inventory quantities for stores to which they aren't granted access.
+
+Instead of using the JSON filter, you can use variant.inventory_quantity and variant.inventory_policy to access inventory information.
+weight_with_unit
+
+Formats the product variant's weight. The weight unit is set in General settings.
+
+Input
+
+{{ product.variants.first.weight | weight_with_unit }}
+
+Output
+
+24.0 kg
+
+The unit can be overridden by passing it into the filter. This is useful in the case of product variants which can each have their own unit.
+
+Input
+
+{{ variant.weight | weight_with_unit: variant.weight_unit }}
+
+Output
+
+52.9 lb
+
+placeholder_svg_tag
+
+Takes a placeholder name and outputs a placeholder SVG illustration. An optional argument can be supplied to include a custom class attribute on the SVG tag.
+
+Input
+
+{{ 'collection-1' | placeholder_svg_tag }}
+
+Output
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 525.5 525.5">...omitted for brevity...</svg>
+
+Custom class attribute
+
+You can pass a class paramater to include a custom class attribute for the SVG tag:
+
+Input
+
+{{ 'collection-1' | placeholder_svg_tag: 'custom' }}
+
+Output
+
+<svg class="custom" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 525.5 525.5">...omitted for brevity...</svg>
+

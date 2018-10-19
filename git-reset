@@ -4,6 +4,8 @@ git reset -- fileName
 
 --
 
+!! do not fuck with this on a repo that doesn't have any commits yet
+
 git reset --hard head
 
 ### --soft keeps all changes staged

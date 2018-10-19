@@ -1,0 +1,19 @@
+// run a node js script
+pm2 start server.js
+
+
+// Deleting a process may help, it solved an invalid cookie error once..
+// stop and delete a process from the list
+pm2 delete app
+
+
+# kill the process but keep it in the process list
+pm2 stop app
+
+
+# start the process again
+pm2 start app
+
+
+# both stop and start
+pm2 restart app

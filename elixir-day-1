@@ -10,6 +10,23 @@ elixir
 elixirc
 
 
+### dependencies
+# get
+mix deps.get
+
+# update
+mix deps.update --all
+
+
+
+# logging
+IO.puts "Great for Strings"
+
+#great for complicated data
+IO.inspect variable
+
+
+
 # join strings
 "hello" <> "world"
 "helloworld"

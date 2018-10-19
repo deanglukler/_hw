@@ -1,0 +1,16 @@
+// it might be a better idea to just copy your global ~/.eslintrc.js file into the project
+
+// inside .eslintrc.js in project
+
+module.exports = {
+  "extends": [
+    "standard",
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "prettier",
+    "plugin:prettier/recommended"
+  ],
+  "rules": {
+    'no-console': 0,
+  },
+}

@@ -1,0 +1,24 @@
+### version
+# will display on the first line of output
+# and other tasks available with ecto
+mix ecto
+
+$ mix help | grep -i ecto
+mix ecto.create          # Create the storage for the repo
+mix ecto.drop            # Drop the storage for the repo
+mix ecto.gen.migration   # Generate a new migration for the repo
+mix ecto.gen.repo        # Generates a new repository
+mix ecto.migrate         # Runs migrations up on a repo
+mix ecto.rollback        # Reverts migrations down on a repo
+
+
+
+
+
+### Queries
+# run queries from iex -S mix
+# ex..
+Discuss.Repo.all(Discuss.Topic)
+
+# fetch all
+Repo.all()
