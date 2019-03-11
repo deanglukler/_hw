@@ -1,0 +1,42 @@
+### version
+rails -v
+
+
+
+### bin commands (RAILS_ENV=production for production environment)
+#  server
+bin/rails server
+
+# routes
+bin/rails routes
+
+# migrate
+bin/rails db:migrate
+
+
+
+
+### generators
+# new project
+rails new
+# help with new project gen
+rails new -h
+
+
+# controllers
+# ex of new controller called "Welcome" with an action called "index"
+bin/rails generate controller Welcome index
+
+
+# models
+# ex of new model "Article"
+# with "title" attribute of type string
+# and "text" attribute of type text
+bin/rails generate model Comment commenter:string body:text article:references
+
+# user model for api
+rails g model User name email role password_digest
+
+
+# migration
+bin/rails generate migration add_password_digest_to_user password_digest:text

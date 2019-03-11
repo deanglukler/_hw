@@ -1,3 +1,7 @@
 // rename git branch
 
 git branch -m <oldname> <newname>
+
+// delete all except a few..
+
+git branch | grep -v "master\|develop\|asdf-loading-redux-state" | xargs git branch -d

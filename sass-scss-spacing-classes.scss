@@ -1,0 +1,97 @@
+$spaces: (
+  4: 4px,
+  8: 8px,
+  16: 16px,
+  24: 24px,
+  32: 32px,
+  40: 40px,
+  56: 56px,
+  64: 64px
+);
+
+@mixin margin($top: null, $right: null, $bottom: null, $left: null, $media: null) {
+  // include a medica parameter in the future for responsiveness
+  @if $media {
+    @media #{$media} {
+      margin-top: $top;
+      margin-right: $right;
+      margin-bottom: $bottom;
+      margin-left: $left;
+    }
+  } @else {
+    margin-top: $top;
+    margin-right: $right;
+    margin-bottom: $bottom;
+    margin-left: $left;
+  }  
+}
+
+@mixin padding($top: null, $right: null, $bottom: null, $left: null, $media: null) {
+  @if $media {
+    @media #{$media} {
+      padding-top: $top;
+      padding-right: $right;
+      padding-bottom: $bottom;
+      padding-left: $left;
+    }
+  } @else {
+    padding-top: $top;
+    padding-right: $right;
+    padding-bottom: $bottom;
+    padding-left: $left;
+  }  
+}
+
+@each $key, $value in $spaces {
+  // margin all
+  .ma--#{$key} {
+    @include margin($top: $value, $right: $value, $bottom: $value, $left: $value);
+  }
+  // margin top
+  .mt--#{$key} {
+    @include margin($top: $value);
+  }
+  // margin right
+  .mr--#{$key} {
+    @include margin($right: $value);
+  }
+  // margin bottom
+  .mb--#{$key} {
+    @include margin($bottom: $value);
+  }
+  // margin left  
+  .ml--#{$key} {
+    @include margin($left: $value);
+  }
+  // padding all
+  .pa--#{$key} {
+    @include padding($top: $value, $right: $value, $bottom: $value, $left: $value);
+  }
+  // padding top
+  .pt--#{$key} {
+    @include padding($top: $value);
+  }
+  // padding right
+  .pr--#{$key} {
+    @include padding($right: $value);
+  }
+  // padding bottom
+  .pb--#{$key} {
+    @include padding($bottom: $value);
+  }
+  // padding left  
+  .pl--#{$key} {
+    @include padding($left: $value);
+  }
+}
+// example of outputs...
+// .ma--4 {
+//   margin-top: 4px;
+//   margin-right: 4px;
+//   margin-bottom: 4px;
+//   margin-left: 4px;
+// }
+// .mt--8 {
+//   margin-top: 8px;
+// }
+

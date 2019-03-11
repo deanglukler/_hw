@@ -1,0 +1,56 @@
+# interactive elixir shell
+iex
+
+# automatically compile project and give access to modules
+iex -S mix
+# use recompile if you make changes
+
+
+
+# require a module
+iex(1)> require MyMacros
+[MyMacros]
+iex(2)> MyMacros.nice_print 2 + 3
+  2
++ 3
+  --
+  5
+
+
+
+
+# compile from iex repl, ex..
+Interactive Elixir
+
+
+
+# compile elixir file with helper..
+# c(files, path \\ :in_memory)
+iex> c("module_name.ex")
+[ModuleName]
+
+or..
+c "module_name.ex"
+
+
+
+
+# recompile with..
+# r(module)
+iex> r(ModuleName)
+
+
+
+
+# interact with it
+iex> ModuleName.hello
+Hello world!
+:ok
+
+
+
+
+
+
+
+

@@ -225,6 +225,29 @@ deansAsync('please work')
 
 
 
+// *    *    *
+
+// weird rejection stuff
+var dean = new Promise((res, rej) => {rej('data')})
+
+// if you catch it and return undefined.. it becomes resolved..
+dean.catch((data) => console.log(data))
+// >> data
+// >> Promise {<resolved>: undefined}
+
+// but you can return Promise.reject('')
+dean.catch((data) => Promise.reject('again'))
+// >> Promise {<rejected>: "again"}
+
+// throwing an error works too.. 
+dean.catch((data) => { throw new Error('again') })
+// >> Promise {<rejected>: Error: again
+// >>     at dean.catch (<anonymous>:1:30)}
+
+
+
+
+
 
 
 

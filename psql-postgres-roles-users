@@ -1,0 +1,213 @@
+article -- https://www.digitalocean.com/community/tutorials/how-to-use-roles-and-manage-grant-permissions-in-postgresql-on-a-vps--2
+
+
+
+### login with specific user and database
+psql -U user_name -d database_name -h 127.0.0.1 -W
+
+### quickly list all roles 
+\du
+
+### quickly add a superuser named "postgres"
+CREATE USER postgres SUPERUSER;
+
+
+
+------------------------------
+
+
+### CREATE ROLE   docs -- https://www.postgresql.org/docs/9.3/static/sql-createrole.html
+---
+
+# get help with roles
+\h CREATE ROLE:
+where option can be:
+
+      SUPERUSER | NOSUPERUSER
+    | CREATEDB | NOCREATEDB
+    | CREATEROLE | NOCREATEROLE
+    | INHERIT | NOINHERIT
+    | LOGIN | NOLOGIN
+    | REPLICATION | NOREPLICATION
+    | BYPASSRLS | NOBYPASSRLS
+    | CONNECTION LIMIT connlimit
+    | [ ENCRYPTED ] PASSWORD 'password'
+    | VALID UNTIL 'timestamp'
+    | IN ROLE role_name [, ...]
+    | IN GROUP role_name [, ...]
+    | ROLE role_name [, ...]
+    | ADMIN role_name [, ...]
+    | USER role_name [, ...]
+    | SYSID uid
+
+
+
+
+# examples of CREATE ROLE
+
+Create a role that can log in, but don't give it a password:
+
+CREATE ROLE jonathan LOGIN;
+
+
+
+Create a role with a password:
+
+CREATE USER davide WITH PASSWORD 'jw8s0F4';
+
+(CREATE USER is the same as CREATE ROLE except that it implies LOGIN.)
+
+
+
+
+Create a role with a password that is valid until the end of 2004. After one second has ticked in 2005, the password is no longer valid.
+
+CREATE ROLE miriam WITH LOGIN PASSWORD 'jw8s0F4' VALID UNTIL '2005-01-01';
+
+
+
+
+Create a role that can create databases and manage roles:
+
+CREATE ROLE admin WITH CREATEDB CREATEROLE;
+
+
+
+
+-----------------------------------
+
+
+### createuser (command line)   docs -- https://www.postgresql.org/docs/9.3/static/app-createuser.html
+---
+
+# createuser creates a new PostgreSQL user (or more precisely, a role)
+# createuser is a wrapper around the SQL command CREATE ROLE
+
+
+
+### examples
+To create a user joe on the default database server:
+
+$ createuser joe
+
+
+
+
+
+
+To create a user joe on the default database server with prompting for some additional attributes:
+
+$ createuser --interactive joe
+Shall the new role be a superuser? (y/n) n
+Shall the new role be allowed to create databases? (y/n) n
+Shall the new role be allowed to create more new roles? (y/n) n
+
+
+
+
+
+To create the same user joe using the server on host eden, port 5000, with attributes explicitly specified, taking a look at the underlying command:
+
+$ createuser -h eden -p 5000 -S -D -R -e joe
+CREATE ROLE joe NOSUPERUSER NOCREATEDB NOCREATEROLE INHERIT LOGIN;
+
+
+
+
+
+To create the user joe as a superuser, and assign a password immediately:
+
+$ createuser -P -s -e joe
+Enter password for new role: xyzzy
+Enter it again: xyzzy (doesn't actually appear on screen)
+CREATE ROLE joe PASSWORD 'md5b5f5ba1a423792b526f799ae4eb3d59e' SUPERUSER CREATEDB CREATEROLE INHERIT LOGIN;
+
+
+
+
+-----------------------------------
+
+
+### ALTER ROLE
+---
+
+ALTER ROLE role_name WITH attribute_options;
+
+# For instance, we can change "demo_role" back to its previous state by issuing this command:
+
+ALTER ROLE demo_role WITH NOLOGIN;
+
+ALTER ROLE
+
+# We can see the privileges have reverted to their previous state:
+
+\du
+
+                             List of roles
+ Role name |                   Attributes                   | Member of
+-----------+------------------------------------------------+-----------
+ demo_role | Cannot login                                   | {}
+ postgres  | Superuser, Create role, Create DB, Replication | {}
+ test_user |                                                | {}
+
+# We can easily change it back with the following command:
+
+ALTER ROLE demo_role WITH LOGIN;
+
+
+
+
+-----------------------------------
+
+
+
+
+
+### set password (ex set password of test_user)
+\password test_user
+
+
+
+
+-------------------------------------
+
+
+
+
+### Cheat Sheet
+---
+
+\du: List users
+\du __username__: List a username if present.
+create role __test1__: Create a role with an existing username.
+create role __test2__ noinherit login password __passsword__;: Create a role with username and password.
+set role __test__;: Change role for current session to __test__.
+grant __test2__ to __test1__;: Allow __test1__ to set its role as __test2__.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

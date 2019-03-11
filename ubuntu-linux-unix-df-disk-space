@@ -1,3 +1,20 @@
+
+
+du -sh directory_name
+/* Gives you the summarized(-s) size of the directory in human readable(-h) format*/
+
+du -bsh *
+/* Gives you the apparent(-b) summarized(-s) size of all the files and directories in the current directory in human readable(-h) format*/
+
+
+
+
+---
+
+
+
+
+
 First of, df reports file system disk space usage. That is, it displays the total size, the used and available space for each of your mounted partitions.
 
 df

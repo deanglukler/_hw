@@ -6,9 +6,14 @@ git merge --no-ff --no-commit branchX
 git merge --abort
 
 
-### merge with particular strategy
 
+### merge strategies
 git merge --strategy-option theirs
 
 git merge --strategy-option ours
 
+
+
+
+### merge unrelated histories
+git merge origin master --allow-unrelated-histories

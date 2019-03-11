@@ -1,0 +1,34 @@
+// react
+
+import React from 'react';
+
+export default ({ size = 'small', ...props }) => (
+  <div className={`load-spinner load-spinner--${size}`} />
+);
+
+// css
+
+@keyframes spinner {
+  to {transform: rotate(360deg);}
+}
+
+.load-spinner:before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px; // maybe use 1em here if you want the same size as text..
+  height: 20px; // and here
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  border: 2px solid white;
+  border-top-color: transparent;
+  animation: spinner .6s linear infinite;
+}
+
+.load-spinner--small:before {
+  width: 20px;
+  height: 20px;
+}

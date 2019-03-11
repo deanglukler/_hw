@@ -1,9 +1,14 @@
 # mv
 
-```
+
+mv partials/variables.scss . //moves variables.scss (which is inside partials folder) to current dir
+
+
 mv * .. //moves everything (in current directory) up one directory
 
-mv partials/variables.scss . //moves variables.scss (which is inside partials folder) to current directory (which is the .)
+// moves everything in current dir into newinside (with one exception, itself)
+// warning that newinside must already exist
+mv * newinside
 
-mv * newinside // moves everything in current dir into newinside (with one exception, itself)
-```
+// include dot files (with zsh)
+mv /src/*(D) /dst/

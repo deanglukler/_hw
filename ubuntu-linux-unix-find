@@ -1,5 +1,7 @@
 # find files, remember the quotes
 find -name “<fileName>”
+# ex
+find . -name rufo
 
 # Find all JPG files anywhere in your filesystem:
 find / -name "*jpg"

@@ -1,0 +1,78 @@
+DOMContentLoaded==window.onDomReady()
+
+Load==window.onLoad()
+
+A page can't be manipulated safely until the document is "ready." jQuery detects this state of readiness for you. 
+
+Code included inside $( document ).ready() will only run once the page Document Object Model (DOM) is ready for JavaScript code to execute. 
+
+Code included inside $( window ).load(function() { ... }) will run once the entire page (images or iframes), not just the DOM, is ready.
+
+---
+
+
+
+
+When All The HTML/DOM Is Ready
+If you want to be able to access elements which occur later than your script tag, or you don’t know where users might be installing your script, you can wait for the entire HTML page to be parsed. This is done using either the DOMContentLoaded event, or if you use jQuery, jQuery.ready (sometimes referred to as $.ready, or just as $()).
+
+window.addEventListener('DOMContentLoaded', function(){
+        document.querySelector('#my-awesome-el').innerHTML = new Date
+     });
+
+the same script using jQuery:
+
+jQuery.ready(function(){
+  document.querySelector('#my-awesome-el').innerHTML = new Date
+});
+
+// OR
+
+$(function(){
+  document.querySelector('#my-awesome-el').innerHTML = new Date
+});
+
+
+
+
+
+
+Run When All Images And Other Resources Have Loaded
+It’s less common, but sometimes you want your code to run when not just the HTML has been parsed, but all of the resources like images have been loaded. This is the time the page is fully rendered, meaning if you do add something to the page now, there will be a noticable ‘flash’ of the page before your new element appears.
+
+window.addEventListener('load', function(){
+  // Everything has loaded!
+});
+
+
+
+
+
+
+
+
+
+Run When A Specific Image Has Loaded
+If you are waiting on a specific resource, you can bind to the load event of just that element. This code requires access to the element itself, meaning it should appear after the element in the HTML source code, or happen inside a DOMContentLoaded or jQuery.ready handler function.
+
+document.querySelector('img.my-image').addEventListener('load', function(){
+  // The image is ready!
+});
+
+
+
+
+More here: https://eager.io/blog/how-to-decide-when-your-code-should-run/
+
+
+
+
+
+
+
+
+
+
+
+
+

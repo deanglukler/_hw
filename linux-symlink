@@ -1,0 +1,25 @@
+
+
+
+┌── ln(1) link, ln -- make links
+│   ┌── Create a symbolic link.
+│   │                         ┌── the optional path to the intended symlink
+│   │                         │   if omitted, symlink is in . named as destination
+│   │                         │   can use . or ~ or other relative paths
+│   │                   ┌─────┴────────┐
+ln -s /path/to/original /path/to/symlink
+      └───────┬───────┘
+              └── the path to the original file/folder
+                  can use . or ~ or other relative paths
+
+
+---                  
+
+
+$ echo content > original
+$ ln -s original symlink
+$ ls -la original symlink
+-rw-r--r--  1 grgarside  staff    8 28 Jan 18:44 original
+lrwxr-xr-x  1 grgarside  staff    8 28 Jan 18:44 symlink -> original
+$ cat symlink
+content

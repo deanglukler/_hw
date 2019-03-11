@@ -1,0 +1,217 @@
+{
+  user (id: "23") {
+    id,
+    firstName,
+    age
+  }
+}
+
+# find user with id 23
+# get back the id, firstName, and age
+
+
+
+
+
+
+
+
+---
+
+
+
+
+
+
+
+{
+  user (id: "23") {
+    firstName
+    company {
+      id,
+      name
+    }
+  }
+}
+
+# find user with id 23
+# return their firstName
+# find the company they're associated with (get id and name)
+
+
+
+
+
+
+
+
+
+
+
+
+---
+
+
+
+
+
+
+{
+  user (id: "23") {
+    company {
+      id,
+      users {
+        firstName
+      }
+    }
+  }
+}
+
+
+# list of users by company id
+
+
+
+
+
+
+
+
+
+
+
+
+---
+
+
+
+
+
+
+query namedQuery {
+  user (id: "23") {
+    company {
+      id,
+    }
+  }
+}
+
+# named query
+
+
+
+
+
+
+
+
+
+
+
+---
+
+
+
+
+
+
+
+
+{
+  terry: company (id: "2") {
+    name
+  }
+  apple: company(id: "1") {
+    id
+  }
+}
+
+
+# query 2 companies at once
+
+
+
+
+
+
+
+
+
+---
+
+
+
+
+
+
+
+# query fragments
+
+
+
+
+fragment companyDetails on Company {
+  id
+  name
+  description
+}
+{
+  terry: company (id: "2") {
+    ...companyDetails
+  }
+  apple: company(id: "1") {
+    ...companyDetails
+  }
+}
+
+
+
+
+
+
+
+---
+
+
+
+
+
+
+# mutations
+
+
+
+mutation {
+  addSong(title: "Dont ever do that!") {
+    id
+  }
+}
+
+
+
+
+
+
+
+mutation CreateReviewForEpisode($ep: Episode!, $review: ReviewInput!) {
+  createReview(episode: $ep, review: $review) {
+    stars
+    commentary
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
