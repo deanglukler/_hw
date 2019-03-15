@@ -2,6 +2,18 @@
 
 git rebase --interactive HEAD~7
 
+
+// NOTE: if you have issues pushing after it's because 
+// the rebase rewrites commits and then the remote will appear to have 
+// other commits
+// use: 
+ggpush --force-with-lease
+
+// or if you're sure noone else has touched that branch:
+ggpush --force 
+
+
+
 // rebase all the commits between another branch and the current branch state
 
 git rebase --interactive other_branch_name
