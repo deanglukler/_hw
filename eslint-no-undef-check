@@ -1,0 +1,1 @@
+"eslint:noundef": "eslint --config .eslintrc.noundef.json --no-color --output-file ./eslint.noundef.txt --format visualstudio --ignore-pattern \"source/javascripts/vendor/**/*\" source/javascripts/**/*"

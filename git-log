@@ -26,3 +26,12 @@ git log <since>..<until>
 // log all commit pertaining to one file
 
 git log --follow --all <filepath>
+
+
+
+
+// ---
+
+// see commits of a file even if it doesn't exist
+
+git log --follow -- foo

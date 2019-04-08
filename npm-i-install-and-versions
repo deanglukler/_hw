@@ -1,0 +1,14 @@
+npm i..
+Shorthand versions: -D is short for --save-dev and -S is short for --save
+
+// If you know the exact version of the package
+npm install lodash@4.17.4
+
+// semantic versioning in package.json
+You can specify which update types your package can accept from dependencies in your package’s package.json file.
+
+For example, to specify acceptable version ranges up to 1.0.4, use the following syntax:
+
+Patch releases: 1.0 or 1.0.x or ~1.0.4
+Minor releases: 1 or 1.x or ^1.0.4
+Major releases: * or x

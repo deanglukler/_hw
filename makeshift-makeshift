@@ -1,0 +1,8 @@
+# Translation
+You’ll need to find the keys in the view, then lookup those keys in the specific YAML file in `/config/locales/en/your_class_or_view.yml`.
+Once you’ve set your string, run `rake weblate:combine_yaml` in your console.
+If you are replacing a bad translation, then you may need to goto the `es` or `fr` compiled file and change it there.
+
+
+# sidekiq
+bundle exec sidekiq

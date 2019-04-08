@@ -8,3 +8,8 @@ find / -name "*jpg"
 
 # Find any pdf files, regardless of case, in either Documents or Downloads:
 find Documents/ Downloads/ -iname "*pdf"
+
+
+# If you want to delete all files of a certain type, but only 1 folder "deep" from the current folder:
+find . -maxdepth 2 -name "*.log" -type f -delete
+

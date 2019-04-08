@@ -1,0 +1,11 @@
+# amend
+
+# change the last commit message
+git commit --amend -m "an updated commit message"
+
+
+
+# Changing committed files
+# first make sure to stage the files
+# the --no-edit flag will keep the same commit message
+git commit --amend --no-edit

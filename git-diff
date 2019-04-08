@@ -2,15 +2,28 @@
 
 git diff HEAD file
 
+// How does my branch differ from master?
+
+git diff master..
+
+
 // or to see all differences
 
 git diff head~3 | code -
+
 
 // ---
 
 // just files names that have changes in them
 
 git diff --name-status master..branchName
+
+
+// ---
+
+Only show the names of the files that have changed
+git diff --name-only master..
+
 
 // --
 
@@ -22,11 +35,13 @@ git diff myfile.txt
 
 git diff --cached myfile.txt
 
+
 // ---
 
 // diff between master and myfile.txt
 
 git diff master^^ myfile.txt
+
 
 // ---
 
@@ -35,4 +50,6 @@ git diff branch_1..branch_2
 That will produce the diff between the tips of the two branches. If you'd prefer to find the diff from their common ancestor to test, you can use three dots instead of two:
 
 git diff branch_1...branch_2
+
+
 

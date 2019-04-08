@@ -1,0 +1,1 @@
+for file in $(git ls-files | grep .js.es6); do git mv $file $(echo $file | sed -e 's/.js.es6/.js/'); done

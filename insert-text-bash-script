@@ -1,0 +1,39 @@
+#!/bin/bash
+FILES=.
+
+for f in $(ls $FILES)
+do
+  echo "Processing $f file..."
+  # take action on each file. $f store current file name
+  sed -i .temp '1s/^/export default /' $f
+  rm $f.temp
+  cat $f
+done
+
+
+
+######################
+
+
+
+
+#!/bin/bash
+FILES=.
+
+for f in $(ls $FILES)
+do
+  echo "Processing $f file..."
+  # take action on each file. $f store current file name
+
+  size=${#f}
+  cut_here=$(expr $size - 13)
+  name="${f:0:cut_here}"
+  statement="import ${name}Model from '../models/${name}Model';"
+
+  lf=$'\n'
+  # this lf which is used as //$lf is a line feed hack for macos
+  sed -i .temp '1s,^,'"$statement\\$lf\\$lf"',' $f
+  rm $f.temp
+
+  echo $statement
+done

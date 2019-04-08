@@ -1,3 +1,7 @@
+// git reset hard one file OR directory
+
+git checkout -- a
+
 // reset one file
 
 git checkout HEAD -- my-file.txt
