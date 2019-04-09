@@ -1,0 +1,1 @@
+"eslint:output": "eslint --no-color --output-file ./eslintout.txt --format visualstudio --ignore-pattern \"source/javascripts/vendor/**/*\" source/javascripts/**/*"
