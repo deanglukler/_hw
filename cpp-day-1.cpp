@@ -13,7 +13,7 @@ g++ -std=c++11 FILENAME.cpp
 namespace Leap {
   void foo() {
     printf("yoooo");
-  }
+  } 
 }
 
 namespace leap {
