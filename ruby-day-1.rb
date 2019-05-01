@@ -4,7 +4,7 @@ irb -r ./ip_grabber
 
 ### debugging
 #pry  --  https://github.com/pry/pry
-require pry
+require 'pry'
 binding.pry
 # use
 > exit

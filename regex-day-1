@@ -1,0 +1,185 @@
+SUBSTITUTION
+
+
+$&
+match
+
+$1
+Inserts the results of the specified capture group. For example, $3 would insert the third capture group.
+
+$`
+Inserts the portion of the source string that precedes the match.
+
+$'
+Inserts the portion of the source string that follows the match.
+
+$$
+(escaped $)
+Inserts a dollar sign character ($).
+
+/n
+For convenience, these escaped characters are supported in the Replace string in RegExr: \n, \r, \t, \\, and unicode escapes \uFFFF. This may vary in your deploy environment.
+
+
+
+
+---------------
+
+[^AabB]
+Match any character that is not in the set.
+
+
+[1-6]
+Matches a character having a character code between the two specified characters inclusive.
+
+
+
+\s
+Matches any whitespace character (spaces, tabs, line breaks).
+\S
+[\s\S]
+A character set that can be used to match any character, including line breaks, without the dotall flag (s).
+An alternative is [^], but it is not supported in all browsers.
+
+
+\w
+Matches any word character (alphanumeric & underscore). Only matches low-ascii characters (no accented or non-roman characters). Equivalent to [A-Za-z0-9_]
+
+
+.
+Matches any character except linebreaks. Equivalent to [^\n\r].
+
+
+---------------
+
+
+BOUNDARIES
+^ 
+beginning
+
+
+$
+Matches the end of the string, or the end of a line if the multiline flag (m) is enabled. This matches a position, not a character.
+
+
+
+\b
+Matches a word boundary position between a word character and non-word character or position (start / end of string). See the word character class (w) for more info.
+
+
+
+---------------
+
+QUANTIFIERS
+
++
+1 or more
+b\w+? - lazy, match as few as possible
+
+* 
+0 or more
+
+?
+0 or 1
+
+{1,3}
+Matches the specified quantity of the previous token. {1,3} will match 1 to 3. {3} will match exactly 3. {3,} will match 3 or more.
+
+|
+Acts like a boolean OR. Matches the expression before or after the |.
+It can operate within a group, or on a whole expression. The patterns will be tested in order.
+
+
+---------------
+
+
+(ABC)
+Groups multiple tokens together and creates a capture group for extracting a substring or using a backreference.
+
+\1
+Matches the results of a capture group. For example \1 matches the results of the first capture group & \3 matches the third.
+
+(?:ABC)
+Groups multiple tokens together without creating a capture group.
+
+
+
+
+---------------
+
+
+LOOKAROUND
+Lookaround lets you match a group before (lookbehind) or after (lookahead) your main pattern without including it in the result.
+Negative lookarounds specify a group that can NOT match before or after the pattern.
+
+(?=ABC)
+Matches a group after the main expression without including it in the result.
+ex - match 2, and 4
+\d(?=px)
+1pt 2px 3em 4px
+
+
+(?!ABC)
+Specifies a group that can not match after the main expression (if it matches, the result is discarded).
+ex - match 1, and 3:
+\d(?!px)
+1pt 2px 3em 4px
+
+
+---------------
+
+FLAGS
+
+i
+Makes the whole expression case-insensitive. For example, /aBc/i would match AbC
+
+g
+Retain the index of the last match, allowing subsequent searches to start from the end of the previous match.
+Without the global flag, subsequent searches will return the same match.
+
+m
+When the multiline flag is enabled, beginning and end anchors (^ and $) will match the start and end of a line, instead of the start and end of the whole string.
+Note that patterns such as /^[\s\S]+$/m may return matches that span multiple lines because the anchors will match the start/end of any line.
+
+u
+When the unicode flag is enabled, you can use extended unicode escapes in the form \x{FFFFF}.
+It also makes other escapes stricter, causing unrecognized escapes (ex. \j) to throw an error.
+
+y
+The expression will only match from its lastIndex position and ignores the global (g) flag if set. Because each search in RegExr is discrete, this flag has no further impact on the displayed results.
+
+
+---------------
+
+
+ESCAPED CHARACTERS
+\n
+Matches a LINE FEED character (char code 10).
+
+
+\t
+Matches a TAB character (char code 9).
+
+
+
+there are more.. see "the internet" like
+
+\cI
+Escaped control character in the form \cZ. This can range from \cA (SOH, char code 1) to \cZ (SUB, char code 26).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

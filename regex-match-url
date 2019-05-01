@@ -1,0 +1,2 @@
+WARNING, I wrote this when I sucked at regex
+http://[\w\.]+(\/[\/\w-;~\.]+)?(\?[\w:\/\.\=&\-\?]+)?[^\=>\s\.]
