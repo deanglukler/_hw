@@ -1,0 +1,45 @@
+100	Thin (Hairline)
+200	Extra Light (Ultra Light)
+300	Light
+400	Normal
+500	Medium
+600	Semi Bold (Demi Bold)
+700	Bold
+800	Extra Bold (Ultra Bold)
+900	Black (Heavy)
+
+// one example..
+// important! it isn't possible to use different font-weights when you import multiple fonts like this..
+// font-weight is available when you import one font face that had different font-weights inside it
+
+@font-face {
+  font-family: MyriadProBold;
+  src: url(/fonts/MyriadProBold/MyriadProBold.eot);
+  src: url(/fonts/MyriadProBold/MyriadProBold.eot#iefix) format('embedded-opentype'), url(/fonts/MyriadProBold/MyriadProBold.woff) format('woff'), url(/fonts/MyriadProBold/MyriadProBold.ttf) format('truetype'), url(/fonts/MyriadProBold/MyriadProBold.svg#MyriadProBold) format('svg');
+  font-weight: 700;
+  font-style: normal
+}
+
+@font-face {
+  font-family: MyriadProSemiBold;
+  src: url(/fonts/MyriadProSemiBold/MyriadProSemiBold.eot);
+  src: url(/fonts/MyriadProSemiBold/MyriadProSemiBold.eot#iefix) format('embedded-opentype'), url(/fonts/MyriadProSemiBold/MyriadProSemiBold.woff) format('woff'), url(/fonts/MyriadProSemiBold/MyriadProSemiBold.ttf) format('truetype'), url(/fonts/MyriadProSemiBold/MyriadProSemiBold.svg#MyriadProSemiBold) format('svg');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: MyriadProLight;
+  src: url(/fonts/MyriadProLight/MyriadProLight.eot);
+  src: url(/fonts/MyriadProLight/MyriadProLight.eot#iefix) format('embedded-opentype'), url(/fonts/MyriadProLight/MyriadProLight.woff) format('woff'), url(/fonts/MyriadProLight/MyriadProLight.ttf) format('truetype'), url(/fonts/MyriadProLight/MyriadProLight.svg#MyriadProLight) format('svg');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: MyriadProRegular;
+  src: url(/fonts/MyriadProRegular/MyriadProRegular.eot);
+  src: url(/fonts/MyriadProRegular/MyriadProRegular.eot#iefix) format('embedded-opentype'), url(/fonts/MyriadProRegular/MyriadProRegular.woff) format('woff'), url(/fonts/MyriadProRegular/MyriadProRegular.ttf) format('truetype'), url(/fonts/MyriadProRegular/MyriadProRegular.svg#MyriadProRegular) format('svg');
+  font-weight: 400;
+  font-style: normal;
+}

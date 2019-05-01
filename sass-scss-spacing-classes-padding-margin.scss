@@ -1,6 +1,7 @@
 $spaces: (
   4: 4px,
   8: 8px,
+  12: 12px,
   16: 16px,
   24: 24px,
   32: 32px,
@@ -44,54 +45,68 @@ $spaces: (
 
 @each $key, $value in $spaces {
   // margin all
-  .ma--#{$key} {
+  .ma-#{$key} {
     @include margin($top: $value, $right: $value, $bottom: $value, $left: $value);
   }
+  // margin x and y
+  .my-#{$key} {
+    @include margin($top: $value, $bottom: $value);
+  }
+  .mx-#{$key} {
+    @include margin($right: $value, $left: $value);
+  }
   // margin top
-  .mt--#{$key} {
+  .mt-#{$key} {
     @include margin($top: $value);
   }
   // margin right
-  .mr--#{$key} {
+  .mr-#{$key} {
     @include margin($right: $value);
   }
   // margin bottom
-  .mb--#{$key} {
+  .mb-#{$key} {
     @include margin($bottom: $value);
   }
   // margin left  
-  .ml--#{$key} {
+  .ml-#{$key} {
     @include margin($left: $value);
   }
   // padding all
-  .pa--#{$key} {
+  .pa-#{$key} {
     @include padding($top: $value, $right: $value, $bottom: $value, $left: $value);
   }
+  // padding x and y
+  .px-#{$key} {
+    @include padding($right: $value, $left: $value);
+  }
+  .py-#{$key} {
+    @include padding($top: $value, $bottom: $value);
+  }
   // padding top
-  .pt--#{$key} {
+  .pt-#{$key} {
     @include padding($top: $value);
   }
   // padding right
-  .pr--#{$key} {
+  .pr-#{$key} {
     @include padding($right: $value);
   }
   // padding bottom
-  .pb--#{$key} {
+  .pb-#{$key} {
     @include padding($bottom: $value);
   }
   // padding left  
-  .pl--#{$key} {
+  .pl-#{$key} {
     @include padding($left: $value);
   }
 }
 // example of outputs...
-// .ma--4 {
+// .ma-4 {
 //   margin-top: 4px;
 //   margin-right: 4px;
 //   margin-bottom: 4px;
 //   margin-left: 4px;
 // }
-// .mt--8 {
+// .mt-8 {
 //   margin-top: 8px;
 // }
 
