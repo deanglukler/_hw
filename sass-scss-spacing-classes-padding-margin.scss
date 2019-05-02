@@ -7,7 +7,10 @@ $spaces: (
   32: 32px,
   40: 40px,
   56: 56px,
-  64: 64px
+  64: 64px,
+  1re: 1rem,
+  2re: 2rem,
+  3re: 3rem,
 );
 
 @mixin margin($top: null, $right: null, $bottom: null, $left: null, $media: null) {

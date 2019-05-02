@@ -1,0 +1,2 @@
+// change .html > .html.erb
+find . -name "*.html" -exec bash -c 'mv "$1" "${1%.html}".html.erb' - '{}' \;

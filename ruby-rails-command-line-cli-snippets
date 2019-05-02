@@ -1,0 +1,2 @@
+# install the correct version of bundler for proj
+gem install bundler -v $(tail -1 Gemfile.lock)

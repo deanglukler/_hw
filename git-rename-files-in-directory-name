@@ -1,0 +1,7 @@
+for file in $(git ls-files | grep .js.es6); do git mv $file $(echo $file | sed -e 's/.js.es6/.js/'); done
+
+
+
+
+# add underscore to all .css.scss files
+for file in $(git ls-files | grep .css.scss); do git mv $file "_$file"; done

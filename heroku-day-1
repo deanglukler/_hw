@@ -1,2 +1,5 @@
 # run heroku bash session 
 heroku run bash -a makeshift-staging-pr-2160
+
+# heroku logs
+heroku logs -a makeshift-employee-dev --tail
