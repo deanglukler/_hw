@@ -1,0 +1,5 @@
+# delete all adp cached employees
+Company.find(270).adp_subscription.adp_cached_employees.destroy_all
+
+# delete all non company admin users for a company
+Company.find(270).users.where.not(role: 'company_admin').destroy_all

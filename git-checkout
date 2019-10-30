@@ -10,3 +10,8 @@ git checkout HEAD -- my-file.txt
 
 git checkout HEAD~3 -- client/styles/components/common/datagrid/DataGridEntry.scss
 
+
+
+
+// when merging and want to checkout changes from one branch
+git checkout --theirs Gemfile.lock

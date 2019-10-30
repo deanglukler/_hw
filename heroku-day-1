@@ -3,3 +3,24 @@ heroku run bash -a makeshift-staging-pr-2160
 
 # heroku logs
 heroku logs -a makeshift-employee-dev --tail
+
+
+
+
+# Add a new remote
+heroku git:remote -a makeshift-employee-dev
+
+# List the local remotes
+git remote -v
+
+# Rename local remote
+git remote rename heroku makeshift-employee-dev
+
+
+# Push your specific commit on a branch onto ew dev
+git push makeshift-employee-dev 94d5132b:master
+(this may work as well.. or the actual brand name..)
+git push makeshift-employee-dev head:master 
+
+# Push develop onto ew dev
+git push makeshift-employee-dev develop:master

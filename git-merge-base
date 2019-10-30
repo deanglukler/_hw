@@ -1,3 +1,4 @@
 // get the commit id of the most recent base between to branches
+// How to find the most recent common ancestor of two Git branches?
 
 git merge-base feature master

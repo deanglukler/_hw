@@ -1,8 +1,9 @@
-const copyToClipboard = textToCopy => {
-  const textField = document.createElement('textarea');
-  textField.innerText = textToCopy;
-  document.body.appendChild(textField);
-  textField.select();
-  document.execCommand('copy');
-  textField.remove();
+const copyToClipboard = text => {
+  var textarea = document.createElement('textarea');
+  textarea.value = text;
+  document.body.appendChild(textarea);
+  textarea.select();
+  var result = document.execCommand('copy');
+  document.body.removeChild(textarea);
+  return result;
 };

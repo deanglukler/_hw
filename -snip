@@ -1,0 +1,259 @@
+# from npm to yarn
+npm install [package] --save	    yarn add [package]
+npm install [package] --save-dev	yarn add [package] --dev
+npm install [package] --global	    yarn global add [package
+npm uninstall [package]	            yarn remove [package]
+
+rm -rf node_modules && npm install  	yarn upgrade 
+
+npm rebuild	                        yarn add --force      # when switching node version
+
+
+
+
+
+
+
+
+
+
+# install bundler based on gemfile version
+gem install bundler -v $(tail -1 Gemfile.lock)
+
+
+
+
+
+
+# follow the makeshift dev logs
+tail -f log/development.log
+
+
+
+
+
+
+
+# setup new api user
+brake "public_api:setup_company[269]"
+
+
+
+
+
+
+
+# list port 
+sudo lsof -i tcp:3000
+# kill port
+lsof -ti:3000 | xargs kill
+
+
+
+
+
+
+
+
+# copy unix timestamp to clipboard
+date +%s | pbcopy
+
+
+
+
+
+
+
+
+# delete all directorie/folders with name
+Use find for name "a" and execute rm to remove those named according to your wishes, as follows:
+
+find . -name a -exec rm -rf {} \;
+Test it first using ls to list:
+
+find . -name a -exec ls {} \;
+To ensure this only removes directories and not plain files, use the "-type d" arg (as suggested in the comments):
+
+find . -name a -type d -exec rm -rf {} \;
+The "{}" is a substitution for each file "a" found - the exec command is executed against each by substitution.
+
+
+
+
+
+
+
+
+
+# git move all dirs and files with git
+git mv app/assets/javascripts/* app/javascript/src/
+
+
+
+
+
+
+
+
+# git rename extensions with git
+for file in $(git ls-files | grep .js.es6); do git mv $file $(echo $file | sed -e 's/.js.es6/.js/'); done
+
+for file in $(git ls-files | grep .jsx); do git mv $file $(echo $file | sed -e 's/.js.jsx/.jsx/'); done
+
+
+# add underscore to all .css.scss files
+for file in $(git ls-files | grep .css.scss); do git mv $file "_$file"; done
+
+
+
+
+
+
+
+
+
+# How can I recursively delete all files of a specific extension in the current directory?
+
+#You don't even need to use rm in this case if you are afraid. Use find:
+
+find . -name "*.bak" -type f -delete
+But use it with precaution. Run first:
+
+find . -name "*.bak" -type f
+to see exactly which files you will remove.
+
+Also, make sure that -delete is the last argument in your command. 
+If you put it before the -name *.bak argument, it will delete everything.
+
+
+
+
+
+
+
+
+
+
+
+# flatten directory move all files to parent directory recursively
+# zsh 
+mv dir1/*/**/*(.D) dir1 
+# current dir
+mv ./*/**/*(.D) .
+
+find /dir1 -mindepth 2 -type f -exec mv -i '{}' /dir1 ';'
+
+
+
+
+
+
+
+
+# match line that doesn't contain word..
+^(?!.*exported).*$
+
+
+
+
+
+
+
+
+# javascript sort based on regex in string
+strr.split('\n').sort((a, b) => sort(a.match(/Error\s-\s'.+'/)[0], b.match(/Error\s-\s'.+'/)[0])).join('\n')
+
+
+
+
+
+
+
+
+
+
+browsersync
+docs
+https://browsersync.io/docs/command-line
+browser-sync start --tunnel --ws --proxy "localhost:4567" --files "source/**/*"
+browser-sync start --tunnel --ws --proxy "localhost:3060"
+
+
+
+
+
+
+
+
+
+# make sure your in the ~/ directory if that's where ngrok is
+./ngrok http 3000
+# to work with webpack dev server
+./ngrok http 3060 -host-header="localhost:3060"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# rails migration ex 
+rails g migration AddBadgeIDToUsers badge_id:string
+
+
+
+
+
+
+
+
+
+
+
+# delete all remove all empty directories
+find . -depth -type d -exec rmdir {} \;
+
+
+
+
+
+
+
+
+# prevent duplicates in javascript arrays
+Array.from(new Set([...this.state.initialDocumentsAttached, ...docVers]))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
