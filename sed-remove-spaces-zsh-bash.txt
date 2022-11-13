@@ -1,0 +1,7 @@
+There's more to making a string safe than just escaping spaces, but you can escape the spaces with:
+
+FILE_PATH=$( echo "$FILE_PATH" | sed 's/ /\\ /g' )
+
+or more specifically..
+
+sed 's/ /\\ /g'

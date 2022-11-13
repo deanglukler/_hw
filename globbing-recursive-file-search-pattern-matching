@@ -1,3 +1,5 @@
+also see this page: https://www.techrepublic.com/article/globbing-wildcard-characters-with-zsh/
+
 *
 Matches any string, including the null string.
 

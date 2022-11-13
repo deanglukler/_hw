@@ -1,3 +1,20 @@
+** you might need to run this before node works..
+nvm alias default node
+
+
+// This might be a good start
+nvm install node --lts --latest-npm && nvm use node
+
+
+
+(lts = Long-Term Support)
+Install the version of Node.js you want
+* Install the latest version with:      nvm install node
+* Use the latest version with:      nvm use node
+* Install the latest LTS version with:      nvm install --lts
+* Use the latest LTS verison with:       nvm use --lts
+
+
 nvm ls
 // list downloaded versions
 
@@ -17,3 +34,10 @@ nvm alias default 8.1.0
 
 nvm alias default node
 // Always default to the latest available node version on a shell
+
+If you want to use the system-installed version of node, you can use the special default alias "system":
+nvm use system
+nvm run system --version
+
+To change npm version being used
+npm install -g npm@8.11.0

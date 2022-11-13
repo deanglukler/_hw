@@ -12,6 +12,9 @@ magick convert rose.jpg rose.png
 ### resize
 magick convert rose.jpg -resize 50% rose.png
 
+# with pixels
+-resize 602x400
+
 
 
 ### mogrify
@@ -26,6 +29,15 @@ magick mogrify -resize 256x256 *.jpg
 
 # Finally, we convert all our PNG images in a folder to the JPEG format:
 magick mogrify -format jpg *.png
+
+
+
+
+# quality flag
+-quality [0.....100]
+
+#  this worked well
+magick convert electric-30mins-unfinished-release.jpg -resize 800x800 -quality 86 OPT-electric-30mins-unfinished-release.jpg
 
 
 
